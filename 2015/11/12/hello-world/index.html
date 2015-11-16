@@ -61,8 +61,8 @@
 <meta property="og:url" content="http://col.dog/2015/11/12/hello-world/index.html">
 <meta property="og:site_name" content="col.dog">
 <meta property="og:description" content="本文详细记录了从安装 node.js / Hexo 到 使用 hexo 发布 markdown 格式的博客并托管到 GitHub 的全过程。">
-<meta property="og:image" content="http://col.dog/hexo-hello_world.png">
-<meta property="og:updated_time" content="2015-11-16T15:36:08.000Z">
+<meta property="og:image" content="http://7xo5uz.com1.z0.glb.clouddn.com/hexo-hello.png">
+<meta property="og:updated_time" content="2015-11-16T15:45:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于 Hexo 和 GitHub Pages 搭建博客">
 <meta name="twitter:description" content="本文详细记录了从安装 node.js / Hexo 到 使用 hexo 发布 markdown 格式的博客并托管到 GitHub 的全过程。">
@@ -388,7 +388,7 @@
 <h2 id="hexo_server">hexo server</h2><p>上面通过 <code>init</code> 和 <code>generate</code> 之后，已经生成博客网站了。此时，只包含一个默认首页 hello-world.md。  </p>
 <p>执行 <code>hexo server</code> 可启动 <strong>hexo server</strong> 进行本地调试：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10140;  blog  hexo server&#10;INFO  Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.&#10;^CINFO  Bye!&#10;&#10140;  blog</span><br></pre></td></tr></table></figure>
-<p>在浏览器中输入 <code>http://localhost:4000</code> 即可访问只含欢迎页和默认主题的 hexo 博客了。<br><img src="hexo-hello_world.png" alt="hexo-hello_world"></p>
+<p>在浏览器中输入 <code>http://localhost:4000</code> 即可访问只含欢迎页和默认主题的 hexo 博客了。<br><img src="http://7xo5uz.com1.z0.glb.clouddn.com/hexo-hello.png" alt="hexo-hello_world"></p>
 <p>按下 <code>Ctrl+C</code> 退出 hexo 服务器。</p>
 <h2 id="hexo_deploy">hexo deploy</h2><h3 id="配置_Deployment">配置 Deployment</h3><p>修改 <code>_config.yml</code> 文件里面的 Deployment 发布配置。<br>其中 deploy type 修改为 <code>github</code>；repository 修改为自己在 Github 上的 User Pages 的地址：<code>https://github.com/fan2/fan2.github.io.git</code> 。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># Deployment&#10;## Docs: http://hexo.io/docs/deployment.html&#10;deploy:&#10;  type: github&#10;  repository: git@github.com:fan2/fan2.github.io.git&#10;  branch: master</span><br></pre></td></tr></table></figure>
