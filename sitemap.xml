@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://col.dog/2015/11/17/git-version-control/</loc>
+    <lastmod>2015-11-17T00:35:49.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://col.dog/2015/11/12/hello-world/</loc>
     <lastmod>2015-11-16T15:45:10.000Z</lastmod>
   </url>
