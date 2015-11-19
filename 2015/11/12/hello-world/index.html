@@ -62,7 +62,7 @@
 <meta property="og:site_name" content="col.dog">
 <meta property="og:description" content="本文详细记录了从安装 node.js / Hexo 到 使用 hexo 发布 markdown 格式的博客并托管到 GitHub 的全过程。">
 <meta property="og:image" content="http://7xo5uz.com1.z0.glb.clouddn.com/hexo-hello.png">
-<meta property="og:updated_time" content="2015-11-19T16:24:04.000Z">
+<meta property="og:updated_time" content="2015-11-19T16:34:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于 Hexo 和 GitHub Pages 搭建博客">
 <meta name="twitter:description" content="本文详细记录了从安装 node.js / Hexo 到 使用 hexo 发布 markdown 格式的博客并托管到 GitHub 的全过程。">
@@ -440,8 +440,11 @@
 <p>新建 source/404.html，在 <code>&lt;body&gt;</code> 部分嵌入腾讯公益404的 js 代码：</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">layout: default</span><br><span class="line">---</span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span> /&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="title">title</span>&gt;</span>404<span class="tag">&lt;/<span class="title">title</span>&gt;</span>                                                                                                                                        </span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"http://www.qq.com/404/search_children.js"</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span> <span class="attribute">homePageUrl</span>=<span class="value">"http://col.dog/"</span> <span class="attribute">homePageName</span>=<span class="value">"返回 col.dog 主页"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>修改“homePageUrl”、“homePageName”这两个参数即可定制返回链接。<br>重新生成部署，即可在访问本站不存在的页面（资源）时显示腾讯公益404页面。</p>
-<h2 id="配置主题——Next">配置主题——Next</h2><p>在终端 cd 到博客站点目录 <code>Projects/git/blog/theme</code> 下，git clone 下载 NEXT 主题到本地：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  blog  git clone https://github.com/iissnan/hexo-theme-next</span><br></pre></td></tr></table></figure>
+<h2 id="配置主题——Next">配置主题——Next</h2><p>在终端 cd 到博客站点目录 <code>Projects/git/blog/theme</code> 下，git clone 下载 NEXT 主题到本地目录 <code>theme/next</code> 下：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  blog  git clone https://github.com/iissnan/hexo-theme-next theme/next</span><br></pre></td></tr></table></figure>
+<p>编辑站点的 <code>_config.yml</code> 文件，将主题从默认的 landscape 切换为 next：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">theme: next # landscape</span><br></pre></td></tr></table></figure>
+<p>重新生成部署网站，将按 next 主题风格排版布局站点。</p>
 <h3 id="配置菜单">配置菜单</h3><p>编辑 <code>themes/next/_config.yml</code> 里面的 menu 项，配置顶部菜单：</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">menu:&#10;  home: /&#10;  archives: /archives&#10;  categories: /categories&#10;  tags: /tags&#10;  # commonweal: /404.html&#10;  about: /about</span><br></pre></td></tr></table></figure>
 <ol>
