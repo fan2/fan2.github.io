@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://col.dog/about/index.html</loc>
+    <lastmod>2015-11-20T00:05:54.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://col.dog/2015/11/12/hello-world/</loc>
     <lastmod>2015-11-19T23:47:56.000Z</lastmod>
   </url>
@@ -24,11 +29,6 @@
   <url>
     <loc>http://col.dog/categories/index.html</loc>
     <lastmod>2015-11-12T23:52:48.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://col.dog/about/index.html</loc>
-    <lastmod>2015-11-12T02:59:09.000Z</lastmod>
   </url>
   
   <url>
