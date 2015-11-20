@@ -310,7 +310,7 @@
     <link href="http://col.dog/2015/11/12/hello-world/"/>
     <id>http://col.dog/2015/11/12/hello-world/</id>
     <published>2015-11-12T11:27:00.000Z</published>
-    <updated>2015-11-20T05:03:19.000Z</updated>
+    <updated>2015-11-20T05:09:57.000Z</updated>
     <content type="html"><![CDATA[<p>本文详细记录了从安装 node.js / Hexo 到 使用 hexo 发布 markdown 格式的博客并托管到 GitHub 的全过程。</p>
 <a id="more"></a>
 <h2 id="配置环境">配置环境</h2><p>本文的操作流程和步骤基于 MacBook Pro + OS X EI Capitan 平台。</p>
@@ -541,8 +541,8 @@
 <p>3.在站点配置文件中配置 <a href="http://www.w4s.cn/feed/atom" target="_blank" rel="external">Atom XML 聚合</a> 格式的 feed：</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">#Feed Atom&#10;feed:&#10;  type: atom&#10;  path: atom.xml&#10;  limit: 20</span><br></pre></td></tr></table></figure>
 <p>主题配置文件中的 <code>rss</code> 字段的值保持为空，以便<a href="https://github.com/iissnan/hexo-theme-next/wiki/%E6%98%BE%E7%A4%BA-feed-%E9%93%BE%E6%8E%A5" target="_blank" rel="external">显示 feed 链接</a>。<br>重新编译网站，将在 <code>public</code> 目录下生成 <code>atom.xml</code> 文件。用户点击博客右侧边栏中的 <code>RSS</code> 图标，即可访问 <a href="http://col.dog/atom.xml">http://col.dog/atom.xml</a> 。</p>
-<h2 id="添加统计分析（Analytics）">添加统计分析（Analytics）</h2><h3 id="hexo/next_添加_Google/百度_统计"><a href="https://github.com/iissnan/hexo-theme-next/wiki/%E6%B7%BB%E5%8A%A0-Google---%E7%99%BE%E5%BA%A6-%E7%BB%9F%E8%AE%A1" target="_blank" rel="external">hexo/next 添加 Google/百度 统计</a></h3><p>[Google Analytics（分析）][Google-Analytics] 不仅可以帮助您衡量销售与转化情况，而且能为您提供新鲜的深入信息，帮助您了解访问者如何使用您的网站，他们如何到达您的网站，以及您可以如何吸引他们不断回访。</p>
-<p>[百度统计][Baidu-Analytics] 是百度推出的一款免费的专业网站流量分析工具，能够告诉用户访客是如何找到并浏览用户的网站，在网站上做了些什么，有了这些信息，可以帮助用户改善访客在用户的网站上的使用体验，不断提升网站的投资回报率。</p>
+<h2 id="添加统计分析（Analytics）">添加统计分析（Analytics）</h2><h3 id="hexo/next_添加_Google/百度_统计"><a href="https://github.com/iissnan/hexo-theme-next/wiki/%E6%B7%BB%E5%8A%A0-Google---%E7%99%BE%E5%BA%A6-%E7%BB%9F%E8%AE%A1" target="_blank" rel="external">hexo/next 添加 Google/百度 统计</a></h3><p><a href="https://www.google.com/analytics/" target="_blank" rel="external">Google Analytics（分析）</a> 不仅可以帮助您衡量销售与转化情况，而且能为您提供新鲜的深入信息，帮助您了解访问者如何使用您的网站，他们如何到达您的网站，以及您可以如何吸引他们不断回访。</p>
+<p><a href="http://tongji.baidu.com/" target="_blank" rel="external">百度统计</a> 是百度推出的一款免费的专业网站流量分析工具，能够告诉用户访客是如何找到并浏览用户的网站，在网站上做了些什么，有了这些信息，可以帮助用户改善访客在用户的网站上的使用体验，不断提升网站的投资回报率。</p>
 <p>到 Google 或 Baidu 的统计分析门户注册自己的站点，将获得统计分析平台为你的站点分配的唯一的网站统计 ID 。</p>
 <p>编辑主题配置文件，新增 google_analytics 或 baidu_analytics 字段（取决于使用的统计系统），其值为申请到的统计 ID，即可将自己的站点接入 Google / Baidu 的统计分析平台：</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">google_analytics: your-analytics-id&#10;baidu_analytics: your-analytics-id</span><br></pre></td></tr></table></figure>
@@ -587,7 +587,7 @@
 <!-- ## 配置主题 -->
 <!-- ## 添加多说评论 -->
 <!-- ## 添加 RSS/Feed -->
-<!-- ## 添加统计 -->
+<!-- ## 添加统计分析 -->
 <!-- ## 提交搜索引擎收录 -->
 ]]></content>
     <summary type="html">
