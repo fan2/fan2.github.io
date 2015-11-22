@@ -62,7 +62,7 @@
 <meta property="og:site_name" content="Elsewhere">
 <meta property="og:description" content="本文详细记录了从安装 node.js / Hexo 到 使用 hexo 发布 markdown 格式的博客并托管到 GitHub 的全过程。">
 <meta property="og:image" content="http://7xo5uz.com1.z0.glb.clouddn.com/hexo-hello.png">
-<meta property="og:updated_time" content="2015-11-20T05:09:57.000Z">
+<meta property="og:updated_time" content="2015-11-21T23:43:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于 Hexo 和 GitHub Pages 搭建博客">
 <meta name="twitter:description" content="本文详细记录了从安装 node.js / Hexo 到 使用 hexo 发布 markdown 格式的博客并托管到 GitHub 的全过程。">
@@ -312,6 +312,8 @@
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  whoami&#10;faner&#10;&#10;&#10140;  ~  sudo chown -R faner /usr/local&#10;&#10140;  ~  brew install node&#10;==&#62; Downloading https://homebrew.bintray.com/bottles/node-4.2.1.el_capitan.bottle.tar.gz&#10;######################################################################## 100.0%&#10;==&#62; Pouring node-4.2.1.el_capitan.bottle.tar.gz&#10;==&#62; Caveats&#10;Bash completion has been installed to:&#10;  /usr/local/etc/bash_completion.d&#10;==&#62; Summary&#10;&#127866;  /usr/local/Cellar/node/4.2.1: 2738 files, 36M</span><br></pre></td></tr></table></figure>
 <p>node installed completion 之后，执行 <code>node -v</code> 命令可查看安装的 node.js 版本：</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  node -v&#10;v4.2.1</span><br></pre></td></tr></table></figure>
+<p>执行 <code>brew upgrade node</code> 命令可升级到最新的 node 5.1.0 ：</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">faner@MBP-FAN:~|⇒  brew upgrade <span class="keyword">node</span><span class="identifier"></span><br><span class="line"></span><span class="title">==&gt; Upgrading</span> <span class="number">1</span> outdated package, with result:</span><br><span class="line"><span class="keyword">node</span><span class="identifier"> </span><span class="title">5</span>.<span class="number">1.0</span></span><br><span class="line">==&gt; Upgrading <span class="keyword">node</span><span class="identifier"></span><br><span class="line"></span><span class="title">==&gt; Downloading</span> https://homebrew.bintray.com/bottles/<span class="keyword">node</span><span class="identifier"></span><span class="title">-5</span>.<span class="number">1.0</span>.el_capitan.bottle.tar.gz</span><br></pre></td></tr></table></figure>
 <h4 id="npm">npm</h4><p>Node.js 默认内置了模块管理工具 —— NPM（Node Package Manager），其灵感来源于 <a href="http://www.cnblogs.com/ihojin/p/ruby-gem-update-the-latest-version.html" target="_blank" rel="external">RubyGems</a>（具有版本和依赖管理功能，可以通过在线资料库便捷安装可重用的组件的管理工具）。<br>NPM 生态系统向所有人开放，任何人都可以发布自己的模块，所有的模块都可以在 NPM 资料库中找到。一个完整的公用模块列表可以在 <a href="https:://npmjs.org/" target="_blank" rel="external">NPM 的网站</a> 上找到，也可以通过与 Node.js 一同安装的 NPM 客户端命令行工具访问。<br>可执行 <code>npm -v</code> 命令查看 <code>node.js</code> 集成的 npm 包管理工具的版本：</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  npm -v&#10;2.14.7</span><br></pre></td></tr></table></figure>
 <p>执行 <code>npm help</code> 命令可查看帮助：</p>
@@ -672,14 +674,14 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>

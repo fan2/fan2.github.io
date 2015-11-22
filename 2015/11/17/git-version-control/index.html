@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="git-add,git-commit,git-init,git-pull,git-push," />
+  <meta name="keywords" content="git-add,git-commit,git-diff,git-init,git-log,git-pull,git-push," />
 
 
 
@@ -68,7 +68,7 @@
 <meta property="og:image" content="http://rogerdudler.github.io/git-guide/img/trees.png">
 <meta property="og:image" content="http://img.blog.csdn.net/20150925230344452">
 <meta property="og:image" content="http://img.blog.csdn.net/20150925230223046">
-<meta property="og:updated_time" content="2015-11-19T11:20:06.000Z">
+<meta property="og:updated_time" content="2015-11-20T12:23:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git 版本控制">
 <meta name="twitter:description" content="之前梳理介绍过 subversion 版本控制，本文承接《Mac下git通过SSH进行免密码安全连接github》，结合具体操作实例贯串讲解 git 初级版本控制日常操作流程，备忘查阅。">
@@ -449,8 +449,13 @@
 <p>使用 <code>git diff</code> 命令时，也可指定 difftool：</p>
 <figure class="highlight ocaml"><table><tr><td class="code"><pre><span class="line">➜  test git:(master) ✗ git difftool </span><br><span class="line"></span><br><span class="line"><span class="type">This</span> message is displayed because <span class="symbol">'diff</span>.tool' is not configured.</span><br><span class="line"><span class="type">See</span> <span class="symbol">'git</span> difftool --tool-help' <span class="keyword">or</span> <span class="symbol">'git</span> help config' <span class="keyword">for</span> more details.</span><br><span class="line"><span class="symbol">'git</span> difftool' will now attempt <span class="keyword">to</span> use one <span class="keyword">of</span> the following tools:</span><br><span class="line">opendiff kdiff3 tkdiff xxdiff meld kompare gvimdiff diffuse diffmerge ecmerge p4merge araxis bc codecompare emerge vimdiff</span><br><span class="line"></span><br><span class="line"><span class="type">Viewing</span> (<span class="number">1</span>/<span class="number">1</span>): <span class="symbol">'README</span>.md'</span><br><span class="line"><span class="type">Launch</span> <span class="symbol">'opendiff'</span> [<span class="type">Y</span>/n]:</span><br></pre></td></tr></table></figure>
 <p>配置 <code>vimdiff</code> 作为 git difftool：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">git config --global diff.tool vimdiff`</span><br></pre></td></tr></table></figure>
-<p><a href="http://www.cnblogs.com/kangyi/p/4827078.html" target="_blank" rel="external">AraxisMerge和 Beyond Compare 做 git mergetool 配置</a><br><a href="http://blog.csdn.net/snowdream86/article/details/8807397" target="_blank" rel="external">Git 集成 Araxis Merge 作为比较和合并 GUI 工具的配置</a><br><a href="https://lautaportti.wordpress.com/2009/02/11/using-araxis-merge-with-git/" target="_blank" rel="external">Using Araxis Merge with Git</a><br><a href="http://stackoverflow.com/questions/14593817/how-do-i-configure-araxis-merge-for-use-with-git" target="_blank" rel="external">how-do-i-configure-araxis-merge-for-use-with-git</a></p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">git config --global diff.tool vimdiff</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="http://www.cnblogs.com/kangyi/p/4827078.html" target="_blank" rel="external">AraxisMerge和 Beyond Compare 做 git mergetool 配置</a>  </li>
+<li><a href="http://blog.csdn.net/snowdream86/article/details/8807397" target="_blank" rel="external">Git 集成 Araxis Merge 作为比较和合并 GUI 工具的配置</a>  </li>
+<li><a href="https://lautaportti.wordpress.com/2009/02/11/using-araxis-merge-with-git/" target="_blank" rel="external">Using Araxis Merge with Git</a>  </li>
+<li><a href="http://stackoverflow.com/questions/14593817/how-do-i-configure-araxis-merge-for-use-with-git" target="_blank" rel="external">how-do-i-configure-araxis-merge-for-use-with-git</a></li>
+</ul>
 <h4 id="git_reset_HEAD">git reset HEAD</h4><p>若想放弃通过 <code>git add</code> 提交到暂存区中的修改（Unstaging a Staged File/Undo an Added new modification），可执行 <code>git reset HEAD &lt;file&gt;</code> 撤销提交到暂存中的修改：</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  resizableImageWithCapInsets git:(master) &#10007; git reset HEAD README.md  &#10;Unstaged changes after reset:  &#10;M&#9;README.md</span><br></pre></td></tr></table></figure>
 <p>执行 <code>git reset HEAD</code> 后，Index/Staging Area 中记录的 README.md 文件恢复恢复到上次commit 完 local repository 中的 HEAD 文件记录。Working tree中 README.md 文件的状态则恢复为 modified（Changes Unstaged relative to index），可执行 <code>git status</code> 查看最新状态。可以继续编辑 README.md 再适时提交。</p>
@@ -566,7 +571,11 @@
           
             <a href="/tags/git-commit/" rel="tag">#git-commit</a>
           
+            <a href="/tags/git-diff/" rel="tag">#git-diff</a>
+          
             <a href="/tags/git-init/" rel="tag">#git-init</a>
+          
+            <a href="/tags/git-log/" rel="tag">#git-log</a>
           
             <a href="/tags/git-pull/" rel="tag">#git-pull</a>
           
@@ -586,6 +595,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/22/Markdown-Syntax/" rel="prev" title="Markdown 语法基础及使用教程">
+                Markdown 语法基础及使用教程 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -657,14 +670,14 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
