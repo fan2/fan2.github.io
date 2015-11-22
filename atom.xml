@@ -4,7 +4,7 @@
   <subtitle><![CDATA[just do IT]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://col.dog/"/>
-  <updated>2015-11-22T06:57:35.000Z</updated>
+  <updated>2015-11-22T07:08:03.000Z</updated>
   <id>http://col.dog/</id>
   
   <author>
@@ -13,6 +13,287 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Mac 下的包管理工具 —— brew]]></title>
+    <link href="http://col.dog/2015/11/22/homebrew/"/>
+    <id>http://col.dog/2015/11/22/homebrew/</id>
+    <published>2015-11-22T07:05:00.000Z</published>
+    <updated>2015-11-22T07:08:03.000Z</updated>
+    <content type="html"><![CDATA[<p>本文前驱铺垫梳理了从 linux 源码安装软件到 DPKG/RPM 软件包管理机制，阐述了 *UNX 平台的软件安装包管理机制的演变和现代化。<br>后半部分着重介绍 Mac 下的软件安装管理工具 —— brew 及 brew-cask，梳理日常  Command Usage。</p>
+<a id="more"></a>
+<h2 id="linux_软件的安装与管理"><a href="http://blog.chinaunix.net/uid-509190-id-3056219.html" target="_blank" rel="external">linux 软件的安装与管理</a></h2><p><a href="https://github.com/torvalds/linux" target="_blank" rel="external">linux</a> 是一套免费使用和自由传播的类Unix操作系统，是一个基于 POSIX 和 UNIX 的多用户、多任务、支持多线程和多CPU的开源操作系统。<br>由于 Linux 操作系统开放源代码，因而在其上安装的软件大部分也都是开源软件。开源软件开发者往往仅需在开源代码托管平台上发布一份源码包，用户可以下载源码包到本地，基于源码包编译安装软件。这倒是非常符合 C 语言的设计哲学：一次编写，到处编译。</p>
+<h3 id="基于源码安装软件"><a href="http://www.cnblogs.com/huangfenghit/archive/2011/02/17/1957057.html" target="_blank" rel="external">基于源码安装软件</a></h3><p>基于源码安装软件一般由以下几个步骤组成：</p>
+<ul>
+<li>下载解压源码</li>
+<li>阅读 README、INSTALL 等说明文档，这一步至关重要</li>
+<li>分析安装平台环境（ifconfigure）</li>
+<li>编译安装软件（make，make install）</li>
+</ul>
+<p>基于源代码安装软件的好处是：用户可以自由配置编译选项，按需编译实现功能定制，极大地满足<strong><a href="http://www.zhihu.com/question/21949923" target="_blank" rel="external">个性化需求</a></strong>。此外，用户还可以自己选择安装路径，方便管理。卸载软件也很方便，只需删除对应的安装目录即可。<br>但是，配置、编译命令需要了解操作系统本身，并且依赖开源项目所使用的编程语言对应的工具链。为了使用一个应用软件，用户需要熟悉 linux 系统的文件组织架构和一堆  Shell 交互命令，还得解决编译过程中可能涉及到的繁杂的依赖关系。一定的英文水平也是必需的，关键要有折腾不息的精神和顽强的动手能力！<br>English、OS、Linux、命令行交互方式、…，这些令人望而却步的门槛足以将普通用户拒之门外。安装后，你可能都不知道<a href="http://www.linuxidc.com/Linux/2009-11/22842.htm" target="_blank" rel="external">安装到哪里去了</a>；甚至离开了 Windows 桌面，你都不知道从哪里启动软件。我依稀地记得刚接触 linux 那会儿，为了能在 linux 上播放个视频，废了老大劲才安装好一个 <a href="http://blog.pfan.cn/xman/41044.html" target="_blank" rel="external">MPlayer</a>。当时就森森地觉得 linux 真不是一般人能折腾得起，尽管现在已经折腾惯了，但依然觉得费脑伤神。<br>作为一个曾经的<a href="http://www.tinylab.org/why-computer-students-learn-linux-open-source-technologies/" target="_blank" rel="external">计算机旁系学生</a>（自动化，别名计算机控制）、现在半职业化软件攻城狮（涉猎甚广，浅显浮泛）和伪自由软件追崇者（用过盗版，不懂破解，从无贡献），因为工作关系经常穿梭于 Windows 和 Mac OS X 之间（游离其间，无所专精），不折腾下 Linux/Unix 都觉得没法混 github。<br>尽管对于 vim 键盘型用户(基本都是程序员吧)，很喜欢那种游离于指尖的”自由感”，但对于普通鼠标型 Windows 用户，<a href="http://www.zhihu.com/question/20117703" target="_blank" rel="external">若无力驾驭，自由便是负担。</a>  </p>
+<blockquote>
+<p>只有开发人员才需要学习一个操作系统本身，用户只需要学习操作系统里面的每个“应用程序”怎么使用。 —— Linus Torvalds</p>
+</blockquote>
+<h3 id="DPKG_/_RPM">DPKG / RPM</h3><p>伴随着 linux 的发展普及，linux 开发商开始在固定的硬件平台与操作系统上将要安装或升级的软件<strong>编译好</strong>，然后将这个软件的所有相关软件<strong>打包</strong>成为一个特殊格式的文件。在这个软件内，还包含了预先检测系统与依赖软件的脚本，并提供记载该软件提供的所有文件信息等，最终将这个软件发布。<br>客户端取得软件后，只要通过特定的命令来安装，那么该软件就会按照内部的脚本来检测相关的前驱软件是否存在。若安装的环境和条件符合要求，则开始安装。软件在安装完成后，还会将信息写入软件管理机制中，以便完成未来的升级、删除(反安装)等操作。</p>
+<p>目前，在 Linux 界最常见的软件安装方式有两种：</p>
+<ol>
+<li><p>DPKG</p>
+<ul>
+<li><strong>DPKG</strong>（Debian Packager）是由 Debian Linux 社区所开发出来的，著名的 <code>package</code> 概念开始出现在 GNU/Linux 系统中。</li>
+<li>通过 DPKG 机制，Debian 提供的软件就能够简单安装起来，同时还能提供安装后的软件信息。派生于 Debian 的其他 Linux Distributions 大多使用 dpkg 机制来管理软件，包括 B2D、Ubuntu 等。</li>
+<li>Debian 为解决软件包更新问题，引入了 APT（Advanced Package Tool）<a href="http://www.cnblogs.com/kulin/archive/2012/07/31/2616490.html" target="_blank" rel="external">在线升级机制</a>，并在 <code>/etc/apt/sources.list</code> 文件列出了可获得软件包的镜像站点地址。<ul>
+<li><strong>APT</strong> 由几个名字以 <code>apt-</code> 打头的程序组成，apt-get、apt-cache 和 apt-cdrom 是处理软件包的命令行工具。</li>
+<li>apt 作为 dpkg 的前端工具，自动管理关联文件和维护已有配置文件，在于拥有出色的解决软件依赖问题的能力。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>RPM</p>
+<ul>
+<li><strong>RPM</strong>（RedHat Package Manager）是由 Red Hat 公司所开发出来的软件包管理程序。除了可以用来安装（-i）外，还可以进行查询（-q）、验证（-V）、更新（-U）、删除（-e）等操作，这些功能选项让软件的管理更加方便。包括 Fedora、CenterOS、SuSE 等知名的开发商都是使用 RPM 作为软件安装的管理机制。</li>
+<li>RPM 包的封装格式一般有两种，分别是 <strong>RPM</strong> 和 <strong>SRPM</strong>。RPM 格式的文件 <code>xxx.rpm</code> 内含已经经过编译的二进制包和配置文件等数据。SRPM（Source RPM）对应的 RPM 文件类似于 <code>xxx.src.rpm</code> 格式，它包含了编译时的源码文件和一些编译指定的参数文件。因而，在使用的时候，需要先以 RPM 管理的方式编译为 RPM 文件(rpmbuild)，再将编译完成的 RPM 文件安装到 Linux 系统中。</li>
+<li>RPM 无法自动解决软件的依赖关系，使用与 APT 对应的 <strong><a href="http://www.cnblogs.com/mchina/archive/2013/01/04/2842275.html" target="_blank" rel="external">YUM</a></strong> (Yellowdog Updater Modified) 机制可以<strong>解决属性依赖问题</strong>。<strong><a href="http://www.cnblogs.com/chuncn/archive/2010/10/17/1853915.html" target="_blank" rel="external">YUM</a></strong> 作为基于 RPM 的 Shell 前端软件包管理器，主要用于自动升级、安装/移除 RPM 软件包。它能够自动查找并解决 RPM 包之间的依赖关系，而无需管理员逐个手工的去安装每一个 RPM 包。</li>
+</ul>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Distribution 代表</th>
+<th>包管理机制</th>
+<th>使用命令</th>
+<th>在线升级机制(命令)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Red Hat / Fedora</td>
+<td>RPM</td>
+<td>rpm，rpmbuild</td>
+<td>YUM(yum)</td>
+</tr>
+<tr>
+<td>Debian / Ubuntu</td>
+<td>DPKG</td>
+<td>dpkg</td>
+<td>APT(apt-get)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="RPM_/_SRPM">RPM / SRPM</h4><p>RPM 软件包命名规范：<code>name-version-release.arch.rpm</code>。其中，<code>release</code> 表示系统的发行版，如 fc18、el6 表明这个软件包是在 Fedora 18、RHEL 6.x / CentOS 6.x 下使用的；<code>arch</code> 表示硬件平台，常见的有 i386、x86_64 等。<br>一个典型的 RPM 安装包命名格式为 <code>rp-pppoe-3.1-5.i386.rpm</code>，它由几个部分构成：</p>
+<ul>
+<li><code>rp-pppoe</code>：名称</li>
+<li><code>3.1</code>：版本信息</li>
+<li><code>5</code>：发布次数</li>
+<li><code>.i386</code>：适合的硬件平台</li>
+<li><code>.rpm</code>：扩展名</li>
+</ul>
+<p>RPM 文件必须要在相同的 linux 环境才能安装，而 SRPM 既然是源代码格式，我们就可以通过修改 SRAM 内的参数，按需编译生成适合我们 linux 环境的 RPM 文件，而不必与原作者打包的 Linux 环境相同。通常一个软件在发布的时候，都会同时释放出该软件的 RPM 与 SRPM。</p>
+<table>
+<thead>
+<tr>
+<th>文件格式</th>
+<th>扩展名格式</th>
+<th>直接安装与否</th>
+<th>内含程序类型</th>
+<th>可否修改参数并编译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RPM</td>
+<td><code>xxx.rpm</code></td>
+<td>√</td>
+<td>已编译</td>
+<td>×</td>
+</tr>
+<tr>
+<td>SRPM</td>
+<td><code>xxx.src.rpm</code></td>
+<td>×</td>
+<td>未编译的源码</td>
+<td>√</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Mac_软件包管理工具"><a href="https://github.com/pubyun/macdev/blob/master/basic.md" target="_blank" rel="external">Mac 软件包管理工具</a></h2><p>linux 下的 apt-get 和 yum 命令行工具分别适用于 deb、rpm 包管理方式的发行版本，主要用于自动从互联网的软件仓库中搜索、安装、升级和卸载软件。<br>在 Mac OS X 平台下，同样有优秀的软件包管理工具，可以管理大量 AppleStore 没有提供，而你又经常会用到的开源软件包。我们有两种选择 —— MacPorts 和 Homebrew。</p>
+<p><strong>MacPorts</strong> 是由 FreeBSD 的 port 移植而来；<strong><a href="http://brew.sh/" target="_blank" rel="external">Homebrew</a></strong>（简称 brew）是 Mac OS X 不可或缺的软件管理工具(The missing package manager for OS X)，<a href="http://snowolf.iteye.com/blog/774312" target="_blank" rel="external">让 Mac 拥有类似 apt-get 的功能</a>，用以简化软件的安装、升级和卸载过程。</p>
+<blockquote>
+<p><strong>Homebrew</strong> is the easiest and most flexible way to install the UNIX tools.</p>
+</blockquote>
+<p>Homebrew 是一款使用 Ruby 进行开发的托管于 <a href="https://github.com/Homebrew/homebrew" target="_blank" rel="external">GitHub</a> 上的自由及开放源代码的软件包管理系统，通过用户的贡献扩大对软件包的支持。</p>
+<p>MacPorts 和 Homebrew 这两种包管理系统的工作方式都是下载源代码，然后在本地编译。但是这两种包管理系统还是存在很大差异的，主要差异有以下三点：</p>
+<ul>
+<li>MacPorts 的理念是尽量减少对系统现有库的依赖，编译时间较长，不怎么依赖系统；而 Homebrew 则是尽量依赖系统现有库，编译时间会显著减少，但与系统紧密依赖。</li>
+<li>MacPorts 的 Package 都是安装到 <code>/opt/local</code> ，不会与系统现有的软件发生冲突；而 Homebrew 的 Package 都是安装到 <code>/usr/local</code>，可能与系统自带的软件发生冲突。</li>
+<li>Macports 使用 rsync 进行同步（<a href="https://trac.macports.org/wiki/howto/SyncingWithSVN" target="_blank" rel="external">也可以使用svn</a>），而 Homebrew 使用 git 进行同步。</li>
+</ul>
+<p>总体来说，Homebrew 使用简单，编译时间短，比较适合新手使用。MacPorts 编译时间长，命令还要带上 sudo，易用性上没有 Homebrew 好，但是比较干净，适合有洁癖的人使用。</p>
+<p>以上梳理了 Linux 和 Mac 下的包管理机制，下面重点介绍 Mac OS X 上的 brew 及 brew-cask。</p>
+<h2 id="brew_(homebrew)">brew (homebrew)</h2><p><strong>brew</strong> 是从软件包仓库下载源代码码到本地进行解压，进而执行 <code>./configure</code> &amp;&amp; <code>make install</code> ，将软件编译安装到单独的目录（<code>/usr/local/Cellar</code>）下，然后软链（symlink）到 <code>/usr/local</code> 目录下，同时会包含相关依赖库，并自动配置好各种环境变量。<br>这个对程序员来说简直是福音，使用简单的指令就能快速安装、升级和卸载本地的各种开发环境。</p>
+<h2 id="brew_-v_/_–version">brew -v / –version</h2><p>查看本机安装的 brew 管理工具：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">faner@MBP-FAN:~|&#8658;  brew -v&#10;Homebrew 0.9.5 (git revision 1eec1; last commit 2015-11-21)&#10;faner@MBP-FAN:~|&#8658;  brew --version&#10;0.9.5 (git revision 1eec1; last commit 2015-11-21)</span><br></pre></td></tr></table></figure>
+<h2 id="brew_help">brew help</h2><p>执行 <code>brew</code> 查看帮助概要（Example usage、Troubleshooting、Brewing）：</p>
+<blockquote>
+<p>-h / –h / –help / help</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">faner@MBP-FAN:~|&#8658;  brew&#10;Example usage:&#10;  brew [info | home | options ] [FORMULA...]&#10;  brew install FORMULA...&#10;  brew uninstall FORMULA...&#10;  brew search [foo]&#10;  brew list [FORMULA...]&#10;  brew update&#10;  brew upgrade [FORMULA...]&#10;  brew pin/unpin [FORMULA...]&#10;&#10;Troubleshooting:&#10;  brew doctor&#10;  brew install -vd FORMULA&#10;  brew [--env | config]&#10;&#10;Brewing:&#10;  brew create [URL [--no-fetch]]&#10;  brew edit [FORMULA...]&#10;  https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/Formula-Cookbook.md&#10;&#10;Further help:&#10;  man brew&#10;  brew home</span><br></pre></td></tr></table></figure>
+<ol>
+<li>执行 <code>man brew</code> 可查看详细的 brew 帮助文档。</li>
+<li>执行 <code>man home</code> 可调用浏览器打开 brew 官方网站。</li>
+</ol>
+<p><strong>brew 常用命令：</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>brew update</td>
+<td>更新 brew</td>
+</tr>
+<tr>
+<td>brew search FORMULA</td>
+<td>查找软件包，可使用正则表达式</td>
+</tr>
+<tr>
+<td>brew info FORMULA</td>
+<td>显示软件的信息</td>
+</tr>
+<tr>
+<td>brew deps FORMULA</td>
+<td>显示包依赖</td>
+</tr>
+<tr>
+<td>brew install FORMULA</td>
+<td>安装软件包</td>
+</tr>
+<tr>
+<td>brew uninstall FORMULA</td>
+<td>卸载软件包</td>
+</tr>
+<tr>
+<td>brew list</td>
+<td>列出已安装的软件包，可指定 FORMULA</td>
+</tr>
+<tr>
+<td>brew outdated</td>
+<td>列出可升级的软件包</td>
+</tr>
+<tr>
+<td>brew upgrade</td>
+<td>更新已安装的软件包，可指定 FORMULA</td>
+</tr>
+<tr>
+<td>brew doctor</td>
+<td>诊断 homebrew 环境</td>
+</tr>
+<tr>
+<td>brew prune</td>
+<td>删除 /usr/local 下的无效链接(remove broken symlinks)</td>
+</tr>
+</tbody>
+</table>
+<p>以下示例查找 <code>cask</code> 包，并显示软件包信息和依赖关系：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">faner@MBP-FAN:~|&#8658;  brew search cask&#10;cask&#10;homebrew/completions/brew-cask-completion&#10;&#10;faner@MBP-FAN:~|&#8658;  brew info cask&#10;cask: stable 0.7.3, HEAD&#10;Emacs dependency management&#10;https://cask.readthedocs.org/&#10;Not installed&#10;From: https://github.com/Homebrew/homebrew/blob/master/Library/Formula/cask.rb&#10;&#10;faner@MBP-FAN:~|&#8658;  brew deps cask&#10;emacs</span><br></pre></td></tr></table></figure>
+<p><code>brew info</code> 显示软件包信息，一般包括：</p>
+<ul>
+<li>软件概要信息</li>
+<li>本地是否已安装：Not installed / Poured from bottle</li>
+<li>依赖包：==&gt; Dependencies，Build、Required、Recommended、Optional</li>
+<li>编译、安装选项： ==&gt; Options</li>
+<li>预警信息：==&gt; Caveats</li>
+</ul>
+<p><a href="https://ruby-china.org/topics/21050" target="_blank" rel="external">brew info 查看 plist 文件</a></p>
+<h2 id="brew_cask"><a href="http://www.zhihu.com/question/22624898" target="_blank" rel="external">brew cask</a></h2><p>Homebrew 作为 Ruby 社区极富想象力的作品，使得 Mac 下安装 Mysql 等常用包不再困难。那么，是否也可以通过 <code>brew install mysql</code> 这样简单的方式来安装 Google Chrome 浏览器呢？为解决这一问题，phinze 的作品 <a href="https://github.com/phinze/homebrew-cask" target="_blank" rel="external">homebrew-cask</a> 应运而生。</p>
+<h3 id="about">about</h3><p>Homebrew 可以管理 Mac 下的命令行工具（wget、node），<strong>brew cask</strong> 则是一套建立在 brew 上的<strong>增强</strong>命令行工具，支持管理 Mac 下的 GUI 程序，例如 qq、 google-chrome、evernote 等。<br>cask 从镜像源下载已经编译好了的<a href="https://github.com/phinze/homebrew-cask/tree/master/Casks" target="_blank" rel="external">应用软件二进制包</a>（.dmg/.pkg）到本地解压到单独的目录（<code>/opt/homebrew-cask/Caskroom</code>）下，然后软链（symlink）到 <code>/Applications</code> 目录下。<br>cask 包含了很多在 AppStore 里没有的常用软件，省掉了手动下载、解压、拖拽（安装）等步骤，且卸载也相当容易与干净，使用起来非常方便。</p>
+<h3 id="install">install</h3><p>假设你已安装好了 Homebrew，安装与使用 cask 也极其简单，打开终端输入：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">brew tap phinze/homebrew-cask&#10;brew install brew-cask</span><br></pre></td></tr></table></figure>
+<h4 id="brew_tap_phinze/homebrew-cask">brew tap phinze/homebrew-cask</h4><p>由于 brew 和包含的包源都是通过 github 来管理，人为的维护管理。除了默认的仓库，还允许别人的源添加进来。通过 <a href="http://icyleaf.com/2014/01/homebrew-hidden-commands/" target="_blank" rel="external"><code>brew tap</code></a> 指定第三方包源：</p>
+<blockquote>
+<p>$ brew tap <gihhub_user repo=""></gihhub_user></p>
+</blockquote>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">faner<span class="annotation">@MBP</span>-<span class="string">FAN:</span>~|⇒  brew tap phinze/homebrew-cask</span><br><span class="line">==&gt; Tapping phinze/cask</span><br><span class="line">Cloning into <span class="string">'/usr/local/Library/Taps/phinze/homebrew-cask'</span>...</span><br><span class="line"><span class="string">remote:</span> Counting <span class="string">objects:</span> <span class="number">3278</span>, done.</span><br><span class="line"><span class="string">remote:</span> Compressing <span class="string">objects:</span> <span class="number">100</span>% (<span class="number">3202</span>/<span class="number">3202</span>), done.</span><br><span class="line"><span class="string">remote:</span> Total <span class="number">3278</span> (delta <span class="number">83</span>), reused <span class="number">731</span> (delta <span class="number">59</span>), pack-reused <span class="number">0</span></span><br><span class="line">Receiving <span class="string">objects:</span> <span class="number">100</span>% (<span class="number">3278</span><span class="regexp">/3278), 5.82 MiB | 428.00 KiB/</span>s, done.</span><br><span class="line">Resolving <span class="string">deltas:</span> <span class="number">100</span>% (<span class="number">83</span>/<span class="number">83</span>), done.</span><br><span class="line">Checking connectivity... done.</span><br><span class="line">Tapped <span class="number">1</span> formula (<span class="number">3257</span> files, <span class="number">24</span>M)</span><br></pre></td></tr></table></figure>
+<h4 id="brew_install_brew-cask">brew install brew-cask</h4><figure class="highlight"><table><tr><td class="code"><pre><span class="line">faner@MBP-FAN:~|&#8658;  brew install brew-cask&#10;==&#62; Installing brew-cask from phinze/homebrew-cask&#10;==&#62; Cloning https://github.com/caskroom/homebrew-cask.git&#10;Cloning into &#39;/Library/Caches/Homebrew/brew-cask--git&#39;...&#10;remote: Counting objects: 3248, done.&#10;remote: Compressing objects: 100% (3172/3172), done.&#10;remote: Total 3248 (delta 82), reused 771 (delta 59), pack-reused 0&#10;Receiving objects: 100% (3248/3248), 5.82 MiB | 467.00 KiB/s, done.&#10;Resolving deltas: 100% (82/82), done.&#10;Checking connectivity... done.&#10;Note: checking out &#39;d39c95942f4226fb6c0e1a56c11008695ddeeade&#39;.&#10;&#10;You are in &#39;detached HEAD&#39; state. You can look around, make experimental&#10;changes and commit them, and you can discard any commits you make in this&#10;state without impacting any branches by performing another checkout.&#10;&#10;If you want to create a new branch to retain commits you create, you may&#10;do so (now or later) by using -b with the checkout command again. Example:&#10;&#10;  git checkout -b &#60;new-branch-name&#62;&#10;&#10;==&#62; Checking out tag v0.59.0&#10;&#127866;  /usr/local/Cellar/brew-cask/0.59.0: 2976 files, 12M, built in 32 seconds</span><br></pre></td></tr></table></figure>
+<h4 id="brew_cask-1">brew cask</h4><p>执行 <code>brew cask</code> 或 <code>brew-cask</code> 可查看帮助概要（首次需输入 sudo 密码）：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">faner@MBP-FAN:~|&#8658;  brew cask&#10;==&#62; We need to make Caskroom for the first time at /opt/homebrew-cask/Caskroom&#10;==&#62; We&#39;ll set permissions properly so we won&#39;t need sudo in the future&#10;Password:&#10;brew-cask provides a friendly homebrew-style CLI workflow for the&#10;administration of Mac applications distributed as binaries.&#10;&#10;!! &#10;!! no command verb: &#10;!! &#10;&#10;Commands:&#10;&#10;    audit      verifies installability of Casks&#10;    cat        dump raw source of the given Cask to the standard output&#10;    cleanup    cleans up cached downloads and tracker symlinks&#10;    create     creates the given Cask and opens it in an editor&#10;    doctor     checks for configuration issues&#10;    edit       edits the given Cask&#10;    fetch      downloads Cask resources to local cache&#10;    home       opens the homepage of the given Cask&#10;    info       displays information about the given Cask&#10;    install    installs the given Cask&#10;    list       with no args, lists installed Casks; given installed Casks, lists staged files&#10;    search     searches all known Casks&#10;    uninstall  uninstalls the given Cask&#10;    update     a synonym for &#39;brew update&#39;&#10;    zap        zaps all files associated with the given Cask&#10;&#10;See also &#34;man brew-cask&#34;</span><br></pre></td></tr></table></figure>
+<h3 id="command_usage">command usage</h3><p><strong>brew cask 大部分命令和 brew 保持一致，新增了以下几条命令：</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>brew cask audit</td>
+<td>查询指定 Cask 的可安装性</td>
+</tr>
+<tr>
+<td>brew cask cat</td>
+<td>查看指定 Cask 安装源信息</td>
+</tr>
+<tr>
+<td>brew cask zap</td>
+<td>打包指定 Cask</td>
+</tr>
+<tr>
+<td>brew cask cleanup</td>
+<td>清理缓存及软链</td>
+</tr>
+</tbody>
+</table>
+<p>安装了 cask 之后，就可以像 brew 一样来搜索安装软件，以下示例 google-chrome ：</p>
+<h4 id="搜索安装包">搜索安装包</h4><figure class="highlight"><table><tr><td class="code"><pre><span class="line">faner@MBP-FAN:~|&#8658;  brew-cask search google-chrome&#10;==&#62; Exact match&#10;google-chrome</span><br></pre></td></tr></table></figure>
+<h4 id="查询安装性">查询安装性</h4><figure class="highlight"><table><tr><td class="code"><pre><span class="line">faner@MBP-FAN:~|&#8658;  brew-cask audit google-chrome&#10;audit for google-chrome: passed</span><br></pre></td></tr></table></figure>
+<h4 id="查询包信息">查询包信息</h4><p>1.执行 <code>brew-cask cat</code> 查询指定 Cask 的源信息：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">faner@MBP-FAN:~|&#8658;  brew-cask cat google-chrome&#10;cask :v1 =&#62; &#39;google-chrome&#39; do&#10;  version :latest&#10;  sha256 :no_check&#10;&#10;  url &#39;https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg&#39;&#10;  name &#39;Google Chrome&#39;&#10;  homepage &#39;https://www.google.com/chrome/&#39;&#10;  license :gratis&#10;  tags :vendor =&#62; &#39;Google&#39;&#10;&#10;  app &#39;Google Chrome.app&#39;&#10;&#10;  zap :delete =&#62; [&#10;                  &#39;~/Library/Application Support/Google/Chrome&#39;,&#10;                  &#39;~/Library/Caches/Google/Chrome&#39;,&#10;                  &#39;~/Library/Caches/com.google.Chrome&#39;,&#10;                  &#39;~/Library/Caches/com.google.Chrome.helper.EH&#39;,&#10;                  &#39;~/Library/Caches/com.google.Keystone.Agent&#39;,&#10;                  &#39;~/Library/Caches/com.google.SoftwareUpdate&#39;,&#10;                  &#39;~/Library/Google/GoogleSoftwareUpdate&#39;,&#10;                  &#39;~/Library/Logs/GoogleSoftwareUpdateAgent.log&#39;,&#10;                 ],&#10;      :rmdir  =&#62; [&#10;                  &#39;~/Library/Caches/Google&#39;,&#10;                  &#39;~/Library/Google&#39;,&#10;                 ]&#10;&#10;  caveats &#60;&#60;-EOS.undent&#10;    The Mac App Store version of 1Password won&#39;t work with a Homebrew-Cask-linked Google Chrome. To bypass this limitation, you need to either:&#10;&#10;      + Move Google Chrome to your /Applications directory (the app itself, not a symlink).&#10;      + Install 1Password from outside the Mac App Store (licenses should transfer automatically, but you should contact AgileBits about it).&#10;  EOS&#10;end</span><br></pre></td></tr></table></figure>
+<p>2.执行 <code>brew-cask info</code> 查询指定 Cask 的包信息：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">faner@MBP-FAN:~|&#8658;  brew-cask info google-chrome&#10;google-chrome: latest&#10;Google Chrome&#10;https://www.google.com/chrome/&#10;Not installed&#10;https://github.com/phinze/homebrew-cask/blob/master/Casks/google-chrome.rb&#10;==&#62; Contents&#10;  Google Chrome.app (app)&#10;==&#62; Caveats&#10;The Mac App Store version of 1Password won&#39;t work with a Homebrew-Cask-linked Google Chrome. To bypass this limitation, you need to either:&#10;&#10;  + Move Google Chrome to your /Applications directory (the app itself, not a symlink).&#10;  + Install 1Password from outside the Mac App Store (licenses should transfer automatically, but you should contact AgileBits about it).</span><br></pre></td></tr></table></figure>
+<h4 id="安装/卸载_应用">安装/卸载 应用</h4><p><code>brew-cask</code> 安装和卸载的命令同 <code>brew</code> ，都是使用 <code>install / uninstall</code> 。</p>
+<p>1.执行 <code>brew cask install google-chrome</code> 命令安装 google-chrome：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">brew cask install google-chrome&#10;faner@MBP-FAN:~|&#8658;  brew cask install google-chrome   &#10;==&#62; Caveats&#10;The Mac App Store version of 1Password won&#39;t work with a Homebrew-Cask-linked Google Chrome. To bypass this limitation, you need to either:&#10;&#10;  + Move Google Chrome to your /Applications directory (the app itself, not a symlink).&#10;  + Install 1Password from outside the Mac App Store (licenses should transfer automatically, but you should contact AgileBits about it).&#10;&#10;==&#62; Downloading https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg&#10;######################################################################## 100.0%&#10;==&#62; Symlinking App &#39;Google Chrome.app&#39; to &#39;/Users/faner/Applications/Google Chrome.app&#39;&#10;&#127866;  google-chrome staged at &#39;/opt/homebrew-cask/Caskroom/google-chrome/latest&#39; (216 files, 183M)</span><br></pre></td></tr></table></figure>
+<p>2.执行 <code>brew cask uninstall google-chrome</code> 命令卸载 google-chrome：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">faner@MBP-FAN:~|&#8658;  brew-cask uninstall google-chrome&#10;==&#62; Removing App symlink: &#39;/Users/faner/Applications/Google Chrome.app&#39;</span><br></pre></td></tr></table></figure>
+<p><code>uninstall</code> 命令将删除 <code>/opt/homebrew-cask/Caskroom/google-chrome</code> 及其在 <code>~/Applications/</code> 下的软链（symlink）。</p>
+<h4 id="升级更新软件"><a href="https://github.com/phinze/homebrew-cask/issues/309" target="_blank" rel="external">升级更新软件</a></h4><p>brew-cask 并没有提供 brew 的 <code>upgrade</code> 命令，升级更新软件只能通过 DIY：</p>
+<ol>
+<li>进入应用软件的【关于】，手动检查是否可更新升级，使用软件自己的更新流程。</li>
+<li>卸载重装 (<code>brew cask uninstall</code> &amp;&amp; <code>brew cask install</code>) ，实现间接升级。</li>
+</ol>
+<h2 id="参考">参考</h2><p><a href="http://my.oschina.net/evilgod528/blog/306548" target="_blank" rel="external">Mac 利器：brew、brew cask、zsh</a><br><a href="http://www.yangzhiping.com/tech/homebrew-cask.html" target="_blank" rel="external">Mac安装软件新方法：Homebrew-cask</a><br><a href="http://ksmx.me/homebrew-cask-cli-workflow-to-install-mac-applications/" target="_blank" rel="external">简洁优雅的Mac OS X软件安装体验 - homebrew-cask</a><br><a href="http://blog.devtang.com/blog/2014/02/26/the-introduction-of-homebrew-and-brewcask/" target="_blank" rel="external">使用brew cask来安装Mac应用</a>  </p>
+<p><a href="http://www.osxtoy.com/?p=2431" target="_blank" rel="external">Launchrocket 帮助管理 Homebrew 安装的服务</a><br><a href="http://my.oschina.net/gujianhan/blog/204122" target="_blank" rel="external">homebrew cask 安装 launchrocket</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>本文前驱铺垫梳理了从 linux 源码安装软件到 DPKG/RPM 软件包管理机制，阐述了 *UNX 平台的软件安装包管理机制的演变和现代化。<br>后半部分着重介绍 Mac 下的软件安装管理工具 —— brew 及 brew-cask，梳理日常  Command Usage。</p>]]>
+    
+    </summary>
+    
+      <category term="APT" scheme="http://col.dog/tags/APT/"/>
+    
+      <category term="DPKG" scheme="http://col.dog/tags/DPKG/"/>
+    
+      <category term="Homebrew" scheme="http://col.dog/tags/Homebrew/"/>
+    
+      <category term="MacPorts" scheme="http://col.dog/tags/MacPorts/"/>
+    
+      <category term="RPM" scheme="http://col.dog/tags/RPM/"/>
+    
+      <category term="SRPM" scheme="http://col.dog/tags/SRPM/"/>
+    
+      <category term="YUM" scheme="http://col.dog/tags/YUM/"/>
+    
+      <category term="brew" scheme="http://col.dog/tags/brew/"/>
+    
+      <category term="brew-cask" scheme="http://col.dog/tags/brew-cask/"/>
+    
+      <category term="Mac" scheme="http://col.dog/categories/Mac/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Markdown 语法基础及使用教程]]></title>
