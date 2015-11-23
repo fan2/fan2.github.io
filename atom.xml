@@ -4,7 +4,7 @@
   <subtitle><![CDATA[just do IT]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://col.dog/"/>
-  <updated>2015-11-23T16:15:42.000Z</updated>
+  <updated>2015-11-23T16:29:43.000Z</updated>
   <id>http://col.dog/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://col.dog/2015/11/22/homebrew/"/>
     <id>http://col.dog/2015/11/22/homebrew/</id>
     <published>2015-11-22T07:05:00.000Z</published>
-    <updated>2015-11-23T16:15:42.000Z</updated>
+    <updated>2015-11-23T16:29:43.000Z</updated>
     <content type="html"><![CDATA[<p>本文前驱铺垫梳理了从 linux 源码安装软件到 DPKG/RPM 软件包管理机制，阐述了 *UNX 平台的软件安装包管理机制的演变和现代化。<br>后半部分着重介绍 Mac 下的软件安装管理工具 —— brew 及 brew-cask，梳理日常  Command Usage。</p>
 <a id="more"></a>
 <h2 id="linux_软件的安装与管理"><a href="http://blog.chinaunix.net/uid-509190-id-3056219.html" target="_blank" rel="external">linux 软件的安装与管理</a></h2><p><a href="https://github.com/torvalds/linux" target="_blank" rel="external">linux</a> 是一套免费使用和自由传播的基于 POSIX 和 UNIX 的多用户、多任务、支持多线程和多 CPU 的开源的类 Unix 操作系统。<br>由于 linux 操作系统开放源代码，因而在其上安装的大部分也都是开源软件。开源软件的开发者往往仅需在开源代码托管平台上发布一份源码包，用户即可自由下载源码包到本地，基于源码包编译安装软件。这倒是非常符合 C 语言的设计哲学：一次编写，到处编译。</p>
@@ -144,7 +144,7 @@
 <blockquote>
 <p><strong>curl</strong> 是基于跨平台网络协议库 <a href="http://blog.csdn.net/mac_cm/article/details/6670154" target="_blank" rel="external">libcurl</a> 的利用 URL 语法在命令行方式下工作的开源文件传输工具。<br><a href="http://www.cnblogs.com/gbyukg/p/3326825.html" target="_blank" rel="external">curl常用命令</a> 可参考  <a href="http://blog.csdn.net/fudesign2008/article/details/7608619" target="_blank" rel="external">curl 详解</a>、<a href="http://www.ruanyifeng.com/blog/2011/09/curl.html" target="_blank" rel="external">curl网站开发指南</a>。</p>
 </blockquote>
-<h3 id="旧的安装)"><a href="(http://blog.csdn.net/jiajiayouba/article/details/44261011">旧的安装</a>)</h3><p>很早之前，homebrew 的安装 url 是 <code>https://raw.github.com/Homebrew/homebrew/go/install</code>：</p>
+<h3 id="旧的安装"><a href="http://blog.csdn.net/jiajiayouba/article/details/44261011" target="_blank" rel="external">旧的安装</a></h3><p>很早之前，homebrew 的安装 url 是 <code>https://raw.github.com/Homebrew/homebrew/go/install</code>：</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">ruby -e &#34;$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)&#34;</span><br></pre></td></tr></table></figure>
 <p>首次执行 <code>brew install</code> 安装软件时，将提示不能创建 <code>/usr/local/Cellar</code> 目录，原因是没有 <code>/usr/local</code> 的写权限。</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  brew install node&#10;Error: Could not create /usr/local/Cellar&#10;Check you have permission to write to /usr/local</span><br></pre></td></tr></table></figure>
