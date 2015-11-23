@@ -1112,7 +1112,7 @@ these <span class="keyword">lines</span> <span class="keyword">begin</span> <spa
     <link href="http://col.dog/2015/11/12/hello-world/"/>
     <id>http://col.dog/2015/11/12/hello-world/</id>
     <published>2015-11-12T11:27:00.000Z</published>
-    <updated>2015-11-21T23:43:51.000Z</updated>
+    <updated>2015-11-23T14:50:35.000Z</updated>
     <content type="html"><![CDATA[<p>本文详细记录了从安装 node.js / Hexo 到 使用 hexo 发布 markdown 格式的博客并托管到 GitHub 的全过程。</p>
 <a id="more"></a>
 <h2 id="配置环境">配置环境</h2><p>本文的操作流程和步骤基于 MacBook Pro + OS X EI Capitan 平台。</p>
@@ -1133,13 +1133,8 @@ these <span class="keyword">lines</span> <span class="keyword">begin</span> <spa
 <p>在终端使用 <code>brew -v</code> 或 <code>brew --version</code> 命令来查看 Mac 上安装的 Homebrew 版本：</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  brew -v  &#10;Homebrew 0.9.5 (git revision 9cbe8; last commit 2015-11-08)</span><br></pre></td></tr></table></figure>
 <p>如果没有安装 brew，可在 <a href="http://blog.csdn.net/delphiwcdj/article/details/19679891" target="_blank" rel="external">Mac 上安装 Homebrew</a> <a href="http://blog.csdn.net/aaawqqq/article/details/44088141" target="_blank" rel="external">使 OS X 更完整</a>。</p>
-<h4 id="brew_install_node">brew install node</h4><p>执行 <code>brew install node</code> 命令使用 brew 安装 node，提示不能创建 <code>/usr/local/Cellar</code> 目录，原因是没有 <code>/usr/local</code> 的写权限。</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  brew install node&#10;Error: Could not create /usr/local/Cellar&#10;Check you have permission to write to /usr/local</span><br></pre></td></tr></table></figure>
-<p><strong><a href="http://segmentfault.com/q/1010000000505091" target="_blank" rel="external">解决方法</a>：</strong></p>
-<blockquote>
-<p>执行 <code>chown</code> 命令改变 <code>/usr/local</code> 的所有者为 <code>whoami</code> ，<code>-R</code> 表示递归（Recursive）。</p>
-</blockquote>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  whoami&#10;faner&#10;&#10;&#10140;  ~  sudo chown -R faner /usr/local&#10;&#10140;  ~  brew install node&#10;==&#62; Downloading https://homebrew.bintray.com/bottles/node-4.2.1.el_capitan.bottle.tar.gz&#10;######################################################################## 100.0%&#10;==&#62; Pouring node-4.2.1.el_capitan.bottle.tar.gz&#10;==&#62; Caveats&#10;Bash completion has been installed to:&#10;  /usr/local/etc/bash_completion.d&#10;==&#62; Summary&#10;&#127866;  /usr/local/Cellar/node/4.2.1: 2738 files, 36M</span><br></pre></td></tr></table></figure>
+<h4 id="brew_install_node">brew install node</h4><p>执行 <code>brew install node</code> 命令使用 brew 安装 node：</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">➜  ~  brew install <span class="keyword">node</span><span class="identifier"></span><br><span class="line"></span><span class="title">==&gt; Downloading</span> https://homebrew.bintray.com/bottles/<span class="keyword">node</span><span class="identifier"></span><span class="title">-4</span>.<span class="number">2.1</span>.el_capitan.bottle.tar.gz</span><br><span class="line"><span class="comment">######################################################################## 100.0%</span></span><br><span class="line">==&gt; Pouring <span class="keyword">node</span><span class="identifier"></span><span class="title">-4</span>.<span class="number">2.1</span>.el_capitan.bottle.tar.gz</span><br><span class="line">==&gt; Caveats</span><br><span class="line">Bash completion has been installed to:</span><br><span class="line">  /usr/local/etc/bash_completion.d</span><br><span class="line">==&gt; Summary</span><br><span class="line">🍺  /usr/local/Cellar/<span class="keyword">node</span><span class="identifier"></span><span class="title">/4</span>.<span class="number">2.1</span>: <span class="number">2738</span> files, <span class="number">36M</span></span><br></pre></td></tr></table></figure>
 <p>node installed completion 之后，执行 <code>node -v</code> 命令可查看安装的 node.js 版本：</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  node -v&#10;v4.2.1</span><br></pre></td></tr></table></figure>
 <p>执行 <code>brew upgrade node</code> 命令可升级到最新的 node 5.1.0 ：</p>
