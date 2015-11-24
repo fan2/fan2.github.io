@@ -4,7 +4,7 @@
   <subtitle><![CDATA[just do IT]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://col.dog/"/>
-  <updated>2015-11-23T16:29:43.000Z</updated>
+  <updated>2015-11-24T03:35:17.000Z</updated>
   <id>http://col.dog/</id>
   
   <author>
@@ -15,12 +15,12 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[Mac 下的包管理工具 —— brew]]></title>
+    <title><![CDATA[Mac 下的软件安装 —— 从 pkg,dmg 到 brew,cask]]></title>
     <link href="http://col.dog/2015/11/22/homebrew/"/>
     <id>http://col.dog/2015/11/22/homebrew/</id>
     <published>2015-11-22T07:05:00.000Z</published>
-    <updated>2015-11-23T16:29:43.000Z</updated>
-    <content type="html"><![CDATA[<p>本文前驱铺垫梳理了从 linux 源码安装软件到 DPKG/RPM 软件包管理机制，阐述了 *UNX 平台的软件安装包管理机制的演变和现代化。<br>后半部分着重介绍 Mac 下的软件安装管理工具 —— brew 及 brew-cask，梳理日常  Command Usage。</p>
+    <updated>2015-11-24T03:35:17.000Z</updated>
+    <content type="html"><![CDATA[<p>本文前驱铺垫梳理了从 linux 源码安装软件到 DPKG/RPM 软件包管理机制，阐述了 *UNX 平台的软件安装包管理机制的演变和现代化。<br>后半部分介绍了 Mac 下的软件安装包格式 —— pkg &amp; dmg，以及软件包管理工具 —— brew 及 brew-cask，并梳理日常 Command Usage。</p>
 <a id="more"></a>
 <h2 id="linux_软件的安装与管理"><a href="http://blog.chinaunix.net/uid-509190-id-3056219.html" target="_blank" rel="external">linux 软件的安装与管理</a></h2><p><a href="https://github.com/torvalds/linux" target="_blank" rel="external">linux</a> 是一套免费使用和自由传播的基于 POSIX 和 UNIX 的多用户、多任务、支持多线程和多 CPU 的开源的类 Unix 操作系统。<br>由于 linux 操作系统开放源代码，因而在其上安装的大部分也都是开源软件。开源软件的开发者往往仅需在开源代码托管平台上发布一份源码包，用户即可自由下载源码包到本地，基于源码包编译安装软件。这倒是非常符合 C 语言的设计哲学：一次编写，到处编译。</p>
 <h3 id="基于源码安装软件"><a href="http://www.cnblogs.com/huangfenghit/archive/2011/02/17/1957057.html" target="_blank" rel="external">基于源码安装软件</a></h3><p>基于源码安装软件一般由以下几个步骤组成：</p>
@@ -80,7 +80,7 @@
 </tr>
 </tbody>
 </table>
-<p>在 <a href="http://mitblog.pixnet.net/blog/post/41037058-10-%E5%A5%97-linux-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1%E7%9A%84%E6%AF%94%E8%BC%83%E3%80%81ubuntu-vs-fedora-vs-cen" target="_blank" rel="external">linux 众多发行版</a>中，ubuntu 占领桌面，RHEL/<a href="http://www.g-loaded.eu/2009/10/05/fedora-server-vs-centos/" target="_blank" rel="external">CentOS</a> 占领服务器，比较小众的 <a href="https://www.gentoo.org/" target="_blank" rel="external">Gentoo</a> 采用独特的 <a href="https://zh.wikipedia.org/wiki/Portage" target="_blank" rel="external">Portage</a> 包管理系统。Gentoo 的软件树称为 Portage，对应的包管理器是 emerge，包元文件称为 ebuild。<br>Gentoo 是个强调能自由选择的分发版，它使用源码来做包管理的方式。由于能自己编译及调整源码依赖等选项，而获得至高的自定义性及优化的软件，在源码包也有相当多新旧版本的选择，因此吸引了许多狂热爱好者以及专业人士。</p>
+<p>在 <a href="http://mitblog.pixnet.net/blog/post/41037058-10-%E5%A5%97-linux-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1%E7%9A%84%E6%AF%94%E8%BC%83%E3%80%81ubuntu-vs-fedora-vs-cen" target="_blank" rel="external">linux 众多发行版</a>中，ubuntu 占领桌面，RHEL/<a href="http://www.g-loaded.eu/2009/10/05/fedora-server-vs-centos/" target="_blank" rel="external">CentOS</a> 占领服务器，比较小众的 <strong><a href="https://www.gentoo.org/" target="_blank" rel="external">Gentoo</a></strong> 采用独特的 <strong><a href="https://zh.wikipedia.org/wiki/Portage" target="_blank" rel="external">Portage</a></strong> 包管理系统。Gentoo 的软件树称为 Portage，对应的包管理器是 emerge，包元文件称为 ebuild。<br>Gentoo 是个强调能自由选择的分发版，它使用源码来做包管理的方式。由于能自己编译及调整源码依赖等选项，而获得至高的自定义性及优化的软件，在源码包也有相当多新旧版本的选择，因此吸引了许多狂热爱好者以及专业人士。</p>
 <h4 id="RPM_/_SRPM">RPM / SRPM</h4><p>RPM 软件包命名规范：<code>name-version-release.arch.rpm</code>。<br>其中，<code>version</code> 表示系统的发行版，如 fc18、el6 表明这个软件包是在 Fedora 18、RHEL 6.x / CentOS 6.x 下使用的；<code>arch</code> 表示硬件平台，常见的有 i386、x86_64 等。</p>
 <p><strong><code>rp-pppoe-3.1-5.i386.rpm</code></strong> 是一个典型的 RPM 安装包，它由几个部分构成：</p>
 <ul>
@@ -119,7 +119,21 @@
 </tbody>
 </table>
 <p>RPM 建包的原理并不复杂，可以理解为按照标准的格式整理一些信息，包括：软件基础信息，以及安装、卸载前后执行的<a href="http://hlee.iteye.com/blog/343499" target="_blank" rel="external">脚本</a>，对源码包解压、打补丁、编译，安装路径和文件等。我们可以基于标准规范，来<a href="http://hlee.iteye.com/blog/343499" target="_blank" rel="external">使用 rpmbuild 制作自己的 RPM 包</a>。</p>
-<h2 id="Mac_软件包管理工具"><a href="https://github.com/pubyun/macdev/blob/master/basic.md" target="_blank" rel="external">Mac 软件包管理工具</a></h2><p>linux 下的 apt-get 和 yum 命令行工具分别适用于 deb、rpm 包管理方式的发行版本，主要用于自动从互联网的软件仓库中搜索、安装、升级和卸载软件。<br>在 Mac OS X 平台下，同样有优秀的软件包管理工具，可以管理大量 AppleStore 没有提供、而又经常会用到的开源软件包。我们有两种选择 —— MacPorts 和 Homebrew。</p>
+<h2 id="Mac_软件包管理工具"><a href="https://github.com/pubyun/macdev/blob/master/basic.md" target="_blank" rel="external">Mac 软件包管理工具</a></h2><p>linux 平台下的 apt-get 和 yum 命令行工具分别适用于 deb、rpm 包管理方式的发行版本，主要用于自动从互联网的软件仓库中搜索、安装、升级和卸载软件。在 Mac OS X 平台下，除了直接从 AppleStore 下载认证上架的软件进行安装外，还可以在系统偏好设置的【安全性与隐私】中允许从<strong>任何来源</strong>下载的应用。  </p>
+<h3 id="dmg_&amp;_pkg">dmg &amp; pkg</h3><p>一些应用会提供 <a href="http://www.xitongzhijia.net/xtjc/20150303/39862.html" target="_blank" rel="external">dmg、pkg</a> 安装包，例如 <code>git-2.5.3-intel-universal-mavericks.dmg</code>、<code>Subversion-1.9.2_10.10.x.pkg</code>。</p>
+<ol>
+<li><strong>dmg</strong> 是苹果的压缩镜像文件（类似 Windows 下的 iso ），它是 Mac 应用软件通用的打包格式（相当于 ipa），里面一般包含 <code>应用程序.app</code> 的图标和一个应用程序文件夹（<code>/Applications</code>）快捷方式，直接将 <code>应用程序.app</code> 拖曳至应用程序文件夹即可完成安装。卸载也同样绿色，直接在 <code>Launchpad</code> 中或 cd 到  <code>/Applications</code> 目录下删除应用（文件夹）即可。</li>
+<li><strong><a href="https://en.wikipedia.org/wiki/.pkg" target="_blank" rel="external">pkg</a></strong> 属于系统级软件的安装程序，相当于 iOS 越狱后装的 deb，一般会修改系统配置，权限较高。pkg 安装一般要求 sudo 授权，<a href="http://blog.csdn.net/play_fun_tech/article/details/27964861" target="_blank" rel="external">卸载 pkg 安装的应用</a> 也比较麻烦。pkg 类似 Windows 下的安装程序 Setup.exe 和 *.<a href="(https://msdn.microsoft.com/en-us/library/cc185688(v=vs.85">msi</a>.aspx)) 。<br> Windows 下可以使用 <a href="http://www.flexerasoftware.com/producer/products/software-installation/installshield-software-installer/" target="_blank" rel="external">Install Shield</a> 来 <a href="http://www.yesky.com/460/1843460.shtml" target="_blank" rel="external">制作安装程序</a>，可使用 Xcode 自带的 <a href="http://www.identityfinder.com/kb/Enterprise-Documentation/046141" target="_blank" rel="external">PackageMaker</a> 或打包命令行工具 <a href="http://developer.apple.com/library/mac/documentation/Darwin/Reference/Manpages/man1/pkgbuild.1.html" target="_blank" rel="external">pkgbuild</a>+<a href="https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/productbuild.1.html" target="_blank" rel="external">productbuild</a>+<a href="https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/pkgutil.1.html" target="_blank" rel="external">pkgutil</a> 或 <a href="http://s.sudre.free.fr/Software/Iceberg.html" target="_blank" rel="external">Iceberg</a>（an Integrated Packaging Environment (IPE) ）来<a href="http://blog.csdn.net/handsomerocco/article/details/7761212" target="_blank" rel="external">制作安装包</a>。</li>
+<li><p><strong>mpkg</strong>：pkg 是单个<a href="http://blog.csdn.net/dongdongdongjl/article/details/7896771" target="_blank" rel="external">应用程序的安装包</a>，而 mpkg（multi pkg）是多个 pkg 。我们来看一下从 AppleStore 下载的 OS X EI Capitan 安装器文件——<code>安装 OS X EI Capitan.app</code> 的 <code>/Contents/SharedSupport</code> 目录：</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">faner@MBP-FAN:/Applications/Install OS X El Capitan.app/Contents/SharedSupport|&#10;&#8658;  tree &#10;.&#10;&#9500;&#9472;&#9472; InstallESD.dmg&#10;&#9492;&#9472;&#9472; OSInstall.mpkg&#10;&#10;0 directories, 2 files</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>下载完 <code>安装 OS X EI Capitan.app</code> 之后，可以使用 <strong><code>createinstallmedia</code></strong> 命令<a href="http://bbs.feng.com/read-htm-tid-9930245.html" target="_blank" rel="external">制作 U 盘安装盘</a>，或<a href="http://bbs.feng.com/read-htm-tid-5045869.html" target="_blank" rel="external">恢复到 U 盘制作启动盘</a>。</p>
+</blockquote>
+</li>
+<li><p><strong>dmg with pkg</strong>：像 <code>git-2.5.3-intel-universal-mavericks.dmg</code> 这种 dmg 打包的是 git command CLI 的安装 pkg，需要使用 DiskImageMounter 挂载 dmg，然后打开 pkg（使用 Installer），按照引导一步步 next 即可安装完成。当然也可使用 <a href="http://www.it165.net/os/html/201207/2764.html" target="_blank" rel="external">命令行</a> 完成挂载安装操作。</p>
+</li>
+</ol>
+<p>除了使用 dmg、pkg 来安装软件外，Mac 下同样有优秀的软件包管理工具，可以下载、安装和管理大量 AppleStore 没有提供、而又经常会用到的开源软件。我们有两种选择 —— MacPorts 和 Homebrew。</p>
 <h3 id="MacPorts"><a href="http://www.macports.org/" target="_blank" rel="external">MacPorts</a></h3><p><a href="http://chenpeng.info/html/1753" target="_blank" rel="external">MacPorts</a> (DarwinPorts) 是由 <a href="http://www.freebsd.org/" target="_blank" rel="external">FreeBSD</a> 的 port 移植而来的软件包管理系统，，用来简化 Mac OS X和 Darwin 操作系统上软件的安装。在 Mac 中安装 MacPorts <a href="http://www.linuxidc.com/Linux/2012-01/52111.htm" target="_blank" rel="external">让你在Mac 的 Shell 下更加游刃有余</a>。<br><a href="http://blog.csdn.net/maojudong/article/details/7918278" target="_blank" rel="external">MacPorts</a> 有个原则，对于软件包之间的依赖，都在 MacPorts 内部（<code>/opt/local</code>）解决，无论系统本身是否包含了需要的库，都不会加以利用。这使得 MacPorts 庞大臃肿，导致系统出现大量软件包的冗余，占用不小的磁盘空间，同时稍大型一点的软件编译时间都会难以忍受。</p>
 <h3 id="Homebrew"><a href="http://brew.sh/" target="_blank" rel="external">Homebrew</a></h3><p><a href="http://blog.csdn.net/delphiwcdj/article/details/19679891" target="_blank" rel="external">Homebrew</a>（简称 brew）是 Mac OS X 不可或缺的软件管理工具(The missing package manager for OS X)，<a href="http://snowolf.iteye.com/blog/774312" target="_blank" rel="external">让 Mac 拥有类似 apt-get 的功能</a>，用以简化软件的安装、升级和卸载过程。</p>
 <blockquote>
@@ -314,7 +328,7 @@
 <p><a href="http://www.osxtoy.com/?p=2431" target="_blank" rel="external">Launchrocket 帮助管理 Homebrew 安装的服务</a><br><a href="http://my.oschina.net/gujianhan/blog/204122" target="_blank" rel="external">homebrew cask 安装 launchrocket</a></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>本文前驱铺垫梳理了从 linux 源码安装软件到 DPKG/RPM 软件包管理机制，阐述了 *UNX 平台的软件安装包管理机制的演变和现代化。<br>后半部分着重介绍 Mac 下的软件安装管理工具 —— brew 及 brew-cask，梳理日常  Command Usage。</p>]]>
+    <![CDATA[<p>本文前驱铺垫梳理了从 linux 源码安装软件到 DPKG/RPM 软件包管理机制，阐述了 *UNX 平台的软件安装包管理机制的演变和现代化。<br>后半部分介绍了 Mac 下的软件安装包格式 —— pkg &amp; dmg，以及软件包管理工具 —— brew 及 brew-cask，并梳理日常 Command Usage。</p>]]>
     
     </summary>
     
@@ -335,6 +349,10 @@
       <category term="brew" scheme="http://col.dog/tags/brew/"/>
     
       <category term="brew-cask" scheme="http://col.dog/tags/brew-cask/"/>
+    
+      <category term="dmg" scheme="http://col.dog/tags/dmg/"/>
+    
+      <category term="pkg" scheme="http://col.dog/tags/pkg/"/>
     
       <category term="Mac" scheme="http://col.dog/categories/Mac/"/>
     
