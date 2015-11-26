@@ -63,7 +63,7 @@
 <meta property="og:description" content="本文详细记录了从安装 node.js / Hexo 到 使用 hexo 发布 markdown 格式的博客并托管到 GitHub 的全过程。">
 <meta property="og:image" content="http://7xo5uz.com1.z0.glb.clouddn.com/hexo-hello.png">
 <meta property="og:image" content="http://7xo5uz.com1.z0.glb.clouddn.com/Vienna-Elsewhere.png">
-<meta property="og:updated_time" content="2015-11-24T23:10:48.000Z">
+<meta property="og:updated_time" content="2015-11-26T23:38:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于 Hexo 和 GitHub Pages 搭建博客">
 <meta name="twitter:description" content="本文详细记录了从安装 node.js / Hexo 到 使用 hexo 发布 markdown 格式的博客并托管到 GitHub 的全过程。">
@@ -313,10 +313,11 @@
 <p>升级后，执行 <code>hexo generate</code> 报错：</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#8658;  hexo g&#10;[Error: Module version mismatch. Expected 47, got 46.]&#10;&#123; [Error: Cannot find module &#39;./build/default/DTraceProviderBindings&#39;] code: &#39;MODULE_NOT_FOUND&#39; &#125;&#10;&#123; [Error: Cannot find module &#39;./build/Debug/DTraceProviderBindings&#39;] code: &#39;MODULE_NOT_FOUND&#39; &#125;</span><br></pre></td></tr></table></figure>
 <p><strong><a href="http://www.jianshu.com/p/98e993305653" target="_blank" rel="external">解决方案</a></strong>：</p>
+<p>由于天朝网络问题，没全部下载完（Expected 47, got 46）。具体来说，缺少 <code>dtrace-provider</code> 这个 module（可检查 node_modules 目录）。翻墙或按以下方案解决：</p>
 <ol>
 <li>执行 <code>npm uninstall hexo</code> 卸载 hexo；</li>
-<li>执行 <code>npm install -g hexo</code> 重新安装最新的 hexo (hexo-cli: 0.1.9)；</li>
-<li>cd 到博客目录，<del>删除 db.json</del>，执行 <code>npm install hexo --no-optional</code>  ，重新安装 <code>package.json</code> 中配置的依赖库(node_modules)；</li>
+<li>执行 <code>npm install -g hexo --no-optional</code> 重新安装最简 hexo (hexo-cli: 0.1.9)；</li>
+<li>cd 到博客目录，<del>删除 db.json</del>，执行 <code>npm install</code>  ，重新安装 <code>package.json</code> 中配置的依赖库(node_modules)；</li>
 <li>依次执行 <code>hexo clean</code> 和 <code>hexo generate</code> ，重新编译整个博客网站。</li>
 </ol>
 <h2 id="NPM_安装_hexo">NPM 安装 hexo</h2><h3 id="npm_-v">npm -v</h3><p>Node.js 默认内置了模块管理工具 —— NPM（Node Package Manager），其灵感来源于 <a href="http://www.cnblogs.com/ihojin/p/ruby-gem-update-the-latest-version.html" target="_blank" rel="external">RubyGems</a>（具有版本和依赖管理功能，可以通过在线资料库便捷安装可重用的组件的管理工具）。<br>NPM 生态系统向所有人开放，任何人都可以发布自己的模块，所有的模块都可以在 NPM 资料库中找到。一个完整的公用模块列表可以在 <a href="https:://npmjs.org/" target="_blank" rel="external">NPM 的网站</a> 上找到，也可以通过与 Node.js 一同安装的 NPM 客户端命令行工具访问。<br>可执行 <code>npm -v</code> 命令查看 <code>node.js</code> 集成的 npm 包管理工具的版本：</p>
