@@ -63,7 +63,7 @@
 <meta property="og:description" content="本文详细记录了从安装 node.js / Hexo 到 使用 hexo 发布 markdown 格式的博客并托管到 GitHub 的全过程。">
 <meta property="og:image" content="http://7xo5uz.com1.z0.glb.clouddn.com/hexo-hello.png">
 <meta property="og:image" content="http://7xo5uz.com1.z0.glb.clouddn.com/Vienna-Elsewhere.png">
-<meta property="og:updated_time" content="2015-11-26T23:38:31.000Z">
+<meta property="og:updated_time" content="2015-11-27T01:34:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于 Hexo 和 GitHub Pages 搭建博客">
 <meta name="twitter:description" content="本文详细记录了从安装 node.js / Hexo 到 使用 hexo 发布 markdown 格式的博客并托管到 GitHub 的全过程。">
@@ -523,11 +523,28 @@
 <p>主题配置文件中的 <code>rss</code> 字段的值保持为空，以便<a href="https://github.com/iissnan/hexo-theme-next/wiki/%E6%98%BE%E7%A4%BA-feed-%E9%93%BE%E6%8E%A5" target="_blank" rel="external">显示 feed 链接</a>。<br>重新编译网站，将在 <code>public</code> 目录下生成 <code>atom.xml</code> 文件。用户点击博客右侧边栏中的 <code>RSS</code> 图标，即可访问 <a href="http://col.dog/atom.xml">http://col.dog/atom.xml</a> 。</p>
 <p>在 Mac 下使用 <code>brew cask install vienna</code> 命令安装 <a href="http://www.vienna-rss.org" target="_blank" rel="external">ViennaRSS</a>：</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">faner@MBP-FAN:~|&#8658;  brew cask search vienna&#10;==&#62; Exact match&#10;vienna&#10;faner@MBP-FAN:~|&#8658;  brew cask info vienna  &#10;vienna: 3.0.9&#10;Vienna&#10;http://www.vienna-rss.org&#10;Not installed&#10;https://github.com/phinze/homebrew-cask/blob/master/Casks/vienna.rb&#10;==&#62; Contents&#10;  Vienna.app (app)&#10;&#8658;  brew cask audit vienna  &#10;audit for vienna: passed&#10;faner@MBP-FAN:~|&#8658;  brew cask install vienna&#10;==&#62; Downloading https://dl.bintray.com/viennarss/vienna-rss/Vienna3.0.9.tgz&#10;######################################################################## 100.0%&#10;==&#62; Symlinking App &#39;Vienna.app&#39; to &#39;/Users/faner/Applications/Vienna.app&#39;&#10;&#127866;  vienna staged at &#39;/opt/homebrew-cask/Caskroom/vienna/3.0.9&#39; (1180 files, 22M)</span><br></pre></td></tr></table></figure>
-<p>新增订阅（Create a new subscription）本博：</p>
+<ul>
+<li><strong>新增订阅</strong>（Create a new subscription）：</li>
+</ul>
 <blockquote>
 <p>Source：<strong>URL</strong><br>URL of news feed：<a href="http://col.dog/atom.xml">http://col.dog/atom.xml</a></p>
 </blockquote>
 <p><img src="http://7xo5uz.com1.z0.glb.clouddn.com/Vienna-Elsewhere.png" alt="Vienna-Elsewhere"></p>
+<ul>
+<li><strong>偏好设置</strong><ol>
+<li><code>View | Style</code><ul>
+<li>default: Tyger Graphite</li>
+<li>可选：Tyger、Minimalista Sans-serif</li>
+</ul>
+</li>
+<li><code>Folder|</code> 展开格式<ul>
+<li>Use Current Style for Articles：展开摘要</li>
+<li>Use Web Pages for Articles：展开全文</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
 <h2 id="添加统计分析（Analytics）">添加统计分析（Analytics）</h2><h3 id="hexo/next_添加_Google/百度_统计"><a href="https://github.com/iissnan/hexo-theme-next/wiki/%E6%B7%BB%E5%8A%A0-Google---%E7%99%BE%E5%BA%A6-%E7%BB%9F%E8%AE%A1" target="_blank" rel="external">hexo/next 添加 Google/百度 统计</a></h3><p><a href="https://www.google.com/analytics/" target="_blank" rel="external">Google Analytics（分析）</a> 不仅可以帮助您衡量销售与转化情况，而且能为您提供新鲜的深入信息，帮助您了解访问者如何使用您的网站，他们如何到达您的网站，以及您可以如何吸引他们不断回访。</p>
 <p><a href="http://tongji.baidu.com/" target="_blank" rel="external">百度统计</a> 是百度推出的一款免费的专业网站流量分析工具，能够告诉用户访客是如何找到并浏览用户的网站，在网站上做了些什么，有了这些信息，可以帮助用户改善访客在用户的网站上的使用体验，不断提升网站的投资回报率。</p>
 <p>到 Google 或 Baidu 的统计分析门户注册自己的站点，将获得统计分析平台为你的站点分配的唯一的网站统计 ID 。</p>
