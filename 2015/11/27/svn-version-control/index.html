@@ -1,0 +1,993 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+    <link href='//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="git-add,git-commit,git-diff,git-init,git-log,git-pull,git-push," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Elsewhere" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="之前介绍过 subversion 版本控制，本文梳理日常 svn 操作流程，备忘查阅。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="svn 版本控制">
+<meta property="og:url" content="http://col.dog/2015/11/27/svn-version-control/index.html">
+<meta property="og:site_name" content="Elsewhere">
+<meta property="og:description" content="之前介绍过 subversion 版本控制，本文梳理日常 svn 操作流程，备忘查阅。">
+<meta property="og:updated_time" content="2015-12-08T14:35:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="svn 版本控制">
+<meta name="twitter:description" content="之前介绍过 subversion 版本控制，本文梳理日常 svn 操作流程，备忘查阅。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> svn 版本控制 | Elsewhere </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=52641397";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Elsewhere</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">just do IT</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                svn 版本控制
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-11-27T14:36:30+08:00" content="2015-11-27">
+              2015-11-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/svn/" itemprop="url" rel="index">
+                    <span itemprop="name">svn</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/11/27/svn-version-control/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/27/svn-version-control/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>之前介绍过 <a href="http://blog.csdn.net/phunxm/article/details/40834427" target="_blank" rel="external">subversion 版本控制</a>，本文梳理日常 svn 操作流程，备忘查阅。</p>
+<a id="more"></a>
+<h2 id="svn_auth-cache">svn auth-cache</h2><p>一般第一次操作过 svn 后（没有指定 <code>--no-auth-cache</code>），会提示确认 auth cache，后面的 svn 操作都会使用缓存的 auth token。</p>
+<ol>
+<li>linux/Mac 将 auth-cache 保存在 <code>~/.subversion/auth</code> 目录下，可执行 <code>rm -rf ~/.subversion/auth</code> 命令清除。</li>
+<li>在 Windows TortoiseSVN 下通过以下步骤可以<a href="http://www.justwinit.cn/post/4512/" target="_blank" rel="external">清除缓存的 svn 认证信息</a>，下次就会要求输入用户名和密码：</li>
+</ol>
+<blockquote>
+<ol>
+<li>在任一 Working Copy 上右键，选择 TortoiseSVN–&gt;settings；</li>
+<li>在弹出的 TortoiseSVN Settings 页面中选择 <strong><code>Saved Data</code></strong> 选项； </li>
+<li>点击 <strong><code>Authentication data</code></strong> 对应的 <strong>Clear</strong> 按钮。</li>
+</ol>
+</blockquote>
+<p>终端 <code>svn checkout --help</code> 或 <code>svn commit --help</code> 可看到 Global options 中通过 –username/–password 选项可指定用户名和密码：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">Global options:&#10;  --username ARG           : specify a username ARG&#10;  --password ARG           : specify a password ARG</span><br></pre></td></tr></table></figure>
+<p>如果想临时使用别人的账号 checkout 或 commit 代码，而不使用缓存的 auth token，通过指定 –username/–password 参数进行 svn 操作即可。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">$ svn co URL --username user --password pwd&#10;$ svn ci URL --username user --password pwd</span><br></pre></td></tr></table></figure>
+<p>如果可以进入 svn 服务器的话，在 <code>***\conf\authz</code> 中可根据用户名查询 <a href="http://www.cnblogs.com/perfy/p/3508210.html" target="_blank" rel="external">svn 权限</a>。</p>
+<h2 id="svn_ignore">svn ignore</h2><p><strong><a href="http://blog.csdn.net/qw503495315/article/details/17454625" target="_blank" rel="external">SmartSVN 设置忽略文件类型设置</a></strong>  </p>
+<p>在左侧 Directories Explorer中右击 .git 文件夹选择 ignore。<br>在 Files Explorer 中右击 .gitignore 文件选择 ignore | Ignore Explicitly，则所有目录的同名都将被忽略。<br>右键根目录，在 Properties | Ignore Patterns 中可以删除或编辑 Ignore Patterns。</p>
+<p><strong>注意：</strong></p>
+<p>unversioned 的文件（目录）需要先添加到 svn 版本库，才能忽略。<br>SmartSVN 已经帮我们将要忽略的 unversioned 文件（目录）添加到版本库，谨防切换到命令行操作时错误提交！</p>
+<p><strong>参考：</strong></p>
+<blockquote>
+<p>《<a href="http://blog.chinaunix.net/uid-10167808-id-83417.html" target="_blank" rel="external">svn 设置忽略文件列表</a>》《<a href="http://my.oschina.net/shelllife/blog/142257" target="_blank" rel="external">SVN 设置忽略文件列表</a>》<br>《<a href="http://huanyue.iteye.com/blog/750108" target="_blank" rel="external">SVN 忽略整个目录</a>》《<a href="http://svnbook.red-bean.com/en/1.8/svn.advanced.props.special.ignore.html" target="_blank" rel="external">Ignoring Unversioned Items</a>》<br>《<a href="http://www.111cn.net/sys/linux/53797.htm" target="_blank" rel="external">SVN忽略文件或文件夹几种方法总结</a>》《<a href="http://yansu.org/2013/04/22/add-svn-ignore-file.html" target="_blank" rel="external">给SVN控制的项目添加忽略文件/文件夹</a>》  </p>
+</blockquote>
+<h2 id="svn_info">svn info</h2><p><code>svn info</code> 命令可以查看当前工作目录（Working Copy）的版本信息。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#8658;  svn info --help&#10;info: Display information about a local or remote item.&#10;usage: info [TARGET[@REV]...]</span><br></pre></td></tr></table></figure>
+<p>通过 <code>--show-item</code> 指定选项，可以打印指定项。</p>
+<pre><code>kind                  <span class="operator">the</span> kind <span class="operator">of</span> TARGET
+url                   <span class="operator">the</span> <span class="built_in">URL</span> <span class="operator">of</span> TARGET <span class="operator">in</span> <span class="operator">the</span> repository
+<span class="built_in">relative</span>-url          <span class="operator">the</span> repository-<span class="built_in">relative</span> <span class="built_in">URL</span>
+repos-root-url        <span class="operator">the</span> repository root <span class="built_in">URL</span>
+repos-<span class="built_in">uuid</span>            <span class="operator">the</span> repository UUID
+revision              <span class="operator">the</span> revision <span class="operator">of</span> TARGET (defaults <span class="built_in">to</span> BASE
+                      <span class="keyword">for</span> working copy paths <span class="operator">and</span> HEAD <span class="keyword">for</span> URLs)
+<span class="keyword">last</span>-changed-revision <span class="operator">the</span> most recent revision <span class="operator">in</span> which TARGET
+                      was changed
+<span class="keyword">last</span>-changed-<span class="built_in">date</span>     <span class="operator">the</span> <span class="built_in">date</span> <span class="operator">of</span> <span class="operator">the</span> <span class="keyword">last</span>-changed revision
+<span class="keyword">last</span>-changed-author   <span class="operator">the</span> author <span class="operator">of</span> <span class="operator">the</span> <span class="keyword">last</span>-changed revision
+wc-root               <span class="operator">the</span> root <span class="operator">of</span> TARGET<span class="string">'s working copy</span>
+</code></pre><p>以下示范 svn checkout Reachability 工程的 info：</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">faner<span class="annotation">@MBP</span>-<span class="string">FAN:</span><span class="regexp">~/Projects/</span>git/Reachability|</span><br><span class="line">⇒  svn info</span><br><span class="line"><span class="string">Path:</span> .</span><br><span class="line">Working Copy Root <span class="string">Path:</span> <span class="regexp">/Users/</span>faner<span class="regexp">/Projects/</span>git/Reachability</span><br><span class="line"><span class="string">URL:</span> <span class="string">https:</span><span class="comment">//github.com/tonymillion/Reachability</span></span><br><span class="line">Relative <span class="string">URL:</span> ^/</span><br><span class="line">Repository <span class="string">Root:</span> <span class="string">https:</span><span class="comment">//github.com/tonymillion/Reachability</span></span><br><span class="line">Repository <span class="string">UUID:</span> <span class="number">97</span>ad356b-<span class="number">402</span>e-f69d-e5e9-ce57b7db7bff</span><br><span class="line"><span class="string">Revision:</span> <span class="number">89</span></span><br><span class="line">Node <span class="string">Kind:</span> directory</span><br><span class="line"><span class="string">Schedule:</span> normal</span><br><span class="line">Last Changed <span class="string">Author:</span> tony.million</span><br><span class="line">Last Changed <span class="string">Rev:</span> <span class="number">89</span></span><br><span class="line">Last Changed <span class="string">Date:</span> <span class="number">2015</span>-<span class="number">09</span>-<span class="number">12</span> <span class="number">00</span>:<span class="number">42</span>:<span class="number">38</span> +<span class="number">0800</span> (六, <span class="number">12</span>  <span class="number">9</span> <span class="number">2015</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="svn_log"><a href="http://www.nc21.cn/ncnet/article.asp?nc=15-12-147-0-6735.xhtml" target="_blank" rel="external">svn log</a></h2><ul>
+<li>显示当前 svn 工程的 log（till base of the working copy）</li>
+</ul>
+<blockquote>
+<p>$ svn log</p>
+</blockquote>
+<ul>
+<li>显示当前 svn 工程中指定文件的 log</li>
+</ul>
+<blockquote>
+<p>$ svn log FACategoryTableView.m</p>
+</blockquote>
+<ul>
+<li>显示当前 svn 工程中指定文件某个 revision 的 log</li>
+</ul>
+<blockquote>
+<p>$ svn log FACategoryTableView.m@v #v必须≤base的版本号</p>
+</blockquote>
+<ul>
+<li>显示服务器上某个文件的 log（HEAD will be first looked up：@HEAD means range HEAD:1）</li>
+</ul>
+<blockquote>
+<p>$ svn log path/to/your-svn-repo/directory/file.c</p>
+</blockquote>
+<ul>
+<li>显示服务器上某个文件某个 revision 以及之前的 log（REV will be first looked up：@REV=REV:1）</li>
+</ul>
+<blockquote>
+<p>$ svn log path/to/your-svn-repo/directory/file.c@113629</p>
+</blockquote>
+<ul>
+<li>显示服务器上某个文件在某几个 revision 之间（<code>-r</code> 选项）的变更日志</li>
+</ul>
+<blockquote>
+<p>$ svn log path/to/your-svn-repo/directory/file.c -r 113714:113629</p>
+</blockquote>
+<ul>
+<li>查看最近 N 条log，<code>-l</code> 选项指定 limitation，后面的 N 为数字</li>
+</ul>
+<blockquote>
+<p>$ svn log -l N</p>
+<blockquote>
+<p>$ svn log -l 3</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>日志重定向到文件</li>
+</ul>
+<blockquote>
+<p>$ svn log -r 14 &gt; svn.log</p>
+</blockquote>
+<h2 id="svn_revert">svn revert</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#8658;  svn revert --help&#10;revert: Restore pristine working copy state (undo local changes).&#10;usage: revert PATH...&#10;&#10;  Revert changes in the working copy at or within PATH, and remove&#10;  conflict markers as well, if any.&#10;&#10;  This subcommand does not revert already committed changes.&#10;  For information about undoing already committed changes, search&#10;  the output of &#39;svn help merge&#39; for &#39;undo&#39;.</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>恢复文件：</p>
+<blockquote>
+<p>svn revert test.mm</p>
+</blockquote>
+</li>
+<li><p>恢复文件夹：</p>
+<blockquote>
+<p>svn revert -R .</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="svn_diff">svn diff</h2><p><code>svn diff</code> 命令用于查看当前目录下的改动（依次 svn diff 各个有改动的文件的差异）：</p>
+<pre><code><span class="comment"><figure class="highlight"><table><tr><td class="code"><pre><span class="line">$ svn diff -r newversion:oldversion path&#10;$ svn diff -r r1:(r1-1)  (filename)</span><br></pre></td></tr></table></figure></span>
+</code></pre><ol>
+<li><p>不使用任何参数时，svn diff 将会比较 working copy 与缓存在 <code>.svn</code> 中的“原始”拷贝：</p>
+<blockquote>
+<p>$ svn diff</p>
+</blockquote>
+</li>
+<li><p>只传递一个 <code>--revision</code>（-r）参数时，工作拷贝将会与指定的版本比较：</p>
+<blockquote>
+<p>$ svn diff -r 108249 FACategoryTableView.m</p>
+</blockquote>
+<p> 默认追加:HEAD!</p>
+</li>
+<li><p>通过 <code>--revision</code>（-r）传递两个通过冒号分开的版本号，会对这两个版本进行比较：</p>
+<blockquote>
+<p>$ svn diff -r 108314:108249 FACategoryTableView.m</p>
+</blockquote>
+</li>
+<li><p>diff 不显示各个文件的详细差异比较，<strong>只显示增删改概要</strong>，以便作为commit参考：</p>
+ <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">$ svn diff <span class="comment">--summarize</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="svn_patch（打补丁）">svn patch（打补丁）</h2><h3 id="TortoiseSVN（windows）">TortoiseSVN（windows）</h3><ol>
+<li>项目右键 <code>TortoiseSVN|Create patch...</code></li>
+<li>选择改动要打 patch 的文件，将会生成 <code>*.patch</code>，同时弹出 TortoiseUDiff 显示 diff 。</li>
+<li>将 <code>*.patch</code> 拷贝到其他分支同级别目录下，右键 <code>TortoiseSVN|Apply patch...</code>，选择 <code>Patch selected item</code>，将会自动根据补丁中的 Index 路径合并 diff 到对应文件。</li>
+</ol>
+<blockquote>
+<p><a href="http://blog.csdn.net/gaojinshan/article/details/7856550" target="_blank" rel="external">用 Tortoise SVN 抽取补丁包（patch）</a><br><a href="http://www.uml.org.cn/pzgl/200903276.asp" target="_blank" rel="external">如何让 TortoiseSVN 仅导出新增或修改过(变更过)的文件</a></p>
+</blockquote>
+<h3 id="命令行（Mac_OS_X）">命令行（Mac OS X）</h3><ol>
+<li><p>执行 <code>svn diff --summarize</code> 查看有哪些文件改动</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#8658;  svn diff -h&#10;diff (di): Display local changes or differences between two revisions or paths.&#10;&#10;&#8658;  svn diff --summarize&#10;M       path1/to/test.mm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对欲打补丁的改动文件执行 <code>svn diff</code> 并重定向保存为补丁（<code>*.diff</code> 或 <code>*.patch</code>），执行 <code>cat</code> 或 <code>vim</code> 可查看 diff 详情：</p>
+ <figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">⇒  svn diff <span class="keyword">test</span>.mm &gt; <span class="keyword">test</span>.diff</span><br><span class="line"></span><br><span class="line">⇒  <span class="keyword">cat</span> <span class="keyword">test</span>.diff</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将补丁文件（test.diff）拷贝到其他分支同级别目录下，执行 <code>svn patch</code> 命令 将会自动根据补丁中的 Index 路径合并 diff 到对应文件。</p>
+ <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">⇒  svn patch --help</span><br><span class="line">patch: Apply <span class="tag">a</span> patch to <span class="tag">a</span> working copy.</span><br><span class="line">usage: patch PATCHFILE [WCPATH]</span><br><span class="line"></span><br><span class="line">⇒  svn patch test<span class="class">.diff</span> </span><br><span class="line">U         path2/to/test.mm</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="svn_merge（同步_&amp;_合流）">svn merge（同步 &amp; 合流）</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#8658;  svn merge --help&#10;merge: Merge changes into a working copy.&#10;usage: 1. merge SOURCE[@REV] [TARGET_WCPATH]&#10;          (the &#39;complete&#39; merge)&#10;       2. merge [-c M[,N...] | -r N:M ...] SOURCE[@REV] [TARGET_WCPATH]&#10;          (the &#39;cherry-pick&#39; merge)&#10;       3. merge SOURCE1[@REV1] SOURCE2[@REV2] [TARGET_WCPATH]&#10;          (the &#39;2-URL&#39; merge)</span><br></pre></td></tr></table></figure>
+<h3 id="master2branch（merge_to_sync/rebase）">master2branch（merge to sync/rebase）</h3><p>同步最新主干到分支（同步基线）：TortoiseSVN 基于 branch working copy 右键 merge</p>
+<ul>
+<li>URL to merge from：填写主干 master 的 svn url；</li>
+<li><p>Revision range to merge：选择 <strong><code>specific range</code></strong>。</p>
+<p>  选择上次 rebase 的 rev（112603）作为起始点，最新的 rev 作为结束点。</p>
+<ul>
+<li>112608（one rev）</li>
+<li>112608,112630（two rev）</li>
+<li>112608-112630（range through）</li>
+<li>1-HEAD（rebase 到最新，自动识别起始）</li>
+</ul>
+</li>
+<li><p>Test merge 为 dry-run 可预览合并结果；Merge 执行合并操作。</p>
+</li>
+<li>如果提示有冲突，本地手工解决。</li>
+<li>commit 提交本地分支 WC 的 rebase 合并结果。</li>
+</ul>
+<p><strong>同步结果：</strong></p>
+<blockquote>
+<p>Merging revisions 1-HEAD of  <code>http://yoursvnserver/basic/basic_your_rep/your_proj/trunk/master</code> into <code>path/to/your/local-branch-working-copy</code><br>Merging <code>rX</code> through <code>rY</code></p>
+</blockquote>
+<p><strong>svn 命令行：</strong></p>
+<blockquote>
+<p>cd <code>path/to/your/local-branch-working-copy</code><br>svn merge <code>http://yoursvnserver/basic/basic_your_rep/your_proj/trunk/master</code> .</p>
+</blockquote>
+<p><strong>日志：</strong></p>
+<blockquote>
+<p>— Merging differences between repository URLs into ‘.’:</p>
+</blockquote>
+<h3 id="branch2master（merge_to_reintegrate）">branch2master（merge to reintegrate）</h3><p>合并开发分支到主干（合流）：TortoiseSVN 基于 master working copy 右键 merge</p>
+<p>branch2master（基本步骤同master2branch）</p>
+<ul>
+<li>URL to merge from：填写分支 branch 的 svn url；</li>
+<li>Revision range to merge：选择 <strong><code>all revisions</code></strong>。</li>
+<li>Merge options 中勾选 “Do reintegrate instead of automatic merge（old style）”，相当于旧版本的 Merge type：”Reintegrate a branch”。</li>
+<li>Test merge 为 dry-run 可预览合并结果；Merge 执行合并操作。</li>
+<li>如果提示有冲突，本地手工解决。注意 <strong>revert</strong> 本地未做修改的 property only 的 change/modification。</li>
+<li>commit 提交本地主干 WC 的 rebase 合并结果。</li>
+</ul>
+<p><strong>合流结果：</strong></p>
+<blockquote>
+<p>Merging revisions of 1-HEAD of<br><code>http://yoursvnserver/basic/basic_your_rep/your_proj/branches/BusinessFlow/branch</code> into <code>path/to/your/local-master-working-copy</code><br>Merging <code>rX</code> through <code>rY</code></p>
+</blockquote>
+<p><strong>svn 命令行：</strong></p>
+<blockquote>
+<p>cd <code>path/to/your/local-master-working-copy</code><br>svn merge –reintegrate  <code>http://yoursvnserver/basic/basic_your_rep/your_proj/branches/BusinessFlow/branch</code> .</p>
+</blockquote>
+<p><strong>日志：</strong></p>
+<blockquote>
+<p>— Merging differences between repository URLs into ‘.’:</p>
+</blockquote>
+<h3 id="Merge_two_different_trees">Merge two different trees</h3><p>Tree merge</p>
+<ul>
+<li><p>From：（start URL and revision of the range to merge）</p>
+<p>  “起始URL和版本”一般情况下必须是开发分支创建的起始版本。<br>  主干的 URL、版本为 HEAD</p>
+</li>
+<li><p>To：（end URL and revision of the range to merge）</p>
+<p>  “结束的URL和版本”是此次操作的最终标准。<br>  分支的 URL、版本为 HEAD</p>
+</li>
+<li><p>Working Copy</p>
+<p>  From：（start URL and revision of the range to merge）</p>
+</li>
+</ul>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git-add/" rel="tag">#git-add</a>
+          
+            <a href="/tags/git-commit/" rel="tag">#git-commit</a>
+          
+            <a href="/tags/git-diff/" rel="tag">#git-diff</a>
+          
+            <a href="/tags/git-init/" rel="tag">#git-init</a>
+          
+            <a href="/tags/git-log/" rel="tag">#git-log</a>
+          
+            <a href="/tags/git-pull/" rel="tag">#git-pull</a>
+          
+            <a href="/tags/git-push/" rel="tag">#git-push</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/22/homebrew/" rel="next" title="Mac 下的软件安装 —— 从 pkg,dmg 到 brew,cask">
+                <i class="fa fa-chevron-left"></i> Mac 下的软件安装 —— 从 pkg,dmg 到 brew,cask
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/11/27/svn-version-control/"
+           data-title="svn 版本控制" data-url="http://col.dog/2015/11/27/svn-version-control/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="Thomas Fan" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Thomas Fan</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description"></p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fan2/" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:challenge4fun@qq.com" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> Email
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">友情链接</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/phunxm" target="_blank">myCSDN</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sadpast.com/" target="_blank">sadpast</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.cssforest.org/" target="_blank">ghostzhang</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://onevcat.com/" target="_blank">onevcat</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://objccn.io/" target="_blank">objccn</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://macshuo.com/" target="_blank">mactalk</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.devtang.com/" target="_blank">唐巧</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://beyondvincent.com/" target="_blank">周智勋</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.leichunfeng.com/" target="_blank">雷纯锋</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://justinyan.me/" target="_blank">枫影阁</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.vgod.tw/" target="_blank">張琮翔</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.sunnyxx.com/" target="_blank">sunnyxx</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#svn_auth-cache"><span class="nav-number">1.</span> <span class="nav-text">svn auth-cache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#svn_ignore"><span class="nav-number">2.</span> <span class="nav-text">svn ignore</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#svn_info"><span class="nav-number">3.</span> <span class="nav-text">svn info</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#svn_log"><span class="nav-number">4.</span> <span class="nav-text">svn log</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#svn_revert"><span class="nav-number">5.</span> <span class="nav-text">svn revert</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#svn_diff"><span class="nav-number">6.</span> <span class="nav-text">svn diff</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#svn_patch（打补丁）"><span class="nav-number">7.</span> <span class="nav-text">svn patch（打补丁）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TortoiseSVN（windows）"><span class="nav-number">7.1.</span> <span class="nav-text">TortoiseSVN（windows）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行（Mac_OS_X）"><span class="nav-number">7.2.</span> <span class="nav-text">命令行（Mac OS X）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#svn_merge（同步_&_合流）"><span class="nav-number">8.</span> <span class="nav-text">svn merge（同步 & 合流）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#master2branch（merge_to_sync/rebase）"><span class="nav-number">8.1.</span> <span class="nav-text">master2branch（merge to sync/rebase）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#branch2master（merge_to_reintegrate）"><span class="nav-number">8.2.</span> <span class="nav-text">branch2master（merge to reintegrate）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Merge_two_different_trees"><span class="nav-number">8.3.</span> <span class="nav-text">Merge two different trees</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Thomas Fan</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"coldog"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

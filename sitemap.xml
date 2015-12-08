@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://col.dog/2015/11/27/svn-version-control/</loc>
+    <lastmod>2015-12-08T14:35:03.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://col.dog/2015/11/22/homebrew/</loc>
     <lastmod>2015-12-08T11:29:02.000Z</lastmod>
   </url>
