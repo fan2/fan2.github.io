@@ -4,7 +4,7 @@
   <subtitle><![CDATA[just do IT]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://col.dog/"/>
-  <updated>2015-12-08T11:21:24.000Z</updated>
+  <updated>2015-12-08T11:29:02.000Z</updated>
   <id>http://col.dog/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://col.dog/2015/11/22/homebrew/"/>
     <id>http://col.dog/2015/11/22/homebrew/</id>
     <published>2015-11-22T07:05:00.000Z</published>
-    <updated>2015-12-08T11:21:24.000Z</updated>
+    <updated>2015-12-08T11:29:02.000Z</updated>
     <content type="html"><![CDATA[<p>本文前驱铺垫梳理了从 linux 源码安装软件到 DPKG/RPM 软件包管理机制，阐述了 *UNX 平台的软件安装包管理机制的演变和现代化。<br>后半部分介绍了 Mac 下的软件安装包格式 —— pkg &amp; dmg，以及软件包管理工具 —— brew 及 brew-cask，并梳理日常 Command Usage。</p>
 <a id="more"></a>
 <h2 id="linux_软件的安装与管理"><a href="http://blog.chinaunix.net/uid-509190-id-3056219.html" target="_blank" rel="external">linux 软件的安装与管理</a></h2><p><a href="https://github.com/torvalds/linux" target="_blank" rel="external">linux</a> 是一套免费使用和自由传播的基于 POSIX 和 UNIX 的多用户、多任务、支持多线程和多 CPU 的开源的类 Unix 操作系统。<br>由于 linux 操作系统开放源代码，因而在其上安装的大部分也都是开源软件。开源软件的开发者往往仅需在开源代码托管平台上发布一份源码包，用户即可自由下载源码包到本地，基于源码包编译安装软件。这倒是非常符合 C 语言的设计哲学：一次编写，到处编译。</p>
@@ -149,7 +149,7 @@
 <p>总体来说，Homebrew 使用简单，编译时间短，比较适合新手使用。MacPorts 编译时间长，命令还要带上 sudo，易用性上没有 Homebrew 好，但是比较干净，适合有洁癖的人使用。</p>
 <p>以上梳理了 Linux 和 Mac 下的包管理机制，下面重点介绍 Mac OS X 上的包管理 CLI 命令行工具 brew 及其增强工具 brew-cask。</p>
 <h2 id="brew_(homebrew)">brew (homebrew)</h2><p><strong>brew</strong> 是从软件包仓库下载源代码码到本地进行解压，进而执行 <code>./configure</code> &amp;&amp; <code>make install</code> ，将软件编译安装到单独的目录（<code>/usr/local/Cellar</code>）下，然后软链（symlink）到 <code>/usr/local</code> 目录下，同时会自动检测下载相关依赖库，并自动配置好各种环境变量。<br>这个对程序员来说简直是福音，使用简单的指令就能快速安装、升级和卸载本地的各种开发环境。</p>
-<h2 id="安装_brew">安装 brew</h2><p>brew 的安装很简单，使用一条 ruby 命令调用 curl 下载安装即可。</p>
+<h3 id="安装_brew">安装 brew</h3><p>brew 的安装很简单，使用一条 ruby 命令调用 curl 下载安装即可。</p>
 <p><strong>1.Mac OS X 上默认已安装 <a href="https://www.ruby-lang.org/" target="_blank" rel="external">ruby</a>：</strong></p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">faner@MBP-FAN:~|⇒  ruby -v</span><br><span class="line">ruby <span class="number">2.0</span><span class="number">.0</span>p645 (<span class="number">2015</span>-<span class="number">04</span>-<span class="number">13</span> revision <span class="number">50299</span>) [universal.x86_64-darwin15]</span><br></pre></td></tr></table></figure>
 <p><strong>2.Mac OS X 上默认已内置了 <a href="http://curl.haxx.se/" target="_blank" rel="external">curl</a>（Command Line URL Viewer）：</strong></p>
@@ -158,7 +158,7 @@
 <blockquote>
 <p><strong>curl</strong> 是基于跨平台网络协议库 <a href="http://blog.csdn.net/mac_cm/article/details/6670154" target="_blank" rel="external">libcurl</a> 的利用 URL 语法在命令行方式下工作的开源文件传输工具。<br><a href="http://www.cnblogs.com/gbyukg/p/3326825.html" target="_blank" rel="external">curl常用命令</a> 可参考  <a href="http://blog.csdn.net/fudesign2008/article/details/7608619" target="_blank" rel="external">curl 详解</a>、<a href="http://www.ruanyifeng.com/blog/2011/09/curl.html" target="_blank" rel="external">curl网站开发指南</a>。</p>
 </blockquote>
-<h3 id="旧的安装"><a href="http://blog.csdn.net/jiajiayouba/article/details/44261011" target="_blank" rel="external">旧的安装</a></h3><p>很早之前，homebrew 的安装 url 是 <code>https://raw.github.com/Homebrew/homebrew/go/install</code>：</p>
+<h4 id="旧的安装"><a href="http://blog.csdn.net/jiajiayouba/article/details/44261011" target="_blank" rel="external">旧的安装</a></h4><p>很早之前，homebrew 的安装 url 是 <code>https://raw.github.com/Homebrew/homebrew/go/install</code>：</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">ruby -e &#34;$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)&#34;</span><br></pre></td></tr></table></figure>
 <p>首次执行 <code>brew install</code> 安装软件时，将提示不能创建 <code>/usr/local/Cellar</code> 目录，原因是没有 <code>/usr/local</code> 的写权限。</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  brew install node&#10;Error: Could not create /usr/local/Cellar&#10;Check you have permission to write to /usr/local</span><br></pre></td></tr></table></figure>
@@ -167,13 +167,13 @@
 <p>执行 <code>chown</code> 命令改变 <code>/usr/local</code> 的所有者为 <code>whoami</code> ，<code>-R</code> 表示递归（Recursive）。</p>
 </blockquote>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  whoami&#10;faner&#10;&#10;&#10140;  ~  sudo chown -R faner /usr/local</span><br></pre></td></tr></table></figure>
-<h3 id="新的安装">新的安装</h3><p>可以在 <a href="http://brew.sh/index.html" target="_blank" rel="external">brew 的官网首页</a>的末尾看到最新的安装代码：</p>
+<h4 id="新的安装">新的安装</h4><p>可以在 <a href="http://brew.sh/index.html" target="_blank" rel="external">brew 的官网首页</a>的末尾看到最新的安装代码：</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">ruby -e &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&#34;</span><br></pre></td></tr></table></figure>
 <p>最新的安装过程中将会要求输入密码授权 <code>sudo chown ${whoami} /usr/local/*</code> ：</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">~ $ brew&#10;-bash: brew: command not found&#10;~ $ ruby -e &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&#34;&#10;==&#62; This script will install:&#10;/usr/local/bin/brew&#10;/usr/local/Library/...&#10;/usr/local/share/man/man1/brew.1&#10;==&#62; The following directories will be made group writable:&#10;/usr/local/.&#10;/usr/local/bin&#10;/usr/local/include&#10;/usr/local/lib&#10;/usr/local/lib/pkgconfig&#10;==&#62; The following directories will have their owner set to thomasfan:&#10;/usr/local/.&#10;/usr/local/bin&#10;/usr/local/include&#10;/usr/local/lib&#10;/usr/local/lib/pkgconfig&#10;==&#62; The following directories will have their group set to admin:&#10;/usr/local/.&#10;/usr/local/bin&#10;/usr/local/include&#10;/usr/local/lib&#10;/usr/local/lib/pkgconfig&#10;&#10;Press RETURN to continue or any other key to abort&#10;==&#62; /usr/bin/sudo /bin/chmod g+rwx /usr/local/. /usr/local/bin /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig&#10;Password:&#10;==&#62; /usr/bin/sudo /usr/sbin/chown thomasfan /usr/local/. /usr/local/bin /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig&#10;==&#62; /usr/bin/sudo /usr/bin/chgrp admin /usr/local/. /usr/local/bin /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig&#10;==&#62; /usr/bin/sudo /bin/mkdir /Library/Caches/Homebrew&#10;==&#62; /usr/bin/sudo /bin/chmod g+rwx /Library/Caches/Homebrew&#10;==&#62; /usr/bin/sudo /usr/sbin/chown thomasfan /Library/Caches/Homebrew&#10;==&#62; Downloading and installing Homebrew...&#10;remote: Counting objects: 3847, done.&#10;remote: Compressing objects: 100% (3691/3691), done.&#10;remote: Total 3847 (delta 40), reused 520 (delta 21), pack-reused 0&#10;Receiving objects: 100% (3847/3847), 3.31 MiB | 105.00 KiB/s, done.&#10;Resolving deltas: 100% (40/40), done.&#10;From https://github.com/Homebrew/homebrew&#10; * [new branch]      master     -&#62; origin/master&#10;HEAD is now at e191c00 jsonnet: update 0.8.5 bottle.&#10;==&#62; Installation successful!&#10;==&#62; Next steps&#10;Run `brew help` to get started&#10;~ $</span><br></pre></td></tr></table></figure>
-<h2 id="brew_-v_/_–version">brew -v / –version</h2><p>安装完 brew，执行 <code>brew -v</code> 命令可以查看安装的 brew 版本信息：</p>
+<h3 id="brew_help">brew help</h3><h4 id="brew_-v_/_–version">brew -v / –version</h4><p>安装完 brew，执行 <code>brew -v</code> 命令可以查看安装的 brew 版本信息：</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">faner@MBP-FAN:~|&#8658;  brew -v&#10;Homebrew 0.9.5 (git revision 1eec1; last commit 2015-11-21)&#10;faner@MBP-FAN:~|&#8658;  brew --version&#10;0.9.5 (git revision 1eec1; last commit 2015-11-21)</span><br></pre></td></tr></table></figure>
-<h2 id="brew_help">brew help</h2><p>执行 <code>brew</code> 查看帮助概要（Example usage、Troubleshooting、Brewing）：</p>
+<h4 id="brew_常用命令">brew 常用命令</h4><p>执行 <code>brew</code> 查看帮助概要（Example usage、Troubleshooting、Brewing）：</p>
 <blockquote>
 <p>-h / –h / –help / help</p>
 </blockquote>
@@ -182,7 +182,7 @@
 <li>执行 <code>man brew</code> 可查看详细的 brew 帮助文档。</li>
 <li>执行 <code>man home</code> 可调用浏览器打开 brew 官方网站。</li>
 </ol>
-<h3 id="brew_常用命令">brew 常用命令</h3><table>
+<table>
 <thead>
 <tr>
 <th>命令</th>
@@ -236,7 +236,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="brew_info">brew info</h3><p><strong><code>brew info</code></strong> 显示软件包信息，一般包括：</p>
+<h4 id="brew_info">brew info</h4><p><strong><code>brew info</code></strong> 显示软件包信息，一般包括：</p>
 <ul>
 <li>软件概要信息</li>
 <li>本地是否已安装：Not installed / Poured from bottle</li>
