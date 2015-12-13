@@ -4,7 +4,7 @@
   <subtitle><![CDATA[just do IT]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://col.dog/"/>
-  <updated>2015-12-13T06:21:46.000Z</updated>
+  <updated>2015-12-13T06:27:56.000Z</updated>
   <id>http://col.dog/</id>
   
   <author>
@@ -13,6 +13,541 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[vim 学习 007 - vim 编辑]]></title>
+    <link href="http://col.dog/2015/12/13/vim-tutorials-007-edit/"/>
+    <id>http://col.dog/2015/12/13/vim-tutorials-007-edit/</id>
+    <published>2015-12-13T06:26:40.000Z</published>
+    <updated>2015-12-13T06:27:56.000Z</updated>
+    <content type="html"><![CDATA[<p>本文梳理了 vim 的基本编辑操作。</p>
+<a id="more"></a>
+<h2 id="撤销、重做">撤销、重做</h2><h3 id="撤销（undo_previous_actions）">撤销（undo previous actions）</h3><p>参考：<code>/usr/share/vim/vim73/doc/undo.txt</code></p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>u</code></td>
+<td>撤销（undo）</td>
+<td>直到<code>Already at oldest change</code></td>
+</tr>
+<tr>
+<td><code>U</code></td>
+<td>撤销（undo）</td>
+<td>撤销针对光标所在行的操作：<br>undo all the changes on a line</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Undo branches</strong>：                                <em>undo-branches</em> <em>undo-tree</em></p>
+<p>Above we only discussed <strong>one line</strong> of undo/redo.  But it is also possible to <strong>branch off</strong>.<br>This happens when you undo a few changes and then make a new change.  The undone changes become a branch.<br>You can go to that branch with the following commands.</p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:undol[ist]</code></td>
+<td>List the leafs in the tree of changes.</td>
+</tr>
+<tr>
+<td><code>g-</code> / <code>:ea</code>/<code>:earlier</code></td>
+<td>Go to older text state.</td>
+</tr>
+<tr>
+<td><code>g+</code> / <code>:lat</code>/<code>:later</code></td>
+<td>Go to newer text state.</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>:undol[ist]</code> Example</strong>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">number</th>
+<th style="text-align:right">changes</th>
+<th style="text-align:right">time</th>
+<th>saved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right"> 8</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">06:30:15</td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td style="text-align:right">9</td>
+<td style="text-align:right">06:30:30</td>
+</tr>
+<tr>
+<td style="text-align:right">11</td>
+<td style="text-align:right">9</td>
+<td style="text-align:right">06:30:34</td>
+</tr>
+<tr>
+<td style="text-align:right">12</td>
+<td style="text-align:right">9</td>
+<td style="text-align:right">06:30:37</td>
+</tr>
+</tbody>
+</table>
+<p>The “number” column is the change number.<br>This number continuously increases and can be used to identify a specific <strong><em>undo-able</em></strong> change</p>
+<h3 id="重做（redo_=_undo_the_undo’s）">重做（redo = undo the undo’s）</h3><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;C-r&gt;</code></td>
+<td>重做（redo）</td>
+<td>直到 <code>Already at newest change</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="重复（repeat_last_change/cmd）">重复（repeat last change/cmd）</h2><p>参考：<code>/usr/share/vim/vim73/doc/repeat.txt</code></p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.</code></td>
+<td>重复执行刚才的命令</td>
+<td>不包括<code>undo</code>和<code>redo</code>命令</td>
+</tr>
+</tbody>
+</table>
+<p><strong>说明：</strong><br>若先按下数字（1~9），再按下<code>.</code>，可重复执行指定次数。</p>
+<h2 id="修改（change）">修改（change）</h2><p>参考：<code>/usr/share/vim/vim73/doc/change.txt</code></p>
+<h3 id="替换字符（replace_char）">替换字符（replace char）</h3><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>r</code></td>
+<td>替换光标所在的字符</td>
+<td>replace char，只替换一次<br>替换后恢复指令模式</td>
+</tr>
+<tr>
+<td><code>R</code></td>
+<td>进入REPLACE MODE</td>
+<td>连续修改替换，<code>&lt;Esc&gt;</code> 退出。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="复制（copy）">复制（copy）</h3><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>y</code></td>
+<td>按下<code>→</code>，向右复制一个字符</td>
+<td>copy char forward</td>
+</tr>
+<tr>
+<td></td>
+<td>按下<code>←</code>，向左复制一个字符</td>
+<td>copy char backward              </td>
+</tr>
+<tr>
+<td></td>
+<td>按下<code>w</code>，向右复制一个单词</td>
+<td>copy word forward，包括空格</td>
+</tr>
+<tr>
+<td></td>
+<td>按下<code>e</code>，向右复制一个单词</td>
+<td>copy word forward，不包括空格</td>
+</tr>
+<tr>
+<td></td>
+<td>按下<code>b</code>，向左复制一个单词</td>
+<td>copy word backward</td>
+</tr>
+<tr>
+<td><code>y0</code></td>
+<td>复制到行首</td>
+<td>copy to BOL</td>
+</tr>
+<tr>
+<td><code>y$</code></td>
+<td>复制到行末</td>
+<td>copy to EOL</td>
+</tr>
+<tr>
+<td><code>Y</code>/<code>yy</code></td>
+<td><strong>复制本行</strong></td>
+<td>copy/Yank line<br>按<code>p</code>会插入粘贴到新起下一行</td>
+</tr>
+<tr>
+<td><code>y1G</code></td>
+<td>复制本行到首行</td>
+<td>copy to BOF</td>
+</tr>
+<tr>
+<td><code>yG</code></td>
+<td>复制本行到末行</td>
+<td>copy to EOF</td>
+</tr>
+</tbody>
+</table>
+<p><strong>说明：</strong><br>若先按下数字（1~9），再按下 <code>y</code>、<code>Y</code> 或 <code>yy</code>，则表示复制指定数量的字符、单词或行。</p>
+<h3 id="粘贴（paste/put_back）">粘贴（paste/put back）</h3><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>p</code></td>
+<td>向<strong>后</strong>粘贴</td>
+<td>paste forward<br>在当前光标所在字符的后面粘贴</td>
+</tr>
+<tr>
+<td><code>P</code>（<code>&lt;S-p&gt;</code>）</td>
+<td>向<strong>前</strong>粘贴</td>
+<td>paste backward<br>在当前光标所在字符的前面粘贴</td>
+</tr>
+<tr>
+<td><code>:r [filename]</code></td>
+<td>在当前光标所在行的下面读入filename文档的内容</td>
+</tr>
+<tr>
+<td><code>:r !date</code></td>
+<td>将<code>date</code>命令执行结果（当前日期）写入当前vim光标处</td>
+<td>reads the output of the <code>date</code> command and puts it below the cursor</td>
+</tr>
+</tbody>
+</table>
+<p><strong>说明：</strong>  </p>
+<ol>
+<li><code>P</code>和<code>p</code>的区别，相当于<code>i</code>和<code>a</code>。</li>
+<li><code>y</code>和<code>p</code>的复制粘贴只针对vim编辑器有效，<code>y</code>（包括下文中的<code>d</code>剪切操作）复制的内容不在系统剪切板中，在vim外无法使用<code>&lt;C-v&gt;</code>进行粘贴。</li>
+<li>若先按下数字（1~9），再按下<code>p</code>或<code>P</code>，则表示重复粘贴指定次数。</li>
+</ol>
+<blockquote>
+<p><code>2yy</code>：复制两行。</p>
+</blockquote>
+<h3 id="删除（delete）">删除（delete）</h3><h4 id="d/c（delete_motion/object）">d/c（delete motion/object）</h4><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>d</code></td>
+<td>按下<code>l</code>，相当于<code>x</code></td>
+<td>delete char forward</td>
+</tr>
+<tr>
+<td></td>
+<td>按下<code>h</code>，相当于<code>X</code></td>
+<td>delete char backward/backspace</td>
+</tr>
+<tr>
+<td></td>
+<td>按下<code>w</code>，<br>向右删除一个单词</td>
+<td>delete word forward，<br>不包括下一个单词首字，删除空格</td>
+</tr>
+<tr>
+<td></td>
+<td>按下<code>e</code>，<br>向右删除一个单词</td>
+<td>delete to the end of the word，<br>包括下一个单词首字，保留词间空格</td>
+</tr>
+<tr>
+<td></td>
+<td>按下<code>b</code>，<br>向左删除一个单词</td>
+<td>delete word backward</td>
+</tr>
+<tr>
+<td></td>
+<td>按下<code>j</code>，<br>删除本行及下一行</td>
+<td>delete current line and below</td>
+</tr>
+<tr>
+<td></td>
+<td>按下<code>k</code>，<br>删除本行及上一行</td>
+<td>delete current line and above</td>
+</tr>
+<tr>
+<td><code>d0</code></td>
+<td>删除至行首</td>
+<td>delete to BOL</td>
+</tr>
+<tr>
+<td><code>D</code>/<code>d$</code></td>
+<td>删除至行末</td>
+<td>delete to EOL</td>
+</tr>
+<tr>
+<td><code>dd</code></td>
+<td><strong>删除本行</strong></td>
+<td>delete line，下行上移</td>
+</tr>
+<tr>
+<td><code>dgg</code> / <code>d1G</code></td>
+<td>删除本行到首行</td>
+<td>delete current line to first line</td>
+</tr>
+<tr>
+<td><code>dG</code></td>
+<td>删除本行到末行</td>
+<td>delete current line to last line</td>
+</tr>
+</tbody>
+</table>
+<p><code>d*</code> 这种语法格式称为：<code>operator + motion</code> / <code>operator + object</code>。</p>
+<p><strong>删除后编辑：</strong></p>
+<blockquote>
+<p>与<code>d</code>、<code>D</code>/<code>d$</code>、<code>dd</code>、<code>dG</code>对应的有<code>c</code>、<code>C</code>/<code>c$</code>、<code>cc</code>/<strong><code>S</code></strong>、<code>cG</code>。<br><code>c</code>命令相对<code>d</code>命令不同的是<strong>删除后进入insert模式</strong>，相当于<strong>修改</strong>（ <code>c</code> 意即 <strong><em>change</em></strong> ）。</p>
+</blockquote>
+<p><strong>说明：</strong></p>
+<ul>
+<li>实际上这里的删除都是 <code>delete [into register x]</code>，等效于粘贴，可使用 <code>p</code>/<code>P</code> 粘贴回来。</li>
+<li><p>在<strong>operator</strong>和<strong>motion</strong>之间或之前增加数字（prepend motion with a number:）：<br>  <code>d [number] motion</code>或<code>[number] d motion</code></p>
+<blockquote>
+<p><code>d2w</code>或<code>2dw</code>：删除光标所在（之后）的两个单词（word）。<br><code>d2d</code>或<code>2dd</code>：删除两行。</p>
+</blockquote>
+</li>
+<li><p>组合命令效果：</p>
+<blockquote>
+<p><code>ddp</code> 相当于交换两行的位置。<br><code>dt.</code> 表示删除当前位置到下一个句号之间的内容。</p>
+</blockquote>
+</li>
+<li><p>可按键 <code>v</code> 进入可视模式（Visual Mode），针对选定内容作复制、删除操作。</p>
+</li>
+</ul>
+<h4 id="x/s（delete_char）">x/s（delete char）</h4><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x</code></td>
+<td>向右删除一个字符(<code>dl</code>)</td>
+<td>delete char forward</td>
+</tr>
+<tr>
+<td><code>X</code>（<code>&lt;S-x&gt;</code>）</td>
+<td>退格删除一个字符(<code>dh</code>)</td>
+<td>delete char backward/backspace</td>
+</tr>
+<tr>
+<td><code>s</code></td>
+<td>向右删除一个字符(<code>cl</code>)，<br>并进入编辑模式</td>
+<td>delete char forward and enter inset mode</td>
+</tr>
+<tr>
+<td><code>S</code></td>
+<td>删除本行(<code>cc</code>)，并进入编辑模式</td>
+<td>Delete [count] lines and start insert.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>说明：</strong></p>
+<ul>
+<li>实际上这里的删除都是 <code>delete [into register x]</code>，等效于粘贴，可使用 <code>p</code>/<code>P</code> 粘贴回来。</li>
+<li>若先按下数字（1~9），再按下 <code>x</code>/<code>X</code> 或 <code>d</code>/<code>dd</code>，则表示删除指定数量的字符、单词或行。</li>
+<li>组合命令效果：<code>xp</code> 相当于交换两个字符的位置。</li>
+<li>可按键 <code>v</code> 进入可视模式（Visual Mode），针对选定内容作复制、删除操作。</li>
+</ul>
+<h2 id="行缩进">行缩进</h2><p>The “&gt;” and “&lt;” commands are handy for changing the indentation within<br>programs.<br>Use the ‘<strong>shiftwidth</strong>‘ option to set the size of the white space which these commands insert or delete.  Normally the ‘shiftwidth’ option is 8.</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;</code>{motion}</td>
+<td>Shift {motion} lines one ‘shiftwidth’ leftwards.</td>
+</tr>
+<tr>
+<td><code>&lt;&lt;</code></td>
+<td>Shift [count] lines one ‘shiftwidth’ leftwards.</td>
+</tr>
+<tr>
+<td>{Visual}[count]<code>&lt;</code></td>
+<td>Shift the highlighted lines [count] ‘shiftwidth’ leftwards.</td>
+</tr>
+<tr>
+<td><code>&gt;</code>{motion}</td>
+<td>Shift {motion} lines one ‘shiftwidth’ rightwards.</td>
+</tr>
+<tr>
+<td><code>&gt;&gt;</code></td>
+<td>Shift [count] lines one ‘shiftwidth’ rightwards.</td>
+</tr>
+<tr>
+<td>{Visual}[count]<code>&gt;</code></td>
+<td>Shift the highlighted lines [count] ‘shiftwidth’ rightwards.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:[range]&lt;</code></td>
+<td>Shift [range] lines one \’shiftwidth\’ left. <br>Repeat <code>&lt;</code> for shifting multiple \’shiftwidth\’s.</td>
+</tr>
+<tr>
+<td><code>:[range]&lt; {count}</code></td>
+<td>Shift {count} lines one \’shiftwidth\’ left, starting with [range].<br>Repeat <code>&lt;</code> for shifting multiple ‘shiftwidth’s.</td>
+</tr>
+<tr>
+<td><code>:[range]le[ft] [indent]</code></td>
+<td>left align lines in [range].  Sets the indent in the lines to [indent] (default 0).</td>
+</tr>
+<tr>
+<td><code>:[range]&gt; [flags]</code></td>
+<td>Shift {count} [range] lines one ‘shiftwidth’ right.<br>Repeat <code>&gt;</code> for shifting multiple ‘shiftwidth’s.</td>
+</tr>
+<tr>
+<td><code>:[range]&gt; {count} [flags]</code></td>
+<td>Shift {count} lines one ‘shiftwidth’ right, starting with [range].<br>Repeat <code>&gt;</code> for shifting multiple ‘shiftwidth’s.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>说明：</strong></p>
+<blockquote>
+<p>See |ex-flags| for [flags].</p>
+</blockquote>
+<h2 id="行合并">行合并</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>J</code></td>
+<td>合并两行（Join Lines）</td>
+<td>将下一行合并到当前行。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="保存退出（save_&amp;_exit）">保存退出（save &amp; exit）</h2><p>Last Line Mode：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:q</code></td>
+<td>退出（quit）</td>
+<td>如果无修改直接退出；<br>否则提示<code>No write since last change (add ! to override)</code></td>
+</tr>
+<tr>
+<td><code>:q!</code> / <code>ZQ</code></td>
+<td>强制退出</td>
+<td>放弃修改</td>
+</tr>
+<tr>
+<td><code>:w</code>/<code>:write</code> / <code>:up</code>/<code>:update</code></td>
+<td>写入（write）保存</td>
+<td>从swap buffer写入文件；<br>若以只读方式打开，则提示’readonly’ option is set (add ! to override)；<br>也可另存为：<code>:w [filename]</code></td>
+</tr>
+<tr>
+<td><code>:w!</code></td>
+<td>若文本属性为只读时，强制保存</td>
+</tr>
+<tr>
+<td><code>:wq</code> / <code>ZZ</code> / <code>:x</code>/<code>:exit</code></td>
+<td>保存并退出</td>
+</tr>
+<tr>
+<td><code>:wq!</code></td>
+<td>强制保存并退出</td>
+</tr>
+</tbody>
+</table>
+<h2 id="其他">其他</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:n1,n2 w [filename]</code></td>
+<td>将n1到n2的行内容另存为文档</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>本文梳理了 vim 的基本编辑操作。</p>]]>
+    
+    </summary>
+    
+      <category term="vim-change" scheme="http://col.dog/tags/vim-change/"/>
+    
+      <category term="vim-copy" scheme="http://col.dog/tags/vim-copy/"/>
+    
+      <category term="vim-delete" scheme="http://col.dog/tags/vim-delete/"/>
+    
+      <category term="vim-redo" scheme="http://col.dog/tags/vim-redo/"/>
+    
+      <category term="vim-repeat" scheme="http://col.dog/tags/vim-repeat/"/>
+    
+      <category term="vim-undo" scheme="http://col.dog/tags/vim-undo/"/>
+    
+      <category term="vim" scheme="http://col.dog/categories/vim/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[vim 学习 006 - vim 文本对象（Text Object）]]></title>
