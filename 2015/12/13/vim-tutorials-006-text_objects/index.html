@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="vim,vim-IDE,vim-主题,vim-乱码," />
+  <meta name="keywords" content="vim-text-objects," />
 
 
 
@@ -55,16 +55,16 @@
 
 
 
-<meta name="description" content="本文梳理列举了一些 vim 学习参考链接。">
+<meta name="description" content="本文介绍了 vim 的文本对象及基于文本对象的块操作。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vim 学习 001 - vim 参考">
-<meta property="og:url" content="http://col.dog/2015/12/13/vim-tutorials-001-references/index.html">
+<meta property="og:title" content="vim 学习 006 - vim 文本对象（Text Object）">
+<meta property="og:url" content="http://col.dog/2015/12/13/vim-tutorials-006-text_objects/index.html">
 <meta property="og:site_name" content="Elsewhere">
-<meta property="og:description" content="本文梳理列举了一些 vim 学习参考链接。">
-<meta property="og:updated_time" content="2015-12-13T05:41:49.000Z">
+<meta property="og:description" content="本文介绍了 vim 的文本对象及基于文本对象的块操作。">
+<meta property="og:updated_time" content="2015-12-13T06:21:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vim 学习 001 - vim 参考">
-<meta name="twitter:description" content="本文梳理列举了一些 vim 学习参考链接。">
+<meta name="twitter:title" content="vim 学习 006 - vim 文本对象（Text Object）">
+<meta name="twitter:description" content="本文介绍了 vim 的文本对象及基于文本对象的块操作。">
 
 
 
@@ -76,7 +76,7 @@
   };
 </script>
 
-  <title> vim 学习 001 - vim 参考 | Elsewhere </title>
+  <title> vim 学习 006 - vim 文本对象（Text Object） | Elsewhere </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -227,7 +227,7 @@
             
             
               
-                vim 学习 001 - vim 参考
+                vim 学习 006 - vim 文本对象（Text Object）
               
             
           </h1>
@@ -236,7 +236,7 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-13T13:39:40+08:00" content="2015-12-13">
+            <time itemprop="dateCreated" datetime="2015-12-13T14:21:40+08:00" content="2015-12-13">
               2015-12-13
             </time>
           </span>
@@ -262,8 +262,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/13/vim-tutorials-001-references/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/13/vim-tutorials-001-references/" itemprop="commentsCount"></span>
+                <a href="/2015/12/13/vim-tutorials-006-text_objects/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/13/vim-tutorials-006-text_objects/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -282,24 +282,125 @@
       
 
       
-        <span itemprop="articleBody"><p>本文梳理列举了一些 vim 学习参考链接。</p>
+        <span itemprop="articleBody"><p>本文介绍了 vim 的文本对象及基于文本对象的块操作。</p>
 <a id="more"></a>
-<h3 id="Mac_OS_X下推荐原生vim"><a href="https://ruby-china.org/topics/4905" target="_blank" rel="external">Mac OS X下推荐原生vim</a></h3><p>Mac OS X 自带的<strong>Terminal</strong> + Mac自带的<strong><a href="http://www.kinnetica.com/2011/05/29/using-screen-on-mac-os-x/" target="_blank" rel="external">screen</a></strong> + 系统内置的<strong>vim</strong>。<br>Terminal是代替 iTerm2，screen是代替 tmux ，vim是代替 MacVim。</p>
-<p>至于shell用的是默认的bash(代替zsh,或者fishshell)，screen的配置也是默认的配置, vim配置也是默认的。</p>
-<p>关于vim的插件管理，用的是 Vundle.vim。</p>
-<h3 id="vi中文乱码问题">vi中文乱码问题</h3><p><a href="http://hi-rain.com/2015/04/02/Vim%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/" target="_blank" rel="external">Vi/Vim中文乱码问题</a><br><a href="http://www.vimer.cn/2009/10/vim%E7%BB%88%E7%AB%AF%E4%B8%8B%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98.html" target="_blank" rel="external">vim终端下中文乱码问题</a><br><a href="http://blog.csdn.net/fuxuejun/article/details/6234512" target="_blank" rel="external">vi 中文显示乱码-问题解决</a><br><a href="http://blog.163.com/little_320/blog/static/38789520091116103325859/" target="_blank" rel="external">linux中vi显示中文乱码的问题</a><br><a href="http://blog.csdn.net/johnnycode/article/details/18298705" target="_blank" rel="external">Vim 中文乱码处理过程</a><br><a href="http://www.diguage.com/archives/26.html" target="_blank" rel="external">彻底解决Git中文乱码问题</a></p>
-<h3 id="工具比较">工具比较</h3><p><a href="http://www.vim.org/git.php" target="_blank" rel="external">The Vim repository at GitHub</a><br><a href="https://ruby-china.org/topics/3822?page=1" target="_blank" rel="external">Sublime Text 2和对Vim的研究</a><br><a href="http://my.oschina.net/alphajay/blog/30419" target="_blank" rel="external">Windows下vim方式操作软件+Gvim使用</a><br><a href="http://www.viemu.com/" target="_blank" rel="external">ViEmu - Vi/vim emulation for Visual Studio, Xcode, Word, Outlook &amp; SQL Server</a>  </p>
-<h3 id="MacVim">MacVim</h3><p><a href="http://www.jeffzhang.cn/mac-sys-reinstall/" target="_blank" rel="external">MBP系统重装记录</a><br><a href="http://zhouyichu.com/vim/Vim-in-Mac.html" target="_blank" rel="external">Mac中安装Vim7.4</a><br><a href="http://blog.csdn.net/u011542994/article/details/39058779" target="_blank" rel="external">编译升级Mac上的vim到7.4 huge版</a>  </p>
-<h3 id="vim-instant-markdown">vim-instant-markdown</h3><p><a href="http://www.cnblogs.com/fsjohnhuang/p/3911541.html" target="_blank" rel="external">Vim杂记：markdown插件</a><br><a href="http://www.codeceo.com/article/vim-markdown-plugins.html" target="_blank" rel="external">Vim 环境下 Markdown 插件推荐</a><br><a href="https://scturtle.me/2012/8/15/vim-instant-markdown-py/" target="_blank" rel="external">vim-instant-markdown</a><br><a href="http://www.opstool.com/article/280" target="_blank" rel="external">使用vim编写markdown文档</a><br><a href="http://blog.chinaunix.net/uid-28769209-id-4148562.html" target="_blank" rel="external">在vim中配置markdown语法高亮</a><br><a href="http://www.vim.org/scripts/script.php?script_id=1334" target="_blank" rel="external">VST : Vim reStructured Text</a>  </p>
-<h3 id="配色主题">配色主题</h3><p><a href="http://www.oschina.net/news/32306/10-vim-color-schemes-you-need-to-own?from=20120902" target="_blank" rel="external">10 个你值得拥有的 Vim 配色方案</a><br><a href="http://vim.spf13.com/" target="_blank" rel="external">The Ultimate Vim Distribution</a><br><a href="https://github.com/vgod/vimrc" target="_blank" rel="external">vgod/vimrc</a><br><a href="https://github.com/kaochenlong/eddie-vim" target="_blank" rel="external">kaochenlong/eddie-vim</a>  </p>
-<h3 id="vim教程">vim教程</h3><p><a href="http://www.live-in.org/archives/774.html" target="_blank" rel="external">Linux中vi/vim操作</a><br><a href="http://blog.sina.com.cn/s/blog_46dac66f010005kw.html" target="_blank" rel="external">普通人的编辑利器——Vim</a>  </p>
-<p><a href="http://blog.jobbole.com/86132/" target="_blank" rel="external">Vim入门教程</a><br><a href="http://blog.csdn.net/shiwei408/article/details/7296462" target="_blank" rel="external">vim 的使用方法</a>  </p>
-<p><a href="https://swaroop.wordpress.com/notes/vim_zh-cn-%E6%89%93%E5%AD%97%E6%8A%80%E5%B7%A7/" target="_blank" rel="external">Vim zh-cn:打字技巧</a>  </p>
-<p><a href="http://www.cnblogs.com/ovliverlin/articles/1162430.html" target="_blank" rel="external">vi命令详解</a><br><a href="http://linux.chinaunix.net/techdoc/desktop/2009/07/06/1122020.shtml" target="_blank" rel="external">vim使用技巧</a><br><a href="http://www.2maomao.com/blog/wp-content/uploads/vim_tips.txt" target="_blank" rel="external">最佳vim技巧</a><br><a href="https://linuxtoy.org/archives/efficient-editing-with-vim.html" target="_blank" rel="external">高效率地使用VIM</a>  </p>
-<h3 id="vim专题">vim专题</h3><p><a href="http://www.vimer.cn/category/vim" target="_blank" rel="external">Vimer的程序世界</a><br><a href="http://blog.csdn.net/shuangde800/article/category/1598575" target="_blank" rel="external">vim高级编辑</a><br><a href="http://dailyvim.tumblr.com/" target="_blank" rel="external">Daily Vim Devotional</a><br><a href="http://liuzhijun.iteye.com/category/270228" target="_blank" rel="external">每日一Vim</a><br><a href="http://easwy.com/blog/archives/advanced-vim-skills-catalog/" target="_blank" rel="external">vi/vim使用进阶</a>  </p>
-<h3 id="vim配置IDE">vim配置IDE</h3><p><a href="https://github.com/yangyangwithgnu/use_vim_as_ide" target="_blank" rel="external">像 IDE 一样使用 vim</a><br>谁说Vim不是IDE？<a href="http://www.cnblogs.com/chijianqiang/archive/2012/10/30/vim-1.html" target="_blank" rel="external">（一）</a><a href="http://www.cnblogs.com/chijianqiang/archive/2012/10/31/vim-2.html" target="_blank" rel="external">（二）</a><a href="http://www.cnblogs.com/chijianqiang/archive/2012/11/06/vim-3.html" target="_blank" rel="external">（三）</a><br>配置vim让编程更随意：<a href="http://www.cnblogs.com/ma6174/archive/2011/12/10/2283393.html" target="_blank" rel="external">1</a>  <a href="http://blog.csdn.net/chary8088/article/details/7715383/" target="_blank" rel="external">2</a><br><a href="http://blog.csdn.net/yangyang_gnu/article/details/6642271" target="_blank" rel="external">vim之IDE进化实录</a><br><a href="http://blog.csdn.net/wooin/article/details/1858917" target="_blank" rel="external">手把手教你把Vim改装成一个IDE编程环境(图文)</a>  </p>
-<p><a href="http://www.vimer.cn/2009/10/%E6%8A%8Avim%E6%89%93%E9%80%A0%E6%88%90%E4%B8%80%E4%B8%AA%E7%9C%9F%E6%AD%A3%E7%9A%84ide1.html" target="_blank" rel="external">把VIM打造成一个真正的IDE(1)</a><br><a href="http://www.vimer.cn/2009/10/%E6%8A%8Avim%E6%89%93%E9%80%A0%E6%88%90%E4%B8%80%E4%B8%AA%E7%9C%9F%E6%AD%A3%E7%9A%84ide2.html" target="_blank" rel="external">把VIM打造成一个真正的IDE(2)</a><br><a href="http://www.vimer.cn/2009/10/%E6%8A%8Avim%E6%89%93%E9%80%A0%E6%88%90%E4%B8%80%E4%B8%AA%E7%9C%9F%E6%AD%A3%E7%9A%84ide3.html" target="_blank" rel="external">把VIM打造成一个真正的IDE(3)</a>  </p>
-<h3 id="vim参考书籍"><a href="http://iccf-holland.org/click5.html" target="_blank" rel="external">vim参考书籍</a></h3><p>A Byte of Vim：《<a href="http://a-byte-of-vim-chinese.readthedocs.org/en/latest/getting-started.html" target="_blank" rel="external">品味Vim</a>》《<a href="http://download.csdn.net/detail/zaiyang2007/3782667" target="_blank" rel="external">简明Vim教程</a>》<br>Practical Vim：《<a href="http://book.douban.com/subject/25869486/" target="_blank" rel="external">Vim实用技巧</a>》《<a href="http://download.csdn.net/download/yahooding/8376925" target="_blank" rel="external">Vim实用技巧</a>》<br>鳥哥的 Linux 私房菜：<a href="http://linux.vbird.org/linux_basic/0310vi.php" target="_blank" rel="external">第九章、vim 程式編輯器</a>  </p>
+<p>参考：<code>/usr/share/vim/vim73/doc/motion.txt</code></p>
+<p><strong>文本对象</strong>的存在使得你可以<strong>选择</strong>或<strong>操作</strong>更加复杂的对象。比起选中某个单词并删除、跳转到句首并删除句子等简单操作来说，不管你在何种文本对象的区域内，你都可以对它们执行这些操作。</p>
+<blockquote>
+<p>This is a series of commands that can only be used while in <strong>Visual mode</strong> or after an <strong>operator</strong>.<br>The commands that start with “a” select <strong>“a”n</strong> object <strong>including</strong> white space, the commands starting with “i” select an <strong>“inner”</strong> object <strong>without</strong> white space, or just the white space.<br>Thus the “inner” commands always select less text than the “a” commands.<br>These commands are not available when the |+<strong><em>textobjects</em></strong>| feature has been disabled at compile time.</p>
+</blockquote>
+<p><strong><code>a</code>和<code>i</code>的区别</strong>：</p>
+<p>==a==n object：包含尾部间隔空格<br>==i==nner object：只是内容本身，不包含尾部单词间隔空格</p>
+<h2 id="word_/_sentence_/_paragraph">word / sentence / paragraph</h2><table>
+<thead>
+<tr>
+<th>textobject</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>w</code></td>
+<td><strong>w</strong>ord</td>
+</tr>
+<tr>
+<td><code>s</code></td>
+<td><strong>s</strong>entence</td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td><strong>p</strong>aragraph</td>
+</tr>
+</tbody>
+</table>
+<h2 id="block_/_Block">block / Block</h2><table>
+<thead>
+<tr>
+<th>textobject</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>]</code>/<code>[</code></td>
+<td>[] block</td>
+</tr>
+<tr>
+<td><code>)</code>/<code>(</code>、<code>b</code></td>
+<td>block</td>
+</tr>
+<tr>
+<td><code>&gt;</code>/<code>&lt;</code>、<code>&gt;</code>/<code>&lt;</code></td>
+<td>&lt;&gt; block</td>
+</tr>
+<tr>
+<td><code>}</code>/<code>{</code>、<code>B</code></td>
+<td>Block</td>
+</tr>
+<tr>
+<td><code>t</code></td>
+<td>tag block：&lt;&gt; &lt;/&gt;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="quoted_string">quoted string</h2><table>
+<thead>
+<tr>
+<th>textobject</th>
+<th>说明          </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&quot;</code> / <code>&#39;</code> / <code>` </code></td>
+<td>quoted string</td>
+</tr>
+</tbody>
+</table>
+<h2 id="visual_mode">visual mode</h2><p>在可视选择模式下，可以以 <code>v</code> 做前缀，<code>a</code> 或 <code>i</code> 限定边界，后续指定操作对象，来实现针对文本对象的选择： </p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>viw</code></td>
+<td>选中单词</td>
+</tr>
+<tr>
+<td><code>vis</code></td>
+<td>选中句子</td>
+</tr>
+<tr>
+<td><code>vip</code></td>
+<td>选中段落</td>
+</tr>
+<tr>
+<td><code>vi(</code></td>
+<td>选中圆括号中的内容</td>
+</tr>
+<tr>
+<td><code>vi[</code></td>
+<td>选中中括号之间的内容</td>
+</tr>
+<tr>
+<td><code>v2i{</code></td>
+<td>选中两层大括号之间的所有内容<br>数字限定选择的嵌套层数</td>
+</tr>
+<tr>
+<td><code>v3aw</code></td>
+<td>选择三个单词（包含中间的2个间隔空格）</td>
+</tr>
+<tr>
+<td><code>v3iw</code></td>
+<td>选择三个单词（2个单词+间隔空格）</td>
+</tr>
+</tbody>
+</table>
+<p>另外，可将 <code>v</code> 选择操作指令替换为 <code>x</code>、<code>d</code>、<code>y</code> 等操作符(operator)，来针对文本对象操作。</p>
 </span>
       
     </div>
@@ -308,13 +409,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/vim/" rel="tag">#vim</a>
-          
-            <a href="/tags/vim-IDE/" rel="tag">#vim-IDE</a>
-          
-            <a href="/tags/vim-主题/" rel="tag">#vim-主题</a>
-          
-            <a href="/tags/vim-乱码/" rel="tag">#vim-乱码</a>
+            <a href="/tags/vim-text-objects/" rel="tag">#vim-text-objects</a>
           
         </div>
       
@@ -323,17 +418,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/27/svn-version-control/" rel="next" title="svn 版本控制">
-                <i class="fa fa-chevron-left"></i> svn 版本控制
+              <a href="/2015/12/13/vim-tutorials-005-caret&position/" rel="next" title="vim 学习 005 - vim 光标">
+                <i class="fa fa-chevron-left"></i> vim 学习 005 - vim 光标
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/13/vim-tutorials-002-keyboard/" rel="prev" title="vim 学习 002 - vim 键位">
-                vim 学习 002 - vim 键位 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -360,8 +451,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/13/vim-tutorials-001-references/"
-           data-title="vim 学习 001 - vim 参考" data-url="http://col.dog/2015/12/13/vim-tutorials-001-references/">
+      <div class="ds-thread" data-thread-key="2015/12/13/vim-tutorials-006-text_objects/"
+           data-title="vim 学习 006 - vim 文本对象（Text Object）" data-url="http://col.dog/2015/12/13/vim-tutorials-006-text_objects/">
       </div>
     
   </div>
@@ -527,7 +618,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac_OS_X下推荐原生vim"><span class="nav-number">1.</span> <span class="nav-text">Mac OS X下推荐原生vim</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vi中文乱码问题"><span class="nav-number">2.</span> <span class="nav-text">vi中文乱码问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工具比较"><span class="nav-number">3.</span> <span class="nav-text">工具比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MacVim"><span class="nav-number">4.</span> <span class="nav-text">MacVim</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim-instant-markdown"><span class="nav-number">5.</span> <span class="nav-text">vim-instant-markdown</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配色主题"><span class="nav-number">6.</span> <span class="nav-text">配色主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim教程"><span class="nav-number">7.</span> <span class="nav-text">vim教程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim专题"><span class="nav-number">8.</span> <span class="nav-text">vim专题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim配置IDE"><span class="nav-number">9.</span> <span class="nav-text">vim配置IDE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim参考书籍"><span class="nav-number">10.</span> <span class="nav-text">vim参考书籍</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#word_/_sentence_/_paragraph"><span class="nav-number">1.</span> <span class="nav-text">word / sentence / paragraph</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#block_/_Block"><span class="nav-number">2.</span> <span class="nav-text">block / Block</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#quoted_string"><span class="nav-number">3.</span> <span class="nav-text">quoted string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#visual_mode"><span class="nav-number">4.</span> <span class="nav-text">visual mode</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

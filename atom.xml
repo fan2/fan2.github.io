@@ -4,7 +4,7 @@
   <subtitle><![CDATA[just do IT]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://col.dog/"/>
-  <updated>2015-12-13T06:15:01.000Z</updated>
+  <updated>2015-12-13T06:21:46.000Z</updated>
   <id>http://col.dog/</id>
   
   <author>
@@ -13,6 +13,143 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[vim 学习 006 - vim 文本对象（Text Object）]]></title>
+    <link href="http://col.dog/2015/12/13/vim-tutorials-006-text_objects/"/>
+    <id>http://col.dog/2015/12/13/vim-tutorials-006-text_objects/</id>
+    <published>2015-12-13T06:21:40.000Z</published>
+    <updated>2015-12-13T06:21:46.000Z</updated>
+    <content type="html"><![CDATA[<p>本文介绍了 vim 的文本对象及基于文本对象的块操作。</p>
+<a id="more"></a>
+<p>参考：<code>/usr/share/vim/vim73/doc/motion.txt</code></p>
+<p><strong>文本对象</strong>的存在使得你可以<strong>选择</strong>或<strong>操作</strong>更加复杂的对象。比起选中某个单词并删除、跳转到句首并删除句子等简单操作来说，不管你在何种文本对象的区域内，你都可以对它们执行这些操作。</p>
+<blockquote>
+<p>This is a series of commands that can only be used while in <strong>Visual mode</strong> or after an <strong>operator</strong>.<br>The commands that start with “a” select <strong>“a”n</strong> object <strong>including</strong> white space, the commands starting with “i” select an <strong>“inner”</strong> object <strong>without</strong> white space, or just the white space.<br>Thus the “inner” commands always select less text than the “a” commands.<br>These commands are not available when the |+<strong><em>textobjects</em></strong>| feature has been disabled at compile time.</p>
+</blockquote>
+<p><strong><code>a</code>和<code>i</code>的区别</strong>：</p>
+<p>==a==n object：包含尾部间隔空格<br>==i==nner object：只是内容本身，不包含尾部单词间隔空格</p>
+<h2 id="word_/_sentence_/_paragraph">word / sentence / paragraph</h2><table>
+<thead>
+<tr>
+<th>textobject</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>w</code></td>
+<td><strong>w</strong>ord</td>
+</tr>
+<tr>
+<td><code>s</code></td>
+<td><strong>s</strong>entence</td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td><strong>p</strong>aragraph</td>
+</tr>
+</tbody>
+</table>
+<h2 id="block_/_Block">block / Block</h2><table>
+<thead>
+<tr>
+<th>textobject</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>]</code>/<code>[</code></td>
+<td>[] block</td>
+</tr>
+<tr>
+<td><code>)</code>/<code>(</code>、<code>b</code></td>
+<td>block</td>
+</tr>
+<tr>
+<td><code>&gt;</code>/<code>&lt;</code>、<code>&gt;</code>/<code>&lt;</code></td>
+<td>&lt;&gt; block</td>
+</tr>
+<tr>
+<td><code>}</code>/<code>{</code>、<code>B</code></td>
+<td>Block</td>
+</tr>
+<tr>
+<td><code>t</code></td>
+<td>tag block：&lt;&gt; &lt;/&gt;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="quoted_string">quoted string</h2><table>
+<thead>
+<tr>
+<th>textobject</th>
+<th>说明          </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&quot;</code> / <code>&#39;</code> / <code>` </code></td>
+<td>quoted string</td>
+</tr>
+</tbody>
+</table>
+<h2 id="visual_mode">visual mode</h2><p>在可视选择模式下，可以以 <code>v</code> 做前缀，<code>a</code> 或 <code>i</code> 限定边界，后续指定操作对象，来实现针对文本对象的选择： </p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>viw</code></td>
+<td>选中单词</td>
+</tr>
+<tr>
+<td><code>vis</code></td>
+<td>选中句子</td>
+</tr>
+<tr>
+<td><code>vip</code></td>
+<td>选中段落</td>
+</tr>
+<tr>
+<td><code>vi(</code></td>
+<td>选中圆括号中的内容</td>
+</tr>
+<tr>
+<td><code>vi[</code></td>
+<td>选中中括号之间的内容</td>
+</tr>
+<tr>
+<td><code>v2i{</code></td>
+<td>选中两层大括号之间的所有内容<br>数字限定选择的嵌套层数</td>
+</tr>
+<tr>
+<td><code>v3aw</code></td>
+<td>选择三个单词（包含中间的2个间隔空格）</td>
+</tr>
+<tr>
+<td><code>v3iw</code></td>
+<td>选择三个单词（2个单词+间隔空格）</td>
+</tr>
+</tbody>
+</table>
+<p>另外，可将 <code>v</code> 选择操作指令替换为 <code>x</code>、<code>d</code>、<code>y</code> 等操作符(operator)，来针对文本对象操作。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>本文介绍了 vim 的文本对象及基于文本对象的块操作。</p>]]>
+    
+    </summary>
+    
+      <category term="vim-text-objects" scheme="http://col.dog/tags/vim-text-objects/"/>
+    
+      <category term="vim" scheme="http://col.dog/categories/vim/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[vim 学习 005 - vim 光标]]></title>
