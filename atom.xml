@@ -4,7 +4,7 @@
   <subtitle><![CDATA[just do IT]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://col.dog/"/>
-  <updated>2015-12-13T05:48:20.000Z</updated>
+  <updated>2015-12-13T06:00:21.000Z</updated>
   <id>http://col.dog/</id>
   
   <author>
@@ -13,6 +13,272 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[vim 学习 003 - vim 初识]]></title>
+    <link href="http://col.dog/2015/12/13/vim-tutorials-003-introduction/"/>
+    <id>http://col.dog/2015/12/13/vim-tutorials-003-introduction/</id>
+    <published>2015-12-13T05:53:22.000Z</published>
+    <updated>2015-12-13T06:00:21.000Z</updated>
+    <content type="html"><![CDATA[<p>本文介绍查看 vim 版本、目录信息，学习参考教程（Usage Help/Tutor）的使用，并初步给出了使用 vim 进行编辑和阅读的引子。</p>
+<a id="more"></a>
+<h2 id="Where_is_vim（on_Mac_OS_X）">Where is vim（on Mac OS X）</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  whereis vim&#10;/usr/bin/vim&#10;&#10140;  ~  ls /usr/bin/vim*&#10;/usr/bin/vim      /usr/bin/vimdiff  /usr/bin/vimtutor</span><br></pre></td></tr></table></figure>
+<p>终端输入 <strong><code>vimtutor</code></strong> 命令可查看vim入门教程：</p>
+<pre><code>➜  ~  vimtutor
+</code></pre><p><img src="http://7xo5uz.com1.z0.glb.clouddn.com/vimtutor.png" alt="vimtutor"></p>
+<p>输入 <code>:q</code> 退出。</p>
+<p><strong>说明：</strong></p>
+<blockquote>
+<p>通過”vimtutor”來啟動教程，每次都会生成一份副本，方便边学习边实践。本人的 tutor 副本：</p>
+<blockquote>
+<p>/private/var/folders/k6/7f8bh1ws4ygfg9pcq48w5tk00000gn/T/tutorr<em>*</em></p>
+</blockquote>
+<p>退出 tutor 时，该副本<code>tutorr***</code>将会被删除。</p>
+</blockquote>
+<h2 id="vim_version">vim version</h2><pre><code>➜  ~  <span class="keyword">vim</span> --<span class="keyword">version</span>
+</code></pre><p><img src="http://7xo5uz.com1.z0.glb.clouddn.com/vim_--version.png" alt="vim --version"></p>
+<h3 id="版本信息">版本信息</h3><blockquote>
+<p>Normal version without GUI.  Features included (+) or not (-):</p>
+</blockquote>
+<p>Mac OS X 默认安装的版本是 <code>normal version</code>，以上列出了包含（+）和未包含（-）的features。</p>
+<p>vim 一共有五个版本</p>
+<table>
+<thead>
+<tr>
+<th>缩写</th>
+<th>全称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T</td>
+<td>tiny</td>
+</tr>
+<tr>
+<td>S</td>
+<td>small</td>
+</tr>
+<tr>
+<td>N</td>
+<td><strong>normal</strong></td>
+</tr>
+<tr>
+<td>B</td>
+<td>big</td>
+</tr>
+<tr>
+<td>H</td>
+<td>huge</td>
+</tr>
+</tbody>
+</table>
+<p>因为 vim 中有些插件会使用 python 和 ruby，我们可以<a href="http://blog.csdn.net/u011542994/article/details/39058779" target="_blank" rel="external">编译升级 Mac 上的 vim 到7.4 huge版</a>，启用 python 和 ruby 的支持特性。</p>
+<h3 id="配置文件">配置文件</h3><p>倒数第六行开始的四行给出了配置文件的路径：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"> system vimrc file: &#34;$VIM/vimrc&#34;&#10;   user vimrc file: &#34;$HOME/.vimrc&#34;&#10;    user exrc file: &#34;$HOME/.exrc&#34;&#10;fall-back for $VIM: &#34;/usr/share/vim&#34;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>系统级别的 vimrc 配置文件：</li>
+</ul>
+<blockquote>
+<p>$VIM/vimrc</p>
+</blockquote>
+<p>Mac默认没有指定<code>$VIM</code>。</p>
+<ul>
+<li>用户级别的 vimrc 配置文件：</li>
+</ul>
+<blockquote>
+<p>$HOME/.vimrc</p>
+</blockquote>
+<p><code>$HOME</code> 即 <code>~</code>。</p>
+<ul>
+<li>fall-back：编译时指定的安装路径，即 <code>$VIM</code>=<em>/usr/share/vim</em>。</li>
+</ul>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  vi  cd /usr/share&#10;&#10140;  share  ls vim*&#10;vim73 vimrc</span><br></pre></td></tr></table></figure>
+<p>其中 <code>$VIMRUNTIME</code> = <code>$VIM/vim73</code>。<br>关于 <em><code>vimrc</code></em> 和 <em><code>exrc</code></em>、<code>$VIM</code> and <code>$VIMRUNTIME</code>，可参考 <code>/usr/share/vim/vim73/doc/starting.txt</code>。</p>
+<h3 id="vim73目录：">vim73目录：</h3><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>作用</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>colors</td>
+<td>配色方案</td>
+<td>:colorscheme</td>
+</tr>
+<tr>
+<td>doc</td>
+<td>帮助文档</td>
+<td>:help</td>
+</tr>
+<tr>
+<td>tutor</td>
+<td>入门教程</td>
+<td>vimtutor</td>
+</tr>
+<tr>
+<td>plugin</td>
+<td>插件目录</td>
+<td>Vim Script脚本格式</td>
+</tr>
+</tbody>
+</table>
+<p>其中 <code>*.vim</code> 为 <a href="http://vim-scripts.org/" target="_blank" rel="external">Vim Script</a> 脚本格式文件，例如：</p>
+<blockquote>
+<ol>
+<li><p><strong><em>filetype</em></strong>: 文件类型检查</p>
+<blockquote>
+<p><strong>filetype.vim</strong>: detect file types<br><strong>ftoff.vim</strong>:    switch off detection of file types</p>
+</blockquote>
+</li>
+<li><p><strong><em>ftplugin</em></strong>: 文件类型检查插件</p>
+<blockquote>
+<p><strong>ftplugin.vim</strong>: switch on loading plugins for file types<br><strong>ftplugof.vim</strong>: switch off loading plugins for file types</p>
+</blockquote>
+</li>
+<li><p><strong><em>indent</em></strong>: 不同语言语法缩进</p>
+<blockquote>
+<p><strong>indent.vim</strong>:   switch on loading indent files for file types<br><strong>indoff.vim</strong>:   switch off loading indent files for file types</p>
+</blockquote>
+</li>
+<li><p><strong><em>syntax</em></strong>：不同语言语法高亮检测插件</p>
+<blockquote>
+<p><strong>syntax</strong>:       c.vim / cpp.vim / objc.vim / objcpp.vim / markdown.vim</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<h2 id="vim_help">vim help</h2><h3 id="helphelp">helphelp</h3><p>在 Shell Prompt 中输入 <code>vim -R /usr/share/vim/vim73/doc/helphelp.txt</code>（<code>-R</code>选项表示 readonly），可以查看vim的帮助系统介绍。</p>
+<h3 id="如何查看帮助">如何查看帮助</h3><p>按下 <code>&lt;F1&gt;</code> 键或在 vim 底行模式输入 <code>:help</code>（<code>:h</code>），可以查看帮助文档。<br>vim 将新起分屏（window）以只读方式打开 <code>/usr/share/vim/vim73/doc/help.txt</code> 文件。</p>
+<blockquote>
+<p>Open a window and display the help file in read-only mode.</p>
+</blockquote>
+<p>按下组合键 <code>&lt;C-w&gt;w</code>（按下 <code>ctrl+w</code>，再按一次 <code>w</code>），可在当前 vim 窗口和 help 分屏窗口之间切换；输入 <code>：q</code> 或 <code>:close</code> 可以关闭帮助窗口。</p>
+<h3 id="help_示例">help 示例</h3><p>help 后也可带参数 <code>:help &lt;argument&gt;</code> 查看任何相关帮助（split screen 打开对应帮助文档）：</p>
+<ul>
+<li><p>查看如何使用帮助：  </p>
+<blockquote>
+<p>:help <code>help</code></p>
+</blockquote>
+</li>
+<li><p>查看 vimdoc 的标记体例：  </p>
+<blockquote>
+<p>:h <code>key-notation</code></p>
+</blockquote>
+</li>
+<li><p>查看 <code>h</code> 按键的作用（motion left）  </p>
+<blockquote>
+<p>:h <code>h</code></p>
+</blockquote>
+</li>
+<li><p>查看 <code>noh</code> 命令的作用（<code>:noh</code>/<code>:nohlsearch</code>）  </p>
+<blockquote>
+<p>:h <code>noh</code></p>
+</blockquote>
+</li>
+<li><p>查看常规模式下 <code>w</code> 按键的作用（words forward）  </p>
+<blockquote>
+<p>:h <code>w</code></p>
+</blockquote>
+</li>
+<li><p>查看底行模式下 <code>w</code> 命令的作用（<code>:w</code>/<code>:write</code>）  </p>
+<blockquote>
+<p>:h <code>:w</code></p>
+</blockquote>
+</li>
+<li><p>查看 <code>vimrc</code> 相关的 topics  </p>
+<blockquote>
+<p>:h <code>vimrc</code></p>
+</blockquote>
+</li>
+<li><p>查看 <code>CTRL-C</code> 组合按键（Ctrl+c，一般写作 <code>&lt;C-c&gt;</code>，体例可 <code>:h key-notation</code>）命令在 normal、insert、visual、command-line 模式下的作用：  </p>
+<blockquote>
+<p>:help <code>CTRL-C</code><br>:help <code>i_CTRL-C</code><br>:help <code>v_CTRL-C</code><br>:help <code>c_CTRL-C</code></p>
+</blockquote>
+</li>
+</ul>
+<p>其他帮助文档归类：</p>
+<blockquote>
+<p>Getting Started ~: <code>usr_1*.txt</code><br>Editing Effectively ~: <code>usr_2*.txt</code><br>Tuning Vim ~: <code>usr_4*.txt</code><br>Making Vim Run ~(Installing Vim): <code>usr_90.txt</code></p>
+</blockquote>
+<h3 id="vimtutor">vimtutor</h3><p><code>/usr/share/vim/vim73/tutor</code> 目录下存放着多语言版本的帮助教程，中文 Mac OS X 系统终端输入 <strong><code>vimtutor</code></strong> 命令，将打开对应繁体中文版本《tutor.zh.utf-8》（<code>vimtutor zh</code>）的副本：</p>
+<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">➜  ~  cd /usr/share/vim/vim73/tutor</span><br><span class="line">➜  tutor  vim tutor.zh.utf-8</span><br><span class="line"></span><br><span class="line">===============================================================================</span><br><span class="line">=      歡     迎     閱     讀   《 V I M  教  程 》   ──     版本 1.5      =</span><br><span class="line">===============================================================================</span><br></pre></td></tr></table></figure>
+<p>我们也可以通过 <code>vimtutor en</code> 指定打开en英文版《tutor.utf-8》教程：</p>
+<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">===============================================================================</span><br><span class="line">=    W e l c o m e   t o   t h e   V I M   T u t o r    -    Version 1.7      =</span><br><span class="line">===============================================================================</span><br></pre></td></tr></table></figure>
+<h3 id="vim在线帮助">vim在线帮助</h3><p><a href="http://www.vim.org/docs.php" target="_blank" rel="external">Vim documentations</a><br><a href="http://vimdoc.sourceforge.net/" target="_blank" rel="external">Vim documentation: help</a></p>
+<h2 id="hi,_vim">hi, vim</h2><h3 id="打开vim编辑器">打开vim编辑器</h3><p>通常情況下，您可以打开终端，输入︰</p>
+<pre><code>vim tutor <span class="tag">&lt;<span class="title">回車</span>&gt;</span>
+</code></pre><p>這裡的 ‘<strong>vim</strong>‘ 表示進入vim編輯器（start the Vim editor），而 <strong>tutor</strong> 則是您準備要編輯的文件（the file you wish to edit）。</p>
+<p>以下是 <code>vim --help</code> 摘录：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  vim --help&#10;usage: vim [arguments] [file ..]       edit specified file(s)&#10;&#10;Arguments:&#10;   --&#9;&#9;&#9;Only file names after this&#10;   -v&#9;&#9;&#9;Vi mode (like &#34;vi&#34;)&#10;   -e&#9;&#9;&#9;Ex mode (like &#34;ex&#34;)&#10;   -s&#9;&#9;&#9;Silent (batch) mode (only for &#34;ex&#34;)&#10;   -d&#9;&#9;&#9;Diff mode (like &#34;vimdiff&#34;)&#10;&#10;   -R&#9;&#9;&#9;Readonly mode (like &#34;view&#34;)&#10;&#10;   -m&#9;&#9;&#9;Modifications (writing files) not allowed&#10;   -M&#9;&#9;&#9;Modifications in text not allowed&#10;   -b&#9;&#9;&#9;Binary mode&#10;   &#10;   -n&#9;&#9;&#9;No swap file, use memory only&#10;   -r&#9;&#9;&#9;List swap files and exit&#10;   &#10;   -p[N]&#9;&#9;Open N tab pages (default: one for each file)&#10;   -o[N]&#9;&#9;Open N windows (default: one for each file)&#10;   -O[N]&#9;&#9;Like -o but split vertically&#10;   &#10;   +&#9;&#9;&#9;Start at end of file&#10;   +&#60;lnum&#62;&#9;&#9;Start at line &#60;lnum&#62;</span><br></pre></td></tr></table></figure>
+<h3 id="使用_vim_编辑">使用 vim 编辑</h3><ol>
+<li>打开终端，输入 <code>vim hivim.txt</code>（假设当前家目录下尚不存在 hivim.txt 文件），vim默认为普通模式（normal mode）。vim将为 New File（<code>hivim.txt</code>）新建一个 <strong>buffer</strong>，此时尚不存在文件 <code>~/hivim.txt</code>。光标停留在第一行，下面的波浪线 <code>~</code> 表示空行。</li>
+<li>按键 <code>i</code> 进入编辑模式（insert mode），输入 <code>hello world from vim!</code>。</li>
+<li>按下 <code>esc</code> 键盘切回普通模式，输入 <code>:wq</code> 保存退出（write and quit）。</li>
+<li>输入 <code>cat hivim.txt</code> [^cat] 查看刚才使用 vim 新建-编辑-保存 的文件。</li>
+</ol>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  cat hivim.txt&#10;cat: hivim.txt: No such file or directory&#10;&#10140;  ~  vim hivim.txt&#10;&#10140;  ~  cat hivim.txt&#10;hello world from vim!&#10;&#10140;  ~</span><br></pre></td></tr></table></figure>
+<p><strong><code>:w</code> 说明：</strong></p>
+<blockquote>
+<ul>
+<li>使用 vim 打开 \<vimfile\> 进行编辑时，vim 会自动在当前文件路径下创建一个名为<code>.&lt;vimfile&gt;.swp</code> 的缓存副本（swap buffer），最终需要调用 <code>:w</code>（<code>:write</code>）命令将副本中的编辑（diff）写入（patch）文件保存。  </vimfile\></li>
+<li>调用 <code>vim</code> 命令打开文件时，可以指定 <code>-n</code> 选项，此时无需创建swp文件，直接在内存中针对源文件编辑保存。  </li>
+<li>调用 <strong><code>:! vim -r</code></strong> 命令可以列举查看当前的 swap files。</li>
+</ul>
+</blockquote>
+<h3 id="使用_vim_阅读">使用 vim 阅读</h3><h4 id="只读，可强制编辑，可强制写入（-R）">只读，可强制编辑，可强制写入（-R）</h4><p><code>vim -R</code> 以只读方式打开 <code>/usr/share/vim/vim73/tutor/tutor.utf-8</code>：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  cd /usr/share/vim/vim73/tutor&#10;&#10140;  tutor  vim -R tutor.utf-8</span><br></pre></td></tr></table></figure>
+<p>当 vim 以只读方式打开文件时：</p>
+<ul>
+<li>若尝试通过<code>i</code>、<code>a</code>、<code>o</code>进入编辑模式，会提示：  <blockquote>
+<p>Warning: Changing a readonly file</p>
+</blockquote>
+</li>
+<li>编辑后，若尝试通过<code>:q</code>退出，会提示：  <blockquote>
+<p>No write since last change (add ! to override)</p>
+</blockquote>
+</li>
+<li>编辑后，若尝试通过<code>:w</code>保存，会提示：  <blockquote>
+<p>‘readonly’ option is set (add ! to override)</p>
+</blockquote>
+</li>
+</ul>
+<p>但是，还是可以通过 <code>:wq!</code> 强制写入保存退出。</p>
+<h4 id="可编辑，不可强制写入（-m）">可编辑，不可强制写入（-m）</h4><p>在使用 vim 打开文档时，若允许针对缓冲副本（*.swp 文件）进行编辑，以便边学习边实践，但禁止最终写入保存，可以追加 <code>-m</code> 选项。</p>
+<p>若尝试通过 <code>:w</code> 写入文件，会提示：</p>
+<blockquote>
+<p>File not written: Writing is disabled by ‘write’ option </p>
+</blockquote>
+<p>例如，以下通过 <code>vim -m</code> 命令对照阅读英文版 vimtutor（<code>tutor.utf-8</code>），可边阅读边实践：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  vim -m /usr/share/vim/vim73/tutor/tutor.utf-8</span><br></pre></td></tr></table></figure>
+<h4 id="只读，不可编辑，不可强制写入（-M）">只读，不可编辑，不可强制写入（-M）</h4><p>如果仅仅使用 vim 打开文档进行阅读（类似 <code>less</code> 命令），可以追加 <code>-M</code> 禁止编辑修改。<br>若尝试通过 <code>i</code>、<code>a</code>、<code>o</code> 进入编辑模式，会提示：</p>
+<blockquote>
+<p>Cannot make changes, ‘modifiable’ is off</p>
+</blockquote>
+<p>例如，以下通过 <code>vim -M</code> 命令以只读方式（不可编辑）对照阅读英文版vimtutor（<code>tutor.utf-8</code>）：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  vim -M /usr/share/vim/vim73/tutor/tutor.utf-8</span><br></pre></td></tr></table></figure>
+<p>[^cat]: The <strong><a href="https://en.wikipedia.org/wiki/Cat_(Unix" target="_blank" rel="external">cat</a>)</strong> (short for “concatenate“) command reads one or more files and prints them to standard output.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>本文介绍查看 vim 版本、目录信息，学习参考教程（Usage Help/Tutor）的使用，并初步给出了使用 vim 进行编辑和阅读的引子。</p>]]>
+    
+    </summary>
+    
+      <category term="vim" scheme="http://col.dog/tags/vim/"/>
+    
+      <category term="vim-edit" scheme="http://col.dog/tags/vim-edit/"/>
+    
+      <category term="vim-help" scheme="http://col.dog/tags/vim-help/"/>
+    
+      <category term="vim-read" scheme="http://col.dog/tags/vim-read/"/>
+    
+      <category term="vim-version" scheme="http://col.dog/tags/vim-version/"/>
+    
+      <category term="vim" scheme="http://col.dog/categories/vim/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[vim 学习 002 - vim 键位]]></title>
