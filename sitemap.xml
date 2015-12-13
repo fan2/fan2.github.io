@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://col.dog/2015/12/13/vim-tutorials-010-fold/</loc>
+    <lastmod>2015-12-13T07:21:11.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://col.dog/2015/12/13/vim-tutorials-009-map/</loc>
     <lastmod>2015-12-13T06:46:59.000Z</lastmod>
   </url>

@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="vim-map," />
+  <meta name="keywords" content="vim-fold," />
 
 
 
@@ -55,17 +55,16 @@
 
 
 
-<meta name="description" content="本文介绍了 vim 按键映射的基本知识。">
+<meta name="description" content="本文介绍了 vim 块折叠的基本操作。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vim 学习 009 - vim 映射">
-<meta property="og:url" content="http://col.dog/2015/12/13/vim-tutorials-009-map/index.html">
+<meta property="og:title" content="vim 学习 010 - vim 折叠">
+<meta property="og:url" content="http://col.dog/2015/12/13/vim-tutorials-010-fold/index.html">
 <meta property="og:site_name" content="Elsewhere">
-<meta property="og:description" content="本文介绍了 vim 按键映射的基本知识。">
-<meta property="og:image" content="http://roclinux.cn/wp-content/uploads/2013/01/Snip20130103_2.png">
-<meta property="og:updated_time" content="2015-12-13T06:46:59.000Z">
+<meta property="og:description" content="本文介绍了 vim 块折叠的基本操作。">
+<meta property="og:updated_time" content="2015-12-13T07:21:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vim 学习 009 - vim 映射">
-<meta name="twitter:description" content="本文介绍了 vim 按键映射的基本知识。">
+<meta name="twitter:title" content="vim 学习 010 - vim 折叠">
+<meta name="twitter:description" content="本文介绍了 vim 块折叠的基本操作。">
 
 
 
@@ -77,7 +76,7 @@
   };
 </script>
 
-  <title> vim 学习 009 - vim 映射 | Elsewhere </title>
+  <title> vim 学习 010 - vim 折叠 | Elsewhere </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -228,7 +227,7 @@
             
             
               
-                vim 学习 009 - vim 映射
+                vim 学习 010 - vim 折叠
               
             
           </h1>
@@ -237,7 +236,7 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-13T14:44:52+08:00" content="2015-12-13">
+            <time itemprop="dateCreated" datetime="2015-12-13T14:58:50+08:00" content="2015-12-13">
               2015-12-13
             </time>
           </span>
@@ -263,8 +262,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/13/vim-tutorials-009-map/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/13/vim-tutorials-009-map/" itemprop="commentsCount"></span>
+                <a href="/2015/12/13/vim-tutorials-010-fold/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/13/vim-tutorials-010-fold/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -283,102 +282,181 @@
       
 
       
-        <span itemprop="articleBody"><p>本文介绍了 vim 按键映射的基本知识。</p>
+        <span itemprop="articleBody"><p>本文介绍了 vim 块折叠的基本操作。</p>
 <a id="more"></a>
-<h1 id="vim按键映射"><a href="http://haoxiang.org/2011/09/vim-modes-and-mappin/" target="_blank" rel="external">vim按键映射</a></h1><h2 id="map前缀">map前缀</h2><p>对vim map而言，前缀作为命令本身的修饰符，微调命令的作用模式和效果。<br>vim map针对模式和递归效果可能有这么几种前缀：</p>
+<h2 id="vim_fold"><a href="http://blog.csdn.net/fangjuniceflame/article/details/4560891" target="_blank" rel="external">vim fold</a></h2><p>最近需要折叠，于是<a href="http://www.linux.com/article.pl?sid=06/05/18/1915233" target="_blank" rel="external">找了一下</a>。其实手册里面有，不过手册做的太好太详细的后果往往就是让人懒得看了。写的东西超过五六屏以后，感觉翻来翻去就不怎么方便了，看起来也很混乱。这个时候最好就能折叠起来。VIM里面也有 VS 那样的折叠功能，而且不需要用鼠标去点那个减号和加号。</p>
+<h2 id="foldenable">foldenable</h2><p>This option can be used to quickly switch between showing all text unfolded and viewing the text with folds (including manually opened or closed folds).<br>It can be toggled with the |<em><code>zi</code></em>| command. </p>
+<p>折叠功能可以通过底行模式命令 <code>:set foldenable</code>/<code>:set nofoldenable</code> 来开启/禁用，也可通过 <code>zi</code> 指令开启。</p>
+<p>当然，你也可以将 <code>foldenable</code> 配置到 <code>.vimrc</code> 文件中：</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="string">"启用折叠</span><br><span class="line"></span><span class="keyword">set</span> fen "foldenable</span><br></pre></td></tr></table></figure>
+<p>后期，针对具体的 vim 编辑窗口，你也可以在底行模式下通过命令 <code>:set nofoldenable</code> 临时禁用。</p>
+<h2 id="foldmethod"><a href="http://blog.sina.com.cn/s/blog_70808ace0100qsdg.html" target="_blank" rel="external">foldmethod</a></h2><p>可以让 VIM 根据语法缩进，标记自动折叠。用 <code>set foldmethod=foldoption</code> 来设定。<br>可以 <code>:h fold-methods</code> 查看一下 foldmethod 说明。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">The folding method can be <span class="operator"><span class="keyword">set</span> <span class="keyword">with</span> the <span class="string">'foldmethod'</span> <span class="keyword">option</span>.</span><br><span class="line"></span><br><span class="line">There <span class="keyword">are</span> six methods <span class="keyword">to</span> <span class="keyword">select</span> folds:</span><br><span class="line">        <span class="keyword">manual</span>          manually <span class="keyword">define</span> folds</span><br><span class="line">        indent          more indent means a higher fold <span class="keyword">level</span></span><br><span class="line">        expr            specify an expression <span class="keyword">to</span> <span class="keyword">define</span> folds</span><br><span class="line">        syntax          folds defined <span class="keyword">by</span> syntax highlighting</span><br><span class="line">        diff            folds <span class="keyword">for</span> unchanged <span class="built_in">text</span></span><br><span class="line">        marker          folds defined <span class="keyword">by</span> markers <span class="keyword">in</span> the <span class="built_in">text</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">MANUAL</span>                                          *fold-<span class="keyword">manual</span>*</span><br><span class="line"></span><br><span class="line"><span class="keyword">Use</span> commands <span class="keyword">to</span> manually <span class="keyword">define</span> the fold regions.  This can also be used <span class="keyword">by</span> a script that parses <span class="built_in">text</span> <span class="keyword">to</span> find folds.</span><br><span class="line"></span><br><span class="line">INDENT                                          *fold-indent*</span><br><span class="line"></span><br><span class="line">The folds <span class="keyword">are</span> automatically defined <span class="keyword">by</span> the indent <span class="keyword">of</span> the <span class="keyword">lines</span>.</span><br><span class="line"></span><br><span class="line">The foldlevel <span class="keyword">is</span> computed <span class="keyword">from</span> the indent <span class="keyword">of</span> the line, divided <span class="keyword">by</span> the</span><br><span class="line"><span class="string">'shiftwidth'</span> (rounded down).  A <span class="keyword">sequence</span> <span class="keyword">of</span> <span class="keyword">lines</span> <span class="keyword">with</span> the same <span class="keyword">or</span> higher fold <span class="keyword">level</span> <span class="keyword">form</span> a fold, <span class="keyword">with</span> the <span class="keyword">lines</span> <span class="keyword">with</span> a higher <span class="keyword">level</span> forming a <span class="keyword">nested</span> fold.</span><br><span class="line"></span><br><span class="line">The nesting <span class="keyword">of</span> folds <span class="keyword">is</span> limited <span class="keyword">with</span> <span class="string">'foldnestmax'</span>.</span></span><br></pre></td></tr></table></figure>
+<p>可用选项 ‘foldmethod’ 来设定折叠方式：<code>:set fdm=xxx</code>，fdm 是 foldmethod 的缩写。<br>也可直接在源代码文件中使用注释调用 vim 命令： </p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* vim: set fdm=<span class="doctag">XXX:</span> */</span></span><br></pre></td></tr></table></figure>
+<p><strong>有 6 种方式选定折叠：</strong></p>
 <table>
 <thead>
 <tr>
-<th>前缀</th>
-<th>意义</th>
+<th>折叠方式</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>nore</td>
-<td>表示非递归，<strong>默认递归</strong>（Recursive Mapping）</td>
+<td>手工折叠 / manual</td>
+<td>Folds are created manually.</td>
 </tr>
 <tr>
-<td>n</td>
-<td>表示在普通模式下生效</td>
+<td>缩进折叠 / indent</td>
+<td>Lines with equal indent form a fold.</td>
 </tr>
 <tr>
-<td>i</td>
-<td>表示在插入模式下生效</td>
+<td>范式折叠 / expr</td>
+<td>‘foldexpr’ gives the fold level of a line.</td>
 </tr>
 <tr>
-<td>c</td>
-<td>表示在命令行模式下生效</td>
+<td>标记折叠 / marker</td>
+<td>Markers are used to specify folds.</td>
 </tr>
 <tr>
-<td>v</td>
-<td>表示在可视模式下生效</td>
+<td>语法折叠 / syntax</td>
+<td>Syntax highlighting items specify folds.</td>
+</tr>
+<tr>
+<td>差异折叠 / diff</td>
+<td>Fold text that is not changed.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="Recursive_Mapping">Recursive Mapping</h3><p>递归的映射，其实很好理解：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"键`a`被映射成了`b`</span><br><span class="line">:map a b</span><br></pre></td></tr></table></figure>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"`c`又被映射成了`a`</span><br><span class="line">:map c a</span><br></pre></td></tr></table></figure>
-<p>上述map默认没加<code>nore</code>前缀，即递归映射，那么<code>c</code>最终就被映射成了<code>b</code>。对于按键<code>c</code>等效于：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">:map c b</span><br></pre></td></tr></table></figure>
-<p><strong>说明：</strong></p>
+<p>可针对当前 vim 编辑文档，在底行模式使用 <code>:set fdm=marker</code> 命令来设置成 <code>marker</code> 折叠方式。<br>当使用 marker 方式时，需要用标计来标识代码的折叠，系统默认是 <kbd>{</kbd> <kbd>{</kbd><kbd>{</kbd> 和 <kbd>}</kbd><kbd>}</kbd><kbd>}</kbd>，即基于 Block 文本对象折叠，最好不要改动。<br>可以每次针对当前 vim 编辑窗口，在底行模式通过 <code>:set fdm=XXX</code> 来设置折叠方式，也可将其配置到 .vimrc 文件中。后面针对特定文件也可在底行模式动态变更折叠方式。</p>
+<p><strong>注意：</strong></p>
 <blockquote>
-<p>默认map命令影响到普通模式和可视模式。<br>在自定义映射时，递归迂回一般都是非预期的，故通常使用非递归（<code>noremamp</code>）。</p>
+<p>每一种折叠方式不兼容，如不能既用 <code>expr</code> 又用 <code>marker</code> 方式，可以轮流使用 <code>indent</code> 和 <code>marker</code> 方式进行折叠。</p>
 </blockquote>
-<p>如果不是特殊情况，在使用vim时，手指应尽量集中在键盘中间排。可以将较少使用的<code>CapsLock</code>键映射为较难触摸的左上角<code>&lt;Esc&gt;</code>键：</p>
-<h3 id="unmap">unmap</h3><p>unmap后面跟一个按键（组合），表示删除这个按键（组合）的映射。有点类似C语言预编译宏中的取消宏定义符号<br><code>#undef</code>。<br>在map生效模式下，执行以下命令，解除<code>c</code>到<code>a</code>的映射：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"解除c键映射</span><br><span class="line">:unmap c</span><br></pre></td></tr></table></figure>
-<p>同样，unmap可以加各种前缀，表示影响到的模式。</p>
-<h3 id="mapclear">mapclear</h3><p>mapclear直接清除相关模式下的所有映射。<br>同样，mapclear可以加各种前缀，表示影响到的模式。</p>
-<h2 id="常用map命令">常用map命令</h2><table>
+<h3 id="indent_tabstop">indent tabstop</h3><p><a href="http://blog.csdn.net/ludonghai715/article/details/5657712" target="_blank" rel="external">vim的shiftwidth、tabstop、softtabstop设置</a><br><a href="http://blog.csdn.net/chenxiang6891/article/details/41348073" target="_blank" rel="external">vim中tabstop、shiftwidth、softtabstop以及expandtab的关系</a></p>
+<p>建议 <code>.vimrc</code> 中配置使用 hardtabs：</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="string">"不使用空格代替制表符，使用原生hardtabs；</span><br><span class="line"></span><span class="string">"若开启et，插入真正的制表符，需要使用CTRL-V&lt;Tab&gt;。</span><br><span class="line"></span><span class="keyword">set</span> noet <span class="string">"noexpandtab</span><br><span class="line"></span></span><br><span class="line"><span class="string">"制表符以空格度量的位宽</span><br><span class="line"></span><span class="keyword">set</span> <span class="keyword">ts</span>=<span class="number">4</span> <span class="string">"tabstop</span><br><span class="line"></span></span><br><span class="line"><span class="string">"自动缩进所使用的空白长度指示</span><br><span class="line"></span><span class="keyword">set</span> <span class="keyword">sw</span>=<span class="number">4</span> <span class="string">"shiftwidth</span><br><span class="line"></span></span><br><span class="line"><span class="string">"一旦设置了softtabstop的值，按下tab键将智能插入空格和制表符的混合</span><br><span class="line"></span><span class="keyword">set</span> <span class="keyword">sts</span>=<span class="number">4</span> "softtabstop</span><br></pre></td></tr></table></figure>
+<h3 id="manual_space"><a href="http://www.cnblogs.com/witcxc/archive/2011/12/28/2304704.html" target="_blank" rel="external">manual space</a></h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">"启用折叠</span><br><span class="line">set foldenable</span><br><span class="line">"手动折叠</span><br><span class="line">set foldmethod=manual</span><br><span class="line">"用空格键来开关折叠</span><br><span class="line">nnoremap &lt;space&gt; @=((foldclosed(line('.')) &lt; 0) ? 'zc':'zo')&lt;CR&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="fold-commands">fold-commands</h2><h3 id="ENABLE/DISABLE_FOLDS">ENABLE/DISABLE FOLDS</h3><table>
 <thead>
 <tr>
-<th>prefix</th>
-<th>map</th>
-<th>noremap</th>
-<th>unmap</th>
-<th>mapclear</th>
+<th>command</th>
+<th>function</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>-</td>
-<td>:map</td>
-<td>:noremap</td>
-<td>:unmap</td>
-<td>:mapclear</td>
+<td><code>zn</code></td>
+<td>Fold none: reset ‘foldenable’.<br>All folds will be open.</td>
 </tr>
 <tr>
-<td>n</td>
-<td>:nmap</td>
-<td>:nnoremap</td>
-<td>:nunmap</td>
-<td>:nmapclear</td>
+<td><code>zN</code></td>
+<td>Fold normal: set ‘foldenable’.<br>All folds will be as they were before.</td>
 </tr>
 <tr>
-<td>v</td>
-<td>:vmap</td>
-<td>:vnoremap</td>
-<td>:vunmap</td>
-<td>:vmapclear</td>
-</tr>
-<tr>
-<td>i</td>
-<td>:imap</td>
-<td>:inoremap</td>
-<td>:iunmap</td>
-<td>:imapclear</td>
-</tr>
-<tr>
-<td>c</td>
-<td>:cmap</td>
-<td>:cnoremap</td>
-<td>:cunmap</td>
-<td>:cmapclear</td>
+<td><code>zi</code></td>
+<td>Invert ‘foldenable’.</td>
 </tr>
 </tbody>
 </table>
-<p>vim的map模式的相关命令：<br><a href="http://roclinux.cn/wp-content/uploads/2013/01/Snip20130103_2.png" target="_blank" rel="external"><img src="http://roclinux.cn/wp-content/uploads/2013/01/Snip20130103_2.png" alt="vim的map模式的相关命令"></a></p>
+<h3 id="OPENING_AND_CLOSING_FOLDS">OPENING AND CLOSING FOLDS</h3><p>所有的折叠相关的指令都是以 <code>z</code> 开头，<code>z</code> 如其形，看着就像折纸。<br><code>f</code> 的意思是 fold，所以 <code>zf</code> 就是折叠。你可以在 visual 模式下选定，再按 <code>zf</code> 指令，可以将选定内容进行折叠。  </p>
+<p><code>zf</code>{motion}  or {Visual}<code>zf</code>：</p>
+<ul>
+<li>Operator to create a fold.</li>
+<li>This only works when ‘foldmethod’ is “manual” or “marker”.</li>
+<li>The new fold will be closed for the “manual” method.</li>
+<li>‘foldenable’ will be set.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zo</code></td>
+<td>Open <em>one</em> fold under the cursor.</td>
+</tr>
+<tr>
+<td><code>zO</code></td>
+<td>Open <em>all</em> folds under the cursor <strong>recursively</strong>.</td>
+</tr>
+<tr>
+<td><code>zc</code></td>
+<td>Close <em>one</em> fold under the cursor.</td>
+</tr>
+<tr>
+<td><code>zC</code></td>
+<td>Close <em>all</em> folds under the cursor <strong>recursively</strong>.</td>
+</tr>
+<tr>
+<td><code>za</code></td>
+<td>When on a closed fold: open it;<br>when on an open fold: close it.<br>When folds are <em>nested</em>, you may have to use “za” several times.</td>
+</tr>
+<tr>
+<td><code>zA</code></td>
+<td>When on a closed fold: open it <strong>recursively</strong>.<br>When on an open fold: close it <strong>recursively</strong> and set ‘foldenable’.</td>
+</tr>
+</tbody>
+</table>
+<p><code>zm</code>      | Fold more: Subtract one from ‘foldlevel’.<br>If ‘foldlevel’ was already zero nothing happens.<br>‘foldenable’ will be set.<br><code>zM</code>      | Close all folds: set ‘foldlevel’ to 0.<br>‘foldenable’ will be set.<br><code>zr</code>      | Reduce folding: Add one to ‘foldlevel’.<br><code>zR</code>      | Open all folds. This sets ‘foldlevel’ to highest fold level.</p>
+<h3 id="MOVING_OVER_FOLDS">MOVING OVER FOLDS</h3><table>
+<thead>
+<tr>
+<th>command</th>
+<th>function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[z</code></td>
+<td>Move to the start of the <strong>current</strong> open fold.</td>
+</tr>
+<tr>
+<td><code>]z</code></td>
+<td>Move to the end of the <strong>current</strong> open fold.</td>
+</tr>
+<tr>
+<td><code>zj</code></td>
+<td>Move downwards to the start of the <strong>next</strong> fold.<br>A closed fold is counted as one fold.</td>
+</tr>
+<tr>
+<td><code>zk</code></td>
+<td>Move upwards to the end of the <strong>previous</strong> fold.<br>A closed fold is counted as one fold.</td>
+</tr>
+</tbody>
+</table>
+<p>折叠可以嵌套，<code>zr</code> 可以打开第一层的折叠，<code>zR</code> 可以打开所有层的折叠。与之对应的是 <code>zm</code> 和<code>zM</code>，是按层关上折叠。<br>比如说按 <code>zm</code>，会从最里层的层叠关起；连续zm就会一直关到最上层的折叠。<br>查找到了折叠里面会将折叠打开，处理完了之后要自己将折叠关上。</p>
+<h3 id="Folding_Patterns">Folding Patterns</h3><ul>
+<li>可以用普通的定位方法来告诉VIM你要折叠哪些地方，比如 <code>zj</code> 将跳到下一个可折叠点，<code>zk</code> 将跳到上一个可折叠点。  </li>
+<li>可以复合数字 [count] 指定 fold depth 或 repeat times，例如 <code>zf9j</code> 将下面9行的内容折起来。  </li>
+<li>可以用 marker，还可以用行号:20,50，就可以把20行到50行折叠起来。  </li>
+<li>也可以针对 text object 进行折叠，例如 <code>zfa}</code> 指令可以将下面匹配的花括号之间的 Block 折叠起来，这样可以很方便的折叠函数。  </li>
+<li>其他的折叠方法还有 <code>zf/string</code>，可以折叠到下一个匹配的string，不过好像不太实用。</li>
+</ul>
+<h2 id="restore/load_folding">restore/load folding</h2><p>要在下一次打开的时候还保留折叠，可以在离开的时候 <code>:mkview</code> ，再进来的时候 <code>:loadview</code> 就可以了。<br>当然也可以将这两句配置到 <code>vimrc</code> 里面让其自动完成。<br>这样每次就可以看到上次的折叠了。</p>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:mkvie[w][!] [file]</code></td>
+<td>Write a Vim script that restores the contents of the current window.</td>
+</tr>
+<tr>
+<td><code>:lo[adview] [nr]</code></td>
+<td>Load the view for the current file.<br>When [nr] is omitted, the view stored with “:mkview” is loaded.<br>When [nr] is specified, the view stored with “:mkview[nr]” is loaded.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考">参考</h2><p><a href="http://blog.csdn.net/jerry_zjunwei/article/details/7626111" target="_blank" rel="external">VIM fold 折叠</a><br><a href="http://www.cnblogs.com/fakis/archive/2011/04/14/2016213.html" target="_blank" rel="external">VIM设置代码折叠</a><br><a href="http://blog.sina.com.cn/s/blog_7acf472901017ad6.html" target="_blank" rel="external">VIM学习笔记之折叠</a><br><a href="http://www.douban.com/group/topic/16849790/" target="_blank" rel="external">原来Vim的fold可以这么拉风！</a>  </p>
 </span>
       
     </div>
@@ -387,7 +465,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/vim-map/" rel="tag">#vim-map</a>
+            <a href="/tags/vim-fold/" rel="tag">#vim-fold</a>
           
         </div>
       
@@ -396,17 +474,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/13/vim-tutorials-008-configuration/" rel="next" title="vim 学习 008 - vim 配置">
-                <i class="fa fa-chevron-left"></i> vim 学习 008 - vim 配置
+              <a href="/2015/12/13/vim-tutorials-009-map/" rel="next" title="vim 学习 009 - vim 映射">
+                <i class="fa fa-chevron-left"></i> vim 学习 009 - vim 映射
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/13/vim-tutorials-010-fold/" rel="prev" title="vim 学习 010 - vim 折叠">
-                vim 学习 010 - vim 折叠 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -433,8 +507,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/13/vim-tutorials-009-map/"
-           data-title="vim 学习 009 - vim 映射" data-url="http://col.dog/2015/12/13/vim-tutorials-009-map/">
+      <div class="ds-thread" data-thread-key="2015/12/13/vim-tutorials-010-fold/"
+           data-title="vim 学习 010 - vim 折叠" data-url="http://col.dog/2015/12/13/vim-tutorials-010-fold/">
       </div>
     
   </div>
@@ -600,7 +674,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vim按键映射"><span class="nav-number">1.</span> <span class="nav-text">vim按键映射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#map前缀"><span class="nav-number">1.1.</span> <span class="nav-text">map前缀</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Recursive_Mapping"><span class="nav-number">1.1.1.</span> <span class="nav-text">Recursive Mapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unmap"><span class="nav-number">1.1.2.</span> <span class="nav-text">unmap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mapclear"><span class="nav-number">1.1.3.</span> <span class="nav-text">mapclear</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用map命令"><span class="nav-number">1.2.</span> <span class="nav-text">常用map命令</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#vim_fold"><span class="nav-number">1.</span> <span class="nav-text">vim fold</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#foldenable"><span class="nav-number">2.</span> <span class="nav-text">foldenable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#foldmethod"><span class="nav-number">3.</span> <span class="nav-text">foldmethod</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#indent_tabstop"><span class="nav-number">3.1.</span> <span class="nav-text">indent tabstop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#manual_space"><span class="nav-number">3.2.</span> <span class="nav-text">manual space</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fold-commands"><span class="nav-number">4.</span> <span class="nav-text">fold-commands</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ENABLE/DISABLE_FOLDS"><span class="nav-number">4.1.</span> <span class="nav-text">ENABLE/DISABLE FOLDS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OPENING_AND_CLOSING_FOLDS"><span class="nav-number">4.2.</span> <span class="nav-text">OPENING AND CLOSING FOLDS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MOVING_OVER_FOLDS"><span class="nav-number">4.3.</span> <span class="nav-text">MOVING OVER FOLDS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Folding_Patterns"><span class="nav-number">4.4.</span> <span class="nav-text">Folding Patterns</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#restore/load_folding"><span class="nav-number">5.</span> <span class="nav-text">restore/load folding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[just do IT]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://col.dog/"/>
-  <updated>2015-12-13T06:46:59.000Z</updated>
+  <updated>2015-12-13T07:21:11.000Z</updated>
   <id>http://col.dog/</id>
   
   <author>
@@ -13,6 +13,199 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[vim 学习 010 - vim 折叠]]></title>
+    <link href="http://col.dog/2015/12/13/vim-tutorials-010-fold/"/>
+    <id>http://col.dog/2015/12/13/vim-tutorials-010-fold/</id>
+    <published>2015-12-13T06:58:50.000Z</published>
+    <updated>2015-12-13T07:21:11.000Z</updated>
+    <content type="html"><![CDATA[<p>本文介绍了 vim 块折叠的基本操作。</p>
+<a id="more"></a>
+<h2 id="vim_fold"><a href="http://blog.csdn.net/fangjuniceflame/article/details/4560891" target="_blank" rel="external">vim fold</a></h2><p>最近需要折叠，于是<a href="http://www.linux.com/article.pl?sid=06/05/18/1915233" target="_blank" rel="external">找了一下</a>。其实手册里面有，不过手册做的太好太详细的后果往往就是让人懒得看了。写的东西超过五六屏以后，感觉翻来翻去就不怎么方便了，看起来也很混乱。这个时候最好就能折叠起来。VIM里面也有 VS 那样的折叠功能，而且不需要用鼠标去点那个减号和加号。</p>
+<h2 id="foldenable">foldenable</h2><p>This option can be used to quickly switch between showing all text unfolded and viewing the text with folds (including manually opened or closed folds).<br>It can be toggled with the |<em><code>zi</code></em>| command. </p>
+<p>折叠功能可以通过底行模式命令 <code>:set foldenable</code>/<code>:set nofoldenable</code> 来开启/禁用，也可通过 <code>zi</code> 指令开启。</p>
+<p>当然，你也可以将 <code>foldenable</code> 配置到 <code>.vimrc</code> 文件中：</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="string">"启用折叠</span><br><span class="line"></span><span class="keyword">set</span> fen "foldenable</span><br></pre></td></tr></table></figure>
+<p>后期，针对具体的 vim 编辑窗口，你也可以在底行模式下通过命令 <code>:set nofoldenable</code> 临时禁用。</p>
+<h2 id="foldmethod"><a href="http://blog.sina.com.cn/s/blog_70808ace0100qsdg.html" target="_blank" rel="external">foldmethod</a></h2><p>可以让 VIM 根据语法缩进，标记自动折叠。用 <code>set foldmethod=foldoption</code> 来设定。<br>可以 <code>:h fold-methods</code> 查看一下 foldmethod 说明。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">The folding method can be <span class="operator"><span class="keyword">set</span> <span class="keyword">with</span> the <span class="string">'foldmethod'</span> <span class="keyword">option</span>.</span><br><span class="line"></span><br><span class="line">There <span class="keyword">are</span> six methods <span class="keyword">to</span> <span class="keyword">select</span> folds:</span><br><span class="line">        <span class="keyword">manual</span>          manually <span class="keyword">define</span> folds</span><br><span class="line">        indent          more indent means a higher fold <span class="keyword">level</span></span><br><span class="line">        expr            specify an expression <span class="keyword">to</span> <span class="keyword">define</span> folds</span><br><span class="line">        syntax          folds defined <span class="keyword">by</span> syntax highlighting</span><br><span class="line">        diff            folds <span class="keyword">for</span> unchanged <span class="built_in">text</span></span><br><span class="line">        marker          folds defined <span class="keyword">by</span> markers <span class="keyword">in</span> the <span class="built_in">text</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">MANUAL</span>                                          *fold-<span class="keyword">manual</span>*</span><br><span class="line"></span><br><span class="line"><span class="keyword">Use</span> commands <span class="keyword">to</span> manually <span class="keyword">define</span> the fold regions.  This can also be used <span class="keyword">by</span> a script that parses <span class="built_in">text</span> <span class="keyword">to</span> find folds.</span><br><span class="line"></span><br><span class="line">INDENT                                          *fold-indent*</span><br><span class="line"></span><br><span class="line">The folds <span class="keyword">are</span> automatically defined <span class="keyword">by</span> the indent <span class="keyword">of</span> the <span class="keyword">lines</span>.</span><br><span class="line"></span><br><span class="line">The foldlevel <span class="keyword">is</span> computed <span class="keyword">from</span> the indent <span class="keyword">of</span> the line, divided <span class="keyword">by</span> the</span><br><span class="line"><span class="string">'shiftwidth'</span> (rounded down).  A <span class="keyword">sequence</span> <span class="keyword">of</span> <span class="keyword">lines</span> <span class="keyword">with</span> the same <span class="keyword">or</span> higher fold <span class="keyword">level</span> <span class="keyword">form</span> a fold, <span class="keyword">with</span> the <span class="keyword">lines</span> <span class="keyword">with</span> a higher <span class="keyword">level</span> forming a <span class="keyword">nested</span> fold.</span><br><span class="line"></span><br><span class="line">The nesting <span class="keyword">of</span> folds <span class="keyword">is</span> limited <span class="keyword">with</span> <span class="string">'foldnestmax'</span>.</span></span><br></pre></td></tr></table></figure>
+<p>可用选项 ‘foldmethod’ 来设定折叠方式：<code>:set fdm=xxx</code>，fdm 是 foldmethod 的缩写。<br>也可直接在源代码文件中使用注释调用 vim 命令： </p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* vim: set fdm=<span class="doctag">XXX:</span> */</span></span><br></pre></td></tr></table></figure>
+<p><strong>有 6 种方式选定折叠：</strong></p>
+<table>
+<thead>
+<tr>
+<th>折叠方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>手工折叠 / manual</td>
+<td>Folds are created manually.</td>
+</tr>
+<tr>
+<td>缩进折叠 / indent</td>
+<td>Lines with equal indent form a fold.</td>
+</tr>
+<tr>
+<td>范式折叠 / expr</td>
+<td>‘foldexpr’ gives the fold level of a line.</td>
+</tr>
+<tr>
+<td>标记折叠 / marker</td>
+<td>Markers are used to specify folds.</td>
+</tr>
+<tr>
+<td>语法折叠 / syntax</td>
+<td>Syntax highlighting items specify folds.</td>
+</tr>
+<tr>
+<td>差异折叠 / diff</td>
+<td>Fold text that is not changed.</td>
+</tr>
+</tbody>
+</table>
+<p>可针对当前 vim 编辑文档，在底行模式使用 <code>:set fdm=marker</code> 命令来设置成 <code>marker</code> 折叠方式。<br>当使用 marker 方式时，需要用标计来标识代码的折叠，系统默认是 <kbd>{</kbd> <kbd>{</kbd><kbd>{</kbd> 和 <kbd>}</kbd><kbd>}</kbd><kbd>}</kbd>，即基于 Block 文本对象折叠，最好不要改动。<br>可以每次针对当前 vim 编辑窗口，在底行模式通过 <code>:set fdm=XXX</code> 来设置折叠方式，也可将其配置到 .vimrc 文件中。后面针对特定文件也可在底行模式动态变更折叠方式。</p>
+<p><strong>注意：</strong></p>
+<blockquote>
+<p>每一种折叠方式不兼容，如不能既用 <code>expr</code> 又用 <code>marker</code> 方式，可以轮流使用 <code>indent</code> 和 <code>marker</code> 方式进行折叠。</p>
+</blockquote>
+<h3 id="indent_tabstop">indent tabstop</h3><p><a href="http://blog.csdn.net/ludonghai715/article/details/5657712" target="_blank" rel="external">vim的shiftwidth、tabstop、softtabstop设置</a><br><a href="http://blog.csdn.net/chenxiang6891/article/details/41348073" target="_blank" rel="external">vim中tabstop、shiftwidth、softtabstop以及expandtab的关系</a></p>
+<p>建议 <code>.vimrc</code> 中配置使用 hardtabs：</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="string">"不使用空格代替制表符，使用原生hardtabs；</span><br><span class="line"></span><span class="string">"若开启et，插入真正的制表符，需要使用CTRL-V&lt;Tab&gt;。</span><br><span class="line"></span><span class="keyword">set</span> noet <span class="string">"noexpandtab</span><br><span class="line"></span></span><br><span class="line"><span class="string">"制表符以空格度量的位宽</span><br><span class="line"></span><span class="keyword">set</span> <span class="keyword">ts</span>=<span class="number">4</span> <span class="string">"tabstop</span><br><span class="line"></span></span><br><span class="line"><span class="string">"自动缩进所使用的空白长度指示</span><br><span class="line"></span><span class="keyword">set</span> <span class="keyword">sw</span>=<span class="number">4</span> <span class="string">"shiftwidth</span><br><span class="line"></span></span><br><span class="line"><span class="string">"一旦设置了softtabstop的值，按下tab键将智能插入空格和制表符的混合</span><br><span class="line"></span><span class="keyword">set</span> <span class="keyword">sts</span>=<span class="number">4</span> "softtabstop</span><br></pre></td></tr></table></figure>
+<h3 id="manual_space"><a href="http://www.cnblogs.com/witcxc/archive/2011/12/28/2304704.html" target="_blank" rel="external">manual space</a></h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">"启用折叠</span><br><span class="line">set foldenable</span><br><span class="line">"手动折叠</span><br><span class="line">set foldmethod=manual</span><br><span class="line">"用空格键来开关折叠</span><br><span class="line">nnoremap &lt;space&gt; @=((foldclosed(line('.')) &lt; 0) ? 'zc':'zo')&lt;CR&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="fold-commands">fold-commands</h2><h3 id="ENABLE/DISABLE_FOLDS">ENABLE/DISABLE FOLDS</h3><table>
+<thead>
+<tr>
+<th>command</th>
+<th>function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zn</code></td>
+<td>Fold none: reset ‘foldenable’.<br>All folds will be open.</td>
+</tr>
+<tr>
+<td><code>zN</code></td>
+<td>Fold normal: set ‘foldenable’.<br>All folds will be as they were before.</td>
+</tr>
+<tr>
+<td><code>zi</code></td>
+<td>Invert ‘foldenable’.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="OPENING_AND_CLOSING_FOLDS">OPENING AND CLOSING FOLDS</h3><p>所有的折叠相关的指令都是以 <code>z</code> 开头，<code>z</code> 如其形，看着就像折纸。<br><code>f</code> 的意思是 fold，所以 <code>zf</code> 就是折叠。你可以在 visual 模式下选定，再按 <code>zf</code> 指令，可以将选定内容进行折叠。  </p>
+<p><code>zf</code>{motion}  or {Visual}<code>zf</code>：</p>
+<ul>
+<li>Operator to create a fold.</li>
+<li>This only works when ‘foldmethod’ is “manual” or “marker”.</li>
+<li>The new fold will be closed for the “manual” method.</li>
+<li>‘foldenable’ will be set.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zo</code></td>
+<td>Open <em>one</em> fold under the cursor.</td>
+</tr>
+<tr>
+<td><code>zO</code></td>
+<td>Open <em>all</em> folds under the cursor <strong>recursively</strong>.</td>
+</tr>
+<tr>
+<td><code>zc</code></td>
+<td>Close <em>one</em> fold under the cursor.</td>
+</tr>
+<tr>
+<td><code>zC</code></td>
+<td>Close <em>all</em> folds under the cursor <strong>recursively</strong>.</td>
+</tr>
+<tr>
+<td><code>za</code></td>
+<td>When on a closed fold: open it;<br>when on an open fold: close it.<br>When folds are <em>nested</em>, you may have to use “za” several times.</td>
+</tr>
+<tr>
+<td><code>zA</code></td>
+<td>When on a closed fold: open it <strong>recursively</strong>.<br>When on an open fold: close it <strong>recursively</strong> and set ‘foldenable’.</td>
+</tr>
+</tbody>
+</table>
+<p><code>zm</code>      | Fold more: Subtract one from ‘foldlevel’.<br>If ‘foldlevel’ was already zero nothing happens.<br>‘foldenable’ will be set.<br><code>zM</code>      | Close all folds: set ‘foldlevel’ to 0.<br>‘foldenable’ will be set.<br><code>zr</code>      | Reduce folding: Add one to ‘foldlevel’.<br><code>zR</code>      | Open all folds. This sets ‘foldlevel’ to highest fold level.</p>
+<h3 id="MOVING_OVER_FOLDS">MOVING OVER FOLDS</h3><table>
+<thead>
+<tr>
+<th>command</th>
+<th>function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[z</code></td>
+<td>Move to the start of the <strong>current</strong> open fold.</td>
+</tr>
+<tr>
+<td><code>]z</code></td>
+<td>Move to the end of the <strong>current</strong> open fold.</td>
+</tr>
+<tr>
+<td><code>zj</code></td>
+<td>Move downwards to the start of the <strong>next</strong> fold.<br>A closed fold is counted as one fold.</td>
+</tr>
+<tr>
+<td><code>zk</code></td>
+<td>Move upwards to the end of the <strong>previous</strong> fold.<br>A closed fold is counted as one fold.</td>
+</tr>
+</tbody>
+</table>
+<p>折叠可以嵌套，<code>zr</code> 可以打开第一层的折叠，<code>zR</code> 可以打开所有层的折叠。与之对应的是 <code>zm</code> 和<code>zM</code>，是按层关上折叠。<br>比如说按 <code>zm</code>，会从最里层的层叠关起；连续zm就会一直关到最上层的折叠。<br>查找到了折叠里面会将折叠打开，处理完了之后要自己将折叠关上。</p>
+<h3 id="Folding_Patterns">Folding Patterns</h3><ul>
+<li>可以用普通的定位方法来告诉VIM你要折叠哪些地方，比如 <code>zj</code> 将跳到下一个可折叠点，<code>zk</code> 将跳到上一个可折叠点。  </li>
+<li>可以复合数字 [count] 指定 fold depth 或 repeat times，例如 <code>zf9j</code> 将下面9行的内容折起来。  </li>
+<li>可以用 marker，还可以用行号:20,50，就可以把20行到50行折叠起来。  </li>
+<li>也可以针对 text object 进行折叠，例如 <code>zfa}</code> 指令可以将下面匹配的花括号之间的 Block 折叠起来，这样可以很方便的折叠函数。  </li>
+<li>其他的折叠方法还有 <code>zf/string</code>，可以折叠到下一个匹配的string，不过好像不太实用。</li>
+</ul>
+<h2 id="restore/load_folding">restore/load folding</h2><p>要在下一次打开的时候还保留折叠，可以在离开的时候 <code>:mkview</code> ，再进来的时候 <code>:loadview</code> 就可以了。<br>当然也可以将这两句配置到 <code>vimrc</code> 里面让其自动完成。<br>这样每次就可以看到上次的折叠了。</p>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:mkvie[w][!] [file]</code></td>
+<td>Write a Vim script that restores the contents of the current window.</td>
+</tr>
+<tr>
+<td><code>:lo[adview] [nr]</code></td>
+<td>Load the view for the current file.<br>When [nr] is omitted, the view stored with “:mkview” is loaded.<br>When [nr] is specified, the view stored with “:mkview[nr]” is loaded.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考">参考</h2><p><a href="http://blog.csdn.net/jerry_zjunwei/article/details/7626111" target="_blank" rel="external">VIM fold 折叠</a><br><a href="http://www.cnblogs.com/fakis/archive/2011/04/14/2016213.html" target="_blank" rel="external">VIM设置代码折叠</a><br><a href="http://blog.sina.com.cn/s/blog_7acf472901017ad6.html" target="_blank" rel="external">VIM学习笔记之折叠</a><br><a href="http://www.douban.com/group/topic/16849790/" target="_blank" rel="external">原来Vim的fold可以这么拉风！</a>  </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>本文介绍了 vim 块折叠的基本操作。</p>]]>
+    
+    </summary>
+    
+      <category term="vim-fold" scheme="http://col.dog/tags/vim-fold/"/>
+    
+      <category term="vim" scheme="http://col.dog/categories/vim/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[vim 学习 009 - vim 映射]]></title>
