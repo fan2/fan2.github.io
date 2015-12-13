@@ -4,7 +4,7 @@
   <subtitle><![CDATA[just do IT]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://col.dog/"/>
-  <updated>2015-12-13T06:08:50.000Z</updated>
+  <updated>2015-12-13T06:15:01.000Z</updated>
   <id>http://col.dog/</id>
   
   <author>
@@ -13,6 +13,330 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[vim 学习 005 - vim 光标]]></title>
+    <link href="http://col.dog/2015/12/13/vim-tutorials-005-caret&position/"/>
+    <id>http://col.dog/2015/12/13/vim-tutorials-005-caret&position/</id>
+    <published>2015-12-13T06:13:40.000Z</published>
+    <updated>2015-12-13T06:15:01.000Z</updated>
+    <content type="html"><![CDATA[<p>本文介绍了 vim 中光标的移动及定位操作。</p>
+<a id="more"></a>
+<p>光标定位可参考：<strong><code>/usr/share/vim/vim73/doc/motion.txt</code></strong><br>可通过 <code>:help h</code> 或 <code>:h CTRL-N</code> 搜索帮助。</p>
+<hr>
+<h2 id="移动光标">移动光标</h2><p>※※ 要移動光標，請依照說明分別按下 <code>h</code>、<code>j</code>、<code>k</code>、<code>l</code> 鍵。 ※※</p>
+<pre><code>      ^
+      k              提示︰ <span class="keyword">h</span> 的鍵位于左邊，每次按下就會向左移動。
+&lt; <span class="keyword">h</span>       <span class="keyword">l</span> &gt;               <span class="keyword">l</span> 的鍵位于右邊，每次按下就會向右移動。
+      j                     j 鍵看起來很象一支尖端方向朝下的箭頭（down arrow）。
+      v
+</code></pre><p>在 Normal Mode 下，你当然也可以直接通过方向键（◀️🔽🔼▶️）来实现光标的移动，但 vi/vim 的宗旨是手指尽量集中在键盘中间排，以最小幅度的按键操作完成大部分定位及编辑工作。</p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>h</code></td>
+<td>⬅️</td>
+<td><code>&lt;Left&gt;</code></td>
+</tr>
+<tr>
+<td><code>j</code> / <code>&lt;C-n&gt;</code></td>
+<td>⬇️</td>
+<td><code>&lt;Down&gt;</code>，next</td>
+</tr>
+<tr>
+<td><code>k</code> / <code>&lt;C-p&gt;</code></td>
+<td>⬆️</td>
+<td><code>&lt;Up&gt;</code>，previous</td>
+</tr>
+<tr>
+<td><code>l</code></td>
+<td>➡️</td>
+<td><code>&lt;Right&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>在 Insert Mode 下，按下 <strong><code>hjkl</code></strong> 将输入普通的字母，此时只能通过方向键来移动光标，或 <esc> 切回 Normal Mode 定位光标再切换回继续编辑。</esc></p>
+<h2 id="位置回溯">位置回溯</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;C-o&gt;</code></td>
+<td>光标回到上次位置</td>
+<td>takes back to older positions</td>
+</tr>
+<tr>
+<td><code>&lt;C-i&gt;</code></td>
+<td>光标回到下次位置</td>
+<td>takes to newer positions</td>
+</tr>
+</tbody>
+</table>
+<p>vim 打开文件之后，光标一般都在文件开头，想要跳到上次关闭文件前的位置可按下 <code>&#39;0</code> 。</p>
+<h2 id="单词定位">单词定位</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>b</code> / <code>&lt;S-Left&gt;</code></td>
+<td>移动到上一单词首</td>
+</tr>
+<tr>
+<td><code>w</code> / <code>&lt;S-Right&gt;</code></td>
+<td>移动到下一单词首</td>
+</tr>
+<tr>
+<td><code>e</code></td>
+<td>移动到当前单词尾</td>
+</tr>
+<tr>
+<td><code>ge</code></td>
+<td>移动到前一个单词尾</td>
+</tr>
+</tbody>
+</table>
+<h2 id="行内定位">行内定位</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code>    / `</td>
+<td><code>/</code>Home`</td>
+<td>移到行首</td>
+<td>“hard” BOL (Begin of Line)</td>
+</tr>
+<tr>
+<td><code>^</code> / <code>_</code> / <code>End</code></td>
+<td>移到行首（非空白字符）</td>
+<td>“soft” BOL (End of Line)</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>移到行尾</td>
+<td>EOL</td>
+</tr>
+<tr>
+<td><code>{n}␣</code></td>
+<td>向右（下）移动n个字符</td>
+<td>数字+空格</td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>跳到匹配的括号处</td>
+<td>MATCHING PARENTHESES SEARCH: <br>“{ }”、”[]”、”()”</td>
+</tr>
+</tbody>
+</table>
+<h2 id="行间定位">行间定位</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-</code></td>
+<td>移动到上一行首</td>
+<td>非空白字元</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>移动到下一行首</td>
+<td>非空白字元</td>
+</tr>
+<tr>
+<td><code>{n}&lt;CR&gt;</code></td>
+<td>向下移动n行</td>
+<td>数字+回车</td>
+</tr>
+</tbody>
+</table>
+<h2 id="行跳转定位">行跳转定位</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gg</code></td>
+<td><strong>移到文件第一行首</strong></td>
+<td>第一行 BOL：<br>move to the start of the file</td>
+</tr>
+<tr>
+<td><code>G</code></td>
+<td><strong>移到文件末尾行首</strong></td>
+<td>最后一行（EOF）的 BOL：<br>move to the bottom of the file</td>
+</tr>
+<tr>
+<td><code>{n}gg</code> / <code>{n}G</code> / <code>:{n}</code></td>
+<td>移到第n行</td>
+<td>n为行数</td>
+</tr>
+</tbody>
+</table>
+<p>vim在打开文件时，光标默认定位在第一行行首，实际上可通过 <code>+</code> 带参数可以跳转到指定行。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  vim --help&#10;usage: vim [arguments] [file ..]       edit specified file(s)&#10;&#10;Arguments:&#10;   --&#9;&#9;&#9;Only file names after this&#10;   &#10;   +&#9;&#9;&#9;Start at end of file&#10;   +&#60;lnum&#62;&#9;&#9;Start at line &#60;lnum&#62;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>+&lt;num&gt;</code>指定打开时光标所在行：  <blockquote>
+<p>➜  ~  vim +39 /usr/share/vim/vim73/doc/motion.txt</p>
+</blockquote>
+</li>
+<li><code>+</code>打开文件时光标定位到最后一行，方便append编辑：  <blockquote>
+<p>➜  ~  vim + /usr/share/vim/vim73/doc/motion.txt</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="句段定位">句段定位</h2><p>方便以句、段为单位回溯/推进阅读：</p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>(</code></td>
+<td>移到上一句首</td>
+<td>sentences backward</td>
+</tr>
+<tr>
+<td><code>)</code></td>
+<td>移到下一句首</td>
+<td>sentences forward</td>
+</tr>
+<tr>
+<td><code>{</code></td>
+<td>移到上一段首</td>
+<td>paragraphs backward</td>
+</tr>
+<tr>
+<td><code>}</code></td>
+<td>移到下一段首</td>
+<td>paragraphs forward</td>
+</tr>
+<tr>
+<td>]]</td>
+<td>移到下一句首{</td>
+<td>[count] sections forward or to the next ‘{‘ in the first column.</td>
+</tr>
+<tr>
+<td>[[</td>
+<td>移到上一句首{</td>
+<td>[count] sections backward or to the previous ‘{‘ in the first column.</td>
+</tr>
+</tbody>
+</table>
+<p>][          | 移到下一句首} | [count] sections forward or to the next ‘}’ in the first column.<br>[]          | 移到上一句首} | [count] sections backward or to the previous ‘}’ in the first column.</p>
+<h2 id="屏显定位">屏显定位</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>H</code> (<code>&lt;S-h&gt;</code>)</td>
+<td>移到当前屏幕的第一行 </td>
+</tr>
+<tr>
+<td><code>M</code> (<code>&lt;S-m&gt;</code>)</td>
+<td>移到当前屏幕的中间一行</td>
+</tr>
+<tr>
+<td><code>L</code> (<code>&lt;S-l&gt;</code>)</td>
+<td>移到当前屏幕的最后一行</td>
+</tr>
+</tbody>
+</table>
+<p><strong>说明：</strong></p>
+<blockquote>
+<p>这三个键控屏移仅针对当前屏幕显示范围，方便当前显示区域阅读，而非全文定位。</p>
+</blockquote>
+<hr>
+<p>滚屏定位可参考：<strong><code>/usr/share/vim/vim73/doc/scroll.txt</code></strong><br>可通过 <code>:help CTRL-D</code> 或 <code>:h CTRL-U</code> 搜索帮助。</p>
+<h2 id="滚屏定位">滚屏定位</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;C-e&gt;</code></td>
+<td>屏幕向下移动一行</td>
+<td>move forward one-line</td>
+</tr>
+<tr>
+<td><code>&lt;C-y&gt;</code></td>
+<td>屏幕向上回滚一行</td>
+<td>move backward one-line</td>
+</tr>
+<tr>
+<td><code>&lt;C-d&gt;</code></td>
+<td>屏幕向下移动半页</td>
+<td>move <strong>d</strong>own half-page</td>
+</tr>
+<tr>
+<td><code>&lt;C-u&gt;</code></td>
+<td>屏幕向上回滚半页</td>
+<td>move <strong>u</strong>p half-page</td>
+</tr>
+<tr>
+<td><code>&lt;C-f&gt;</code>/<code>PgDn</code></td>
+<td>屏幕向下滚动一页</td>
+<td><strong>f</strong>orward</td>
+</tr>
+<tr>
+<td><code>&lt;C-b&gt;</code>/<code>PgUp</code></td>
+<td>屏幕向上回滚一页</td>
+<td><strong>b</strong>ackward</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>本文介绍了 vim 中光标的移动及定位操作。</p>]]>
+    
+    </summary>
+    
+      <category term="vim-motion" scheme="http://col.dog/tags/vim-motion/"/>
+    
+      <category term="vim-scroll" scheme="http://col.dog/tags/vim-scroll/"/>
+    
+      <category term="vim" scheme="http://col.dog/categories/vim/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[vim 学习 004 - vim 模式]]></title>

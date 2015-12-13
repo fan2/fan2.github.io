@@ -1,0 +1,1073 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+    <link href='//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="vim-motion,vim-scroll," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Elsewhere" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="本文介绍了 vim 中光标的移动及定位操作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vim 学习 005 - vim 光标">
+<meta property="og:url" content="http://col.dog/2015/12/13/vim-tutorials-005-caret&position/index.html">
+<meta property="og:site_name" content="Elsewhere">
+<meta property="og:description" content="本文介绍了 vim 中光标的移动及定位操作。">
+<meta property="og:updated_time" content="2015-12-13T06:15:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vim 学习 005 - vim 光标">
+<meta name="twitter:description" content="本文介绍了 vim 中光标的移动及定位操作。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> vim 学习 005 - vim 光标 | Elsewhere </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=52641397";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Elsewhere</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">just do IT</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                vim 学习 005 - vim 光标
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-12-13T14:13:40+08:00" content="2015-12-13">
+              2015-12-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/vim/" itemprop="url" rel="index">
+                    <span itemprop="name">vim</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/12/13/vim-tutorials-005-caret&position/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/13/vim-tutorials-005-caret&position/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>本文介绍了 vim 中光标的移动及定位操作。</p>
+<a id="more"></a>
+<p>光标定位可参考：<strong><code>/usr/share/vim/vim73/doc/motion.txt</code></strong><br>可通过 <code>:help h</code> 或 <code>:h CTRL-N</code> 搜索帮助。</p>
+<hr>
+<h2 id="移动光标">移动光标</h2><p>※※ 要移動光標，請依照說明分別按下 <code>h</code>、<code>j</code>、<code>k</code>、<code>l</code> 鍵。 ※※</p>
+<pre><code>      ^
+      k              提示︰ <span class="keyword">h</span> 的鍵位于左邊，每次按下就會向左移動。
+&lt; <span class="keyword">h</span>       <span class="keyword">l</span> &gt;               <span class="keyword">l</span> 的鍵位于右邊，每次按下就會向右移動。
+      j                     j 鍵看起來很象一支尖端方向朝下的箭頭（down arrow）。
+      v
+</code></pre><p>在 Normal Mode 下，你当然也可以直接通过方向键（◀️🔽🔼▶️）来实现光标的移动，但 vi/vim 的宗旨是手指尽量集中在键盘中间排，以最小幅度的按键操作完成大部分定位及编辑工作。</p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>h</code></td>
+<td>⬅️</td>
+<td><code>&lt;Left&gt;</code></td>
+</tr>
+<tr>
+<td><code>j</code> / <code>&lt;C-n&gt;</code></td>
+<td>⬇️</td>
+<td><code>&lt;Down&gt;</code>，next</td>
+</tr>
+<tr>
+<td><code>k</code> / <code>&lt;C-p&gt;</code></td>
+<td>⬆️</td>
+<td><code>&lt;Up&gt;</code>，previous</td>
+</tr>
+<tr>
+<td><code>l</code></td>
+<td>➡️</td>
+<td><code>&lt;Right&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>在 Insert Mode 下，按下 <strong><code>hjkl</code></strong> 将输入普通的字母，此时只能通过方向键来移动光标，或 <esc> 切回 Normal Mode 定位光标再切换回继续编辑。</esc></p>
+<h2 id="位置回溯">位置回溯</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;C-o&gt;</code></td>
+<td>光标回到上次位置</td>
+<td>takes back to older positions</td>
+</tr>
+<tr>
+<td><code>&lt;C-i&gt;</code></td>
+<td>光标回到下次位置</td>
+<td>takes to newer positions</td>
+</tr>
+</tbody>
+</table>
+<p>vim 打开文件之后，光标一般都在文件开头，想要跳到上次关闭文件前的位置可按下 <code>&#39;0</code> 。</p>
+<h2 id="单词定位">单词定位</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>b</code> / <code>&lt;S-Left&gt;</code></td>
+<td>移动到上一单词首</td>
+</tr>
+<tr>
+<td><code>w</code> / <code>&lt;S-Right&gt;</code></td>
+<td>移动到下一单词首</td>
+</tr>
+<tr>
+<td><code>e</code></td>
+<td>移动到当前单词尾</td>
+</tr>
+<tr>
+<td><code>ge</code></td>
+<td>移动到前一个单词尾</td>
+</tr>
+</tbody>
+</table>
+<h2 id="行内定位">行内定位</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code>    / `</td>
+<td><code>/</code>Home`</td>
+<td>移到行首</td>
+<td>“hard” BOL (Begin of Line)</td>
+</tr>
+<tr>
+<td><code>^</code> / <code>_</code> / <code>End</code></td>
+<td>移到行首（非空白字符）</td>
+<td>“soft” BOL (End of Line)</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>移到行尾</td>
+<td>EOL</td>
+</tr>
+<tr>
+<td><code>{n}␣</code></td>
+<td>向右（下）移动n个字符</td>
+<td>数字+空格</td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>跳到匹配的括号处</td>
+<td>MATCHING PARENTHESES SEARCH: <br>“{ }”、”[]”、”()”</td>
+</tr>
+</tbody>
+</table>
+<h2 id="行间定位">行间定位</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-</code></td>
+<td>移动到上一行首</td>
+<td>非空白字元</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>移动到下一行首</td>
+<td>非空白字元</td>
+</tr>
+<tr>
+<td><code>{n}&lt;CR&gt;</code></td>
+<td>向下移动n行</td>
+<td>数字+回车</td>
+</tr>
+</tbody>
+</table>
+<h2 id="行跳转定位">行跳转定位</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gg</code></td>
+<td><strong>移到文件第一行首</strong></td>
+<td>第一行 BOL：<br>move to the start of the file</td>
+</tr>
+<tr>
+<td><code>G</code></td>
+<td><strong>移到文件末尾行首</strong></td>
+<td>最后一行（EOF）的 BOL：<br>move to the bottom of the file</td>
+</tr>
+<tr>
+<td><code>{n}gg</code> / <code>{n}G</code> / <code>:{n}</code></td>
+<td>移到第n行</td>
+<td>n为行数</td>
+</tr>
+</tbody>
+</table>
+<p>vim在打开文件时，光标默认定位在第一行行首，实际上可通过 <code>+</code> 带参数可以跳转到指定行。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  vim --help&#10;usage: vim [arguments] [file ..]       edit specified file(s)&#10;&#10;Arguments:&#10;   --&#9;&#9;&#9;Only file names after this&#10;   &#10;   +&#9;&#9;&#9;Start at end of file&#10;   +&#60;lnum&#62;&#9;&#9;Start at line &#60;lnum&#62;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>+&lt;num&gt;</code>指定打开时光标所在行：  <blockquote>
+<p>➜  ~  vim +39 /usr/share/vim/vim73/doc/motion.txt</p>
+</blockquote>
+</li>
+<li><code>+</code>打开文件时光标定位到最后一行，方便append编辑：  <blockquote>
+<p>➜  ~  vim + /usr/share/vim/vim73/doc/motion.txt</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="句段定位">句段定位</h2><p>方便以句、段为单位回溯/推进阅读：</p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>(</code></td>
+<td>移到上一句首</td>
+<td>sentences backward</td>
+</tr>
+<tr>
+<td><code>)</code></td>
+<td>移到下一句首</td>
+<td>sentences forward</td>
+</tr>
+<tr>
+<td><code>{</code></td>
+<td>移到上一段首</td>
+<td>paragraphs backward</td>
+</tr>
+<tr>
+<td><code>}</code></td>
+<td>移到下一段首</td>
+<td>paragraphs forward</td>
+</tr>
+<tr>
+<td>]]</td>
+<td>移到下一句首{</td>
+<td>[count] sections forward or to the next ‘{‘ in the first column.</td>
+</tr>
+<tr>
+<td>[[</td>
+<td>移到上一句首{</td>
+<td>[count] sections backward or to the previous ‘{‘ in the first column.</td>
+</tr>
+</tbody>
+</table>
+<p>][          | 移到下一句首} | [count] sections forward or to the next ‘}’ in the first column.<br>[]          | 移到上一句首} | [count] sections backward or to the previous ‘}’ in the first column.</p>
+<h2 id="屏显定位">屏显定位</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>H</code> (<code>&lt;S-h&gt;</code>)</td>
+<td>移到当前屏幕的第一行 </td>
+</tr>
+<tr>
+<td><code>M</code> (<code>&lt;S-m&gt;</code>)</td>
+<td>移到当前屏幕的中间一行</td>
+</tr>
+<tr>
+<td><code>L</code> (<code>&lt;S-l&gt;</code>)</td>
+<td>移到当前屏幕的最后一行</td>
+</tr>
+</tbody>
+</table>
+<p><strong>说明：</strong></p>
+<blockquote>
+<p>这三个键控屏移仅针对当前屏幕显示范围，方便当前显示区域阅读，而非全文定位。</p>
+</blockquote>
+<hr>
+<p>滚屏定位可参考：<strong><code>/usr/share/vim/vim73/doc/scroll.txt</code></strong><br>可通过 <code>:help CTRL-D</code> 或 <code>:h CTRL-U</code> 搜索帮助。</p>
+<h2 id="滚屏定位">滚屏定位</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;C-e&gt;</code></td>
+<td>屏幕向下移动一行</td>
+<td>move forward one-line</td>
+</tr>
+<tr>
+<td><code>&lt;C-y&gt;</code></td>
+<td>屏幕向上回滚一行</td>
+<td>move backward one-line</td>
+</tr>
+<tr>
+<td><code>&lt;C-d&gt;</code></td>
+<td>屏幕向下移动半页</td>
+<td>move <strong>d</strong>own half-page</td>
+</tr>
+<tr>
+<td><code>&lt;C-u&gt;</code></td>
+<td>屏幕向上回滚半页</td>
+<td>move <strong>u</strong>p half-page</td>
+</tr>
+<tr>
+<td><code>&lt;C-f&gt;</code>/<code>PgDn</code></td>
+<td>屏幕向下滚动一页</td>
+<td><strong>f</strong>orward</td>
+</tr>
+<tr>
+<td><code>&lt;C-b&gt;</code>/<code>PgUp</code></td>
+<td>屏幕向上回滚一页</td>
+<td><strong>b</strong>ackward</td>
+</tr>
+</tbody>
+</table>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vim-motion/" rel="tag">#vim-motion</a>
+          
+            <a href="/tags/vim-scroll/" rel="tag">#vim-scroll</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/13/vim-tutorials-004-modes/" rel="next" title="vim 学习 004 - vim 模式">
+                <i class="fa fa-chevron-left"></i> vim 学习 004 - vim 模式
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/12/13/vim-tutorials-005-caret&position/"
+           data-title="vim 学习 005 - vim 光标" data-url="http://col.dog/2015/12/13/vim-tutorials-005-caret&position/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="Thomas Fan" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Thomas Fan</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description"></p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fan2/" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:challenge4fun@qq.com" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> Email
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">友情链接</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/phunxm" target="_blank">myCSDN</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.sadpast.com/" target="_blank">sadpast</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.cssforest.org/" target="_blank">ghostzhang</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://onevcat.com/" target="_blank">onevcat</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://objccn.io/" target="_blank">objccn</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://macshuo.com/" target="_blank">mactalk</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.devtang.com/" target="_blank">唐巧</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://beyondvincent.com/" target="_blank">周智勋</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.leichunfeng.com/" target="_blank">雷纯锋</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://justinyan.me/" target="_blank">枫影阁</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.vgod.tw/" target="_blank">張琮翔</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.sunnyxx.com/" target="_blank">sunnyxx</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#移动光标"><span class="nav-number">1.</span> <span class="nav-text">移动光标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位置回溯"><span class="nav-number">2.</span> <span class="nav-text">位置回溯</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单词定位"><span class="nav-number">3.</span> <span class="nav-text">单词定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行内定位"><span class="nav-number">4.</span> <span class="nav-text">行内定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行间定位"><span class="nav-number">5.</span> <span class="nav-text">行间定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行跳转定位"><span class="nav-number">6.</span> <span class="nav-text">行跳转定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#句段定位"><span class="nav-number">7.</span> <span class="nav-text">句段定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#屏显定位"><span class="nav-number">8.</span> <span class="nav-text">屏显定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#滚屏定位"><span class="nav-number">9.</span> <span class="nav-text">滚屏定位</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Thomas Fan</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"coldog"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>
