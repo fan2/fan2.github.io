@@ -4,7 +4,7 @@
   <subtitle><![CDATA[just do IT]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://col.dog/"/>
-  <updated>2015-12-13T07:28:23.000Z</updated>
+  <updated>2015-12-13T07:49:52.000Z</updated>
   <id>http://col.dog/</id>
   
   <author>
@@ -13,6 +13,283 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[vim 学习 012 - vim 分屏窗口和标签页面]]></title>
+    <link href="http://col.dog/2015/12/13/vim-tutorials-012-tab&split/"/>
+    <id>http://col.dog/2015/12/13/vim-tutorials-012-tab&split/</id>
+    <published>2015-12-13T07:27:30.000Z</published>
+    <updated>2015-12-13T07:49:52.000Z</updated>
+    <content type="html"><![CDATA[<p>本文介绍了 vim 阅读显示视窗之分割窗口和多标签页面。</p>
+<a id="more"></a>
+<p><a href="http://www.cnblogs.com/hnrainll/archive/2011/04/29/2032662.html" target="_blank" rel="external">vim在多个文件之间切换</a><br><a href="http://blog.csdn.net/huiguixian/article/details/6231425" target="_blank" rel="external">vim打开文档和多文档编辑</a></p>
+<h2 id="查看文件信息">查看文件信息</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:f</code> / <code>&lt;C-g&gt;</code></td>
+<td>查看当前文件信息</td>
+<td>包括文件名、属性、行数、阅读进度、光标位置等信息</td>
+</tr>
+<tr>
+<td><code>1&lt;C-g&gt;</code></td>
+<td>查看当前文件信息</td>
+<td>文件名为绝对路径</td>
+</tr>
+<tr>
+<td><code>:f {filename}</code></td>
+<td>拷贝当前文档</td>
+<td>类似<code>:w {filename}</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="打开多个文件">打开多个文件</h2><h3 id="当前vim窗口再打开/新建文件">当前vim窗口再打开/新建文件</h3><p>前面我们在调用vim打开文件时，只带了一个文件参数。实际上，在编辑一个文件时，可以通过底行模式指令在当前窗口再打开或新建文件。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:e {filename}</code> / <code>:open {filename}</code></td>
+<td>当前窗口编辑（edit）文件，如果不存在则新建。<br>如果当前文件有过修改会提示<code>No write since last change (add ! to override)</code>，需先保存或<code>!</code>强制覆盖。</td>
+<td>editing.txt</td>
+</tr>
+<tr>
+<td><code>:n {filename}</code></td>
+<td>当前窗口新建文件，如果已存在直接打开。<br>如果当前文件有过修改会提示<code>No write since last change (add ! to override)</code>，需先保存或<code>!</code>强制覆盖。</td>
+<td>editing.txt</td>
+</tr>
+<tr>
+<td><code>:files</code> / <code>:buffers</code> / <code>:ls</code></td>
+<td>列出目前<strong>缓冲区</strong>中的所有文档。<br> <code>+</code> 表示缓冲区已经被修改过了；<br> <code>＃</code> 代表上一次编辑的文档；<br> <code>%</code> 是当前正在编辑的文档。</td>
+<td>windows.txt</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vim打开多个文件（argument_list）">vim打开多个文件（argument list）</h3><p>vim可以接多个文件名作为参数列表（argument list），同时打开多个文件：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  cd /usr/share/vim/vim73/doc&#10;&#10140;  doc  vim usr_01.txt usr_02.txt usr_03.txt</span><br></pre></td></tr></table></figure>
+<p>打开的这几个文件各自有对应的 swap buffer，但共用当前这一个编辑窗口，需要执行命令切换文件。</p>
+<p><strong>多文档切换</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:n</code></td>
+<td>编辑下一个文档</td>
+<td>针对argument list，可参考editing.txt</td>
+</tr>
+<tr>
+<td><code>:N</code></td>
+<td>编辑上一个文档</td>
+<td>针对argument list，可参考editing.txt</td>
+</tr>
+<tr>
+<td><code>:b {n}</code></td>
+<td>移至第n个文档（buffer）</td>
+<td>n为<code>:files</code>/<code>:buffers</code>中的序号，可参考 windows.txt</td>
+</tr>
+<tr>
+<td><code>:bd {n}</code></td>
+<td>关闭（delete）第n个文档（buffer）</td>
+<td>n为<code>:files</code>/<code>:buffers</code>中的序号，可参考 windows.txt</td>
+</tr>
+<tr>
+<td><code>:bn</code></td>
+<td>编辑下一个文档</td>
+<td>针对buffers，可参考editing.txt</td>
+</tr>
+<tr>
+<td><code>:bN</code> / <code>:bp</code></td>
+<td>编辑上一个文档</td>
+<td>针对buffers，可参考editing.txt</td>
+</tr>
+</tbody>
+</table>
+<p><strong>说明：</strong></p>
+<blockquote>
+<p><code>:n</code>和<code>:N</code>只能针对 argument list 打开的多文件间进行切换，vim打开单文件或后期追加打开/编辑文件的将提示 <code>There is only one file to edit</code>。<br>对于多个正在编辑的file buffer，需要逐个 <code>:w</code> 保存，或者执行 <code>:qa</code>/<code>:qa!</code> 关闭全部退出 vim。</p>
+</blockquote>
+<h2 id="分屏窗口">分屏窗口</h2><p>参考： <code>/usr/share/vim/vim73/doc/windows.txt</code></p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  vim --help&#10;usage: vim [arguments] [file ..]       edit specified file(s)&#10;&#10;Arguments:&#10;   --&#9;&#9;&#9;Only file names after this&#10;   &#10;   -o[N]&#9;&#9;Open N windows (default: one for each file)&#10;   -O[N]&#9;&#9;Like -o but split vertically</span><br></pre></td></tr></table></figure>
+<p>以下调用 <code>vim -o</code> 同时打开3个文件，水平分屏：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  doc  vim -o usr_01.txt usr_02.txt usr_03.txt</span><br></pre></td></tr></table></figure>
+<p><img src="http://7xo5uz.com1.z0.glb.clouddn.com/vim_-o_hor.png" alt="vim -o"></p>
+<p>以下调用 <code>vim -O</code> 同时打开3个文件，垂直分屏：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  doc  vim -O usr_01.txt usr_02.txt usr_03.txt</span><br></pre></td></tr></table></figure>
+<p><img src="http://7xo5uz.com1.z0.glb.clouddn.com/vim_-O_ver.png" alt="vim -O"></p>
+<h3 id="划分屏幕">划分屏幕</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:new</code>/<code>vnew</code></td>
+<td>创建一个新的分屏窗口</td>
+</tr>
+<tr>
+<td><code>:split</code>(<code>:sp</code>) / <code>vsplit</code></td>
+<td>将当前文档分割到一个新的窗口进行多屏显示</td>
+</tr>
+<tr>
+<td><code>:sf {filename}</code></td>
+<td>在新窗口中打开指定文件(必须已存在)</td>
+</tr>
+<tr>
+<td><code>:close</code> / <code>:q</code></td>
+<td>关闭当前窗口</td>
+</tr>
+<tr>
+<td><code>:only</code></td>
+<td>关闭除当前窗口外所有窗口</td>
+</tr>
+</tbody>
+</table>
+<h3 id="切换分屏（&lt;C-w&gt;）">切换分屏（<code>&lt;C-w&gt;</code>）</h3><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;C-w&gt;w</code></td>
+<td>顺序循环切换窗口</td>
+</tr>
+<tr>
+<td><code>&lt;C-w&gt;h</code></td>
+<td>切换到左面的窗口</td>
+</tr>
+<tr>
+<td><code>&lt;C-w&gt;j</code></td>
+<td>切换到下面的窗口</td>
+</tr>
+<tr>
+<td><code>&lt;C-w&gt;k</code></td>
+<td>切换到上面的窗口</td>
+</tr>
+<tr>
+<td><code>&lt;C-w&gt;l</code></td>
+<td>切换到右面的窗口</td>
+</tr>
+<tr>
+<td><code>&lt;C-w&gt;t</code></td>
+<td>切换到顶部的窗口</td>
+</tr>
+<tr>
+<td><code>&lt;C-w&gt;b</code></td>
+<td>切换到底部的窗口</td>
+</tr>
+<tr>
+<td><code>&lt;C-w&gt;q</code></td>
+<td>关闭当前窗口，相当于 <code>:q</code> / <code>:close</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="分屏示例">分屏示例</h3><p>以下基于 <code>vim -O</code> 打开3个文件的垂直三列分屏再进行水平分屏：</p>
+<ol>
+<li>将光标切换聚焦到第一个窗口 <code>usr_01.txt</code> 上，执行 <code>:sp usr_04.txt</code> 在下面水平切割出的新窗口打开 <code>usr_04.txt</code>。</li>
+<li><code>&lt;C-w&gt;l</code>切换到 <code>usr_02.txt</code> 窗口，执行 <code>:sp usr_05.txt</code> 在下面水平切割出的新窗口打开 <code>usr_05.txt</code>。</li>
+<li><code>&lt;C-w&gt;l</code>切换到 <code>usr_03.txt</code> 窗口，执行 <code>:sp usr_06.txt</code> 在下面水平切割出的新窗口打开 <code>usr_06.txt</code>。</li>
+</ol>
+<p>最终分割出六宫格布局：</p>
+<p><img src="http://7xo5uz.com1.z0.glb.clouddn.com/vim_-O_+_split.png" alt="vim -O + split.png"></p>
+<h2 id="多标签">多标签</h2><blockquote>
+<p><strong>REFERENCE MANUAL</strong>: <code>/usr/share/vim/vim73/doc/tabpage.txt</code><br><strong>topic</strong>: Editing with windows in multiple tab pages.<br><strong>keyword</strong>: <em>tab-page</em> <em>tabpage</em></p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  vim --help&#10;usage: vim [arguments] [file ..]       edit specified file(s)&#10;&#10;Arguments:&#10;   --&#9;&#9;&#9;Only file names after this&#10;   &#10;   -p[N]&#9;&#9;Open N tab pages (default: one for each file)</span><br></pre></td></tr></table></figure>
+<p>以下调用 <code>vim -p</code> 同时打开3个文件，分布在同一窗口的3各标签（tab page）：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  cd /usr/share/vim/vim73/doc&#10;&#10140;  doc  vim -p usr_01.txt usr_02.txt usr_03.txt</span><br></pre></td></tr></table></figure>
+<p><img src="http://7xo5uz.com1.z0.glb.clouddn.com/vim_-p_tabpages.png" alt="vim -p tabpages"></p>
+<h3 id="新建/关闭标签（OPENING_A_NEW_TAB_PAGE）">新建/关闭标签（OPENING A NEW TAB PAGE）</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:tabe</code> / <code>:tabedit</code> / <code>:tabnew</code></td>
+<td>Open a new tab page with an empty window</td>
+</tr>
+<tr>
+<td><code>:tabs</code></td>
+<td>List the tab pages and the windows they contain. <br>- Shows a “&gt;” for the current window; <br>- Shows a “+” for modified buffers.</td>
+</tr>
+<tr>
+<td><code>:tabc</code> / <code>:tabclose</code></td>
+<td>Close current tab page <br> you can specify the <strong>tab index</strong> that want to close.</td>
+</tr>
+<tr>
+<td><code>:tabo</code> / <code>:tabonly</code></td>
+<td>Close all other tab pages.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="切换标签（SWITCHING_TO_ANOTHER_TAB_PAGE）">切换标签（SWITCHING TO ANOTHER TAB PAGE）</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tabfir</code> / <code>:tabr</code></td>
+<td>Go to the first tab page.</td>
+<td><code>:tabfirst</code> / <code>:tabrewind</code></td>
+</tr>
+<tr>
+<td><code>:tabl</code></td>
+<td>Go to the last tab page.</td>
+<td><code>:tablast</code></td>
+</tr>
+<tr>
+<td><code>:tabn</code> / <code>:tabnext</code> / <code>gt</code></td>
+<td>Go to the next tab page.</td>
+<td>Wraps around from the last to the first one.<br>you can specify the <strong>tab index</strong> that want to jump.</td>
+</tr>
+<tr>
+<td><code>:tabN</code> / <code>:tabp</code> / <code>:tabprevious</code> / <code>gT</code></td>
+<td>Go to the previous tab page.</td>
+<td>Wraps around from the first one to the last one.<br>you can specify the <strong>tab index</strong> that want to jump back.</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>本文介绍了 vim 阅读显示视窗之分割窗口和多标签页面。</p>]]>
+    
+    </summary>
+    
+      <category term="vim-split-windows" scheme="http://col.dog/tags/vim-split-windows/"/>
+    
+      <category term="vim-tab-pages" scheme="http://col.dog/tags/vim-tab-pages/"/>
+    
+      <category term="vim" scheme="http://col.dog/categories/vim/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[vim 学习 011 - vim 查找替换]]></title>
