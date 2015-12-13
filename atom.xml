@@ -4,7 +4,7 @@
   <subtitle><![CDATA[just do IT]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://col.dog/"/>
-  <updated>2015-12-13T06:38:32.000Z</updated>
+  <updated>2015-12-13T06:46:59.000Z</updated>
   <id>http://col.dog/</id>
   
   <author>
@@ -13,6 +13,120 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[vim 学习 009 - vim 映射]]></title>
+    <link href="http://col.dog/2015/12/13/vim-tutorials-009-map/"/>
+    <id>http://col.dog/2015/12/13/vim-tutorials-009-map/</id>
+    <published>2015-12-13T06:44:52.000Z</published>
+    <updated>2015-12-13T06:46:59.000Z</updated>
+    <content type="html"><![CDATA[<p>本文介绍了 vim 按键映射的基本知识。</p>
+<a id="more"></a>
+<h1 id="vim按键映射"><a href="http://haoxiang.org/2011/09/vim-modes-and-mappin/" target="_blank" rel="external">vim按键映射</a></h1><h2 id="map前缀">map前缀</h2><p>对vim map而言，前缀作为命令本身的修饰符，微调命令的作用模式和效果。<br>vim map针对模式和递归效果可能有这么几种前缀：</p>
+<table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nore</td>
+<td>表示非递归，<strong>默认递归</strong>（Recursive Mapping）</td>
+</tr>
+<tr>
+<td>n</td>
+<td>表示在普通模式下生效</td>
+</tr>
+<tr>
+<td>i</td>
+<td>表示在插入模式下生效</td>
+</tr>
+<tr>
+<td>c</td>
+<td>表示在命令行模式下生效</td>
+</tr>
+<tr>
+<td>v</td>
+<td>表示在可视模式下生效</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Recursive_Mapping">Recursive Mapping</h3><p>递归的映射，其实很好理解：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"键`a`被映射成了`b`</span><br><span class="line">:map a b</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"`c`又被映射成了`a`</span><br><span class="line">:map c a</span><br></pre></td></tr></table></figure>
+<p>上述map默认没加<code>nore</code>前缀，即递归映射，那么<code>c</code>最终就被映射成了<code>b</code>。对于按键<code>c</code>等效于：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">:map c b</span><br></pre></td></tr></table></figure>
+<p><strong>说明：</strong></p>
+<blockquote>
+<p>默认map命令影响到普通模式和可视模式。<br>在自定义映射时，递归迂回一般都是非预期的，故通常使用非递归（<code>noremamp</code>）。</p>
+</blockquote>
+<p>如果不是特殊情况，在使用vim时，手指应尽量集中在键盘中间排。可以将较少使用的<code>CapsLock</code>键映射为较难触摸的左上角<code>&lt;Esc&gt;</code>键：</p>
+<h3 id="unmap">unmap</h3><p>unmap后面跟一个按键（组合），表示删除这个按键（组合）的映射。有点类似C语言预编译宏中的取消宏定义符号<br><code>#undef</code>。<br>在map生效模式下，执行以下命令，解除<code>c</code>到<code>a</code>的映射：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"解除c键映射</span><br><span class="line">:unmap c</span><br></pre></td></tr></table></figure>
+<p>同样，unmap可以加各种前缀，表示影响到的模式。</p>
+<h3 id="mapclear">mapclear</h3><p>mapclear直接清除相关模式下的所有映射。<br>同样，mapclear可以加各种前缀，表示影响到的模式。</p>
+<h2 id="常用map命令">常用map命令</h2><table>
+<thead>
+<tr>
+<th>prefix</th>
+<th>map</th>
+<th>noremap</th>
+<th>unmap</th>
+<th>mapclear</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>:map</td>
+<td>:noremap</td>
+<td>:unmap</td>
+<td>:mapclear</td>
+</tr>
+<tr>
+<td>n</td>
+<td>:nmap</td>
+<td>:nnoremap</td>
+<td>:nunmap</td>
+<td>:nmapclear</td>
+</tr>
+<tr>
+<td>v</td>
+<td>:vmap</td>
+<td>:vnoremap</td>
+<td>:vunmap</td>
+<td>:vmapclear</td>
+</tr>
+<tr>
+<td>i</td>
+<td>:imap</td>
+<td>:inoremap</td>
+<td>:iunmap</td>
+<td>:imapclear</td>
+</tr>
+<tr>
+<td>c</td>
+<td>:cmap</td>
+<td>:cnoremap</td>
+<td>:cunmap</td>
+<td>:cmapclear</td>
+</tr>
+</tbody>
+</table>
+<p>vim的map模式的相关命令：<br><a href="http://roclinux.cn/wp-content/uploads/2013/01/Snip20130103_2.png" target="_blank" rel="external"><img src="http://roclinux.cn/wp-content/uploads/2013/01/Snip20130103_2.png" alt="vim的map模式的相关命令"></a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>本文介绍了 vim 按键映射的基本知识。</p>]]>
+    
+    </summary>
+    
+      <category term="vim-map" scheme="http://col.dog/tags/vim-map/"/>
+    
+      <category term="vim" scheme="http://col.dog/categories/vim/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[vim 学习 008 - vim 配置]]></title>
