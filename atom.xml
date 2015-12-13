@@ -4,7 +4,7 @@
   <subtitle><![CDATA[just do IT]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://col.dog/"/>
-  <updated>2015-12-13T07:49:52.000Z</updated>
+  <updated>2015-12-13T07:58:22.000Z</updated>
   <id>http://col.dog/</id>
   
   <author>
@@ -18,8 +18,8 @@
     <title><![CDATA[vim 学习 012 - vim 分屏窗口和标签页面]]></title>
     <link href="http://col.dog/2015/12/13/vim-tutorials-012-tab&split/"/>
     <id>http://col.dog/2015/12/13/vim-tutorials-012-tab&split/</id>
-    <published>2015-12-13T07:27:30.000Z</published>
-    <updated>2015-12-13T07:49:52.000Z</updated>
+    <published>2015-12-13T07:58:10.000Z</published>
+    <updated>2015-12-13T07:58:22.000Z</updated>
     <content type="html"><![CDATA[<p>本文介绍了 vim 阅读显示视窗之分割窗口和多标签页面。</p>
 <a id="more"></a>
 <p><a href="http://www.cnblogs.com/hnrainll/archive/2011/04/29/2032662.html" target="_blank" rel="external">vim在多个文件之间切换</a><br><a href="http://blog.csdn.net/huiguixian/article/details/6231425" target="_blank" rel="external">vim打开文档和多文档编辑</a></p>
