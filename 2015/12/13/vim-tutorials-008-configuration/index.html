@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="vim键位," />
+  <meta name="keywords" content="vimrc," />
 
 
 
@@ -55,20 +55,16 @@
 
 
 
-<meta name="description" content="本文收集了几张 vim 功能键位布局图。">
+<meta name="description" content="本文介绍了 vim 配置的基本知识。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vim 学习 002 - vim 键位">
-<meta property="og:url" content="http://col.dog/2015/12/13/vim-tutorials-002-keyboard/index.html">
+<meta property="og:title" content="vim 学习 008 - vim 配置">
+<meta property="og:url" content="http://col.dog/2015/12/13/vim-tutorials-008-configuration/index.html">
 <meta property="og:site_name" content="Elsewhere">
-<meta property="og:description" content="本文收集了几张 vim 功能键位布局图。">
-<meta property="og:image" content="http://7xo5uz.com1.z0.glb.clouddn.com/vim-cheat-sheet-full.png">
-<meta property="og:image" content="http://7xo5uz.com1.z0.glb.clouddn.com/vim-cheat-sheet-diagram.png">
-<meta property="og:image" content="http://7xo5uz.com1.z0.glb.clouddn.com/vi-vim-cheat-sheet-en.gif">
-<meta property="og:image" content="http://7xo5uz.com1.z0.glb.clouddn.com/vi-vim-cheat-sheet-cn.png">
-<meta property="og:updated_time" content="2015-12-13T05:48:20.000Z">
+<meta property="og:description" content="本文介绍了 vim 配置的基本知识。">
+<meta property="og:updated_time" content="2015-12-13T06:38:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vim 学习 002 - vim 键位">
-<meta name="twitter:description" content="本文收集了几张 vim 功能键位布局图。">
+<meta name="twitter:title" content="vim 学习 008 - vim 配置">
+<meta name="twitter:description" content="本文介绍了 vim 配置的基本知识。">
 
 
 
@@ -80,7 +76,7 @@
   };
 </script>
 
-  <title> vim 学习 002 - vim 键位 | Elsewhere </title>
+  <title> vim 学习 008 - vim 配置 | Elsewhere </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -231,7 +227,7 @@
             
             
               
-                vim 学习 002 - vim 键位
+                vim 学习 008 - vim 配置
               
             
           </h1>
@@ -240,7 +236,7 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-13T13:46:30+08:00" content="2015-12-13">
+            <time itemprop="dateCreated" datetime="2015-12-13T14:37:15+08:00" content="2015-12-13">
               2015-12-13
             </time>
           </span>
@@ -266,8 +262,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/13/vim-tutorials-002-keyboard/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/13/vim-tutorials-002-keyboard/" itemprop="commentsCount"></span>
+                <a href="/2015/12/13/vim-tutorials-008-configuration/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/13/vim-tutorials-008-configuration/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -286,14 +282,66 @@
       
 
       
-        <span itemprop="articleBody"><p>本文收集了几张 vim 功能键位布局图。</p>
+        <span itemprop="articleBody"><p>本文介绍了 vim 配置的基本知识。</p>
 <a id="more"></a>
-<h1 id="给程式设计师的Vim入门图解说明"><a href="http://blog.vgod.tw/2009/12/08/vim-cheat-sheet-for-programmers/?variant=zh-cn" target="_blank" rel="external">给程式设计师的Vim入门图解说明</a></h1><p><img src="http://7xo5uz.com1.z0.glb.clouddn.com/vim-cheat-sheet-full.png" alt="vim-cheat-sheet-full"></p>
-<p><img src="http://7xo5uz.com1.z0.glb.clouddn.com/vim-cheat-sheet-diagram.png" alt="vim-cheat-sheet-diagram"></p>
-<p><a href="http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html" target="_blank" rel="external">Graphical vi-vim Cheat Sheet and Tutorial</a></p>
-<h1 id="Vi/Vim_键盘图"><a href="http://www.cnblogs.com/ldp-web/archive/2011/10/22/2220920.html" target="_blank" rel="external">Vi/Vim 键盘图</a></h1><p><a href="http://km.oa.com/articles/show/68423" target="_blank" rel="external">vim键盘图</a></p>
-<p><img src="http://7xo5uz.com1.z0.glb.clouddn.com/vi-vim-cheat-sheet-en.gif" alt="vi-vim-cheat-sheet-en"></p>
-<p><img src="http://7xo5uz.com1.z0.glb.clouddn.com/vi-vim-cheat-sheet-cn.png" alt="vi-vim-cheat-sheet-cn"></p>
+<p>在每个用户的主目录下，都有一个 vi 配置文件”.vimrc”或”.exrc”，没有的可以新建一个。<br>用户可以编辑它，使这些设置在每次启动 vi 时都有效。</p>
+<p>vim配置可以在底行模式针对当前文档编辑设定，例如 <code>:set ai</code> 设定 <code>autoindent</code>，也可以设置到配置文件中（可省掉开头的冒号）。</p>
+<h2 id="配置语法">配置语法</h2><h3 id="options/features">options/features</h3><p>可通过 <code>:help vimrc-intro</code> 查看 <strong>vimrc</strong> 配置帮助。</p>
+<h3 id="set/enable">set/enable</h3><p>Typing “:set xxx” sets the option “xxx”, or configure to <code>.vimrc</code>.</p>
+<table>
+<thead>
+<tr>
+<th>short</th>
+<th>long（origin）</th>
+<th>comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘ic’</td>
+<td>‘ignorecase’</td>
+<td>ignore upper/lower case when searching</td>
+</tr>
+<tr>
+<td>‘is’</td>
+<td>‘incsearch’</td>
+<td>show partial matches for a search phrase</td>
+</tr>
+<tr>
+<td>‘hls’</td>
+<td>‘hlsearch’</td>
+<td>highlight all matching phrases</td>
+</tr>
+</tbody>
+</table>
+<h3 id="unset/disable">unset/disable</h3><p>Prepend “no” to switch an option off:</p>
+<blockquote>
+<p>:set noic</p>
+</blockquote>
+<h2 id="新建_-vimrc_或_-exrc">新建 .vimrc 或 .exrc</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10140;  ~  cd ~&#10;&#10140;  ~  touch .vimrc&#10;&#10140;  ~  vi .vimrc</span><br></pre></td></tr></table></figure>
+<p>vim 配置格式可参考 <code>/usr/share/vim/vim73/vimrc_example.vim</code>。</p>
+<h2 id="设置示例">设置示例</h2><h3 id="注释">注释</h3><p>在C++语言中，以 <code>//</code> 开头的行视为注释；在 vim 脚本中，以 <code>&quot;</code> 开头的行视为注释。</p>
+<h3 id="设置显示行号（nu/nonu）">设置显示行号（nu/nonu）</h3><p>在打开 .vimrc（.exrc） 的 vim 编辑窗口中敲 <code>i</code> 键进入 <strong>insert</strong> 模式，打开布尔开关 <code>nu</code>:</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="string">"显示行号</span><br><span class="line"></span><span class="keyword">set</span> <span class="keyword">nu</span> "<span class="keyword">number</span></span><br></pre></td></tr></table></figure>
+<p>按下 <code>&lt;Esc&gt;</code> 退回 <strong>normal</strong> 模式，再敲入 <code>:wq</code>（或 <code>ZZ</code> ）保存退出。<br>之后每次打开 vi/vim 时都会显示行号。</p>
+<hr>
+<p>若要不显示行号，直接删除或注释 <code>set nu</code> 这一配置行即可恢复默认；或者使能 <code>nu</code> 对应的布尔开关 <code>nonu</code>：</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="string">"不显示行号</span><br><span class="line"></span><span class="keyword">set</span> nonu</span><br></pre></td></tr></table></figure>
+<h3 id="设置tab宽度为4（ts/tabstop）">设置tab宽度为4（ts/tabstop）</h3><p>vi 中tab宽度默认为8，可以通过<code>set tabstop</code>赋值更改：</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="string">"设置tab宽度为4</span><br><span class="line"></span><span class="keyword">set</span> <span class="keyword">ts</span>=<span class="number">4</span> "tabstop</span><br></pre></td></tr></table></figure>
+<p>你也可以根据需要，开启softtabs，即用4个空格展开tab（expandtab）：</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="string">"tab用空格展开</span><br><span class="line"></span><span class="keyword">set</span> et "expandtab</span><br></pre></td></tr></table></figure>
+<h3 id="设置自动缩进（autoaudient）">设置自动缩进（autoaudient）</h3><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"> <span class="string">"自动对齐，把当前行的对齐格式应用到下一行</span><br><span class="line"></span><span class="keyword">set</span> ai "autoindent</span><br></pre></td></tr></table></figure>
+<h2 id="读取设置"><a href="http://blog.chinaunix.net/uid-22188554-id-461603.html" target="_blank" rel="external">读取设置</a></h2><p>1.查看环境变量<br>    例如，要查看 $VIMRUNTIME 的值：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">:echo $VIMRUNTIME</span><br></pre></td></tr></table></figure>
+<p>2.查看配置项的值<br>    要查询某个配置开关或选项的值，只需要set该变量为问号(?)即可。<br>    例如，查看 fileencodings 的值：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">:set fileencodings ?</span><br></pre></td></tr></table></figure>
+<p>vim 帮助文档的编码格式为：</p>
+<blockquote>
+<p>fileencodings=ucs-bom,utf-8,default,latin1</p>
+</blockquote>
+<h2 id="参考">参考</h2><p><a href="http://blog.csdn.net/smstong/article/details/20567235" target="_blank" rel="external">实践中学习vim之vim配置文件、插件文件加载路径</a><br><a href="http://havee.me/linux/2013-10/configure-vim-gracefully.html" target="_blank" rel="external">优雅的配置 Vim</a><br><a href="http://linux.chinaunix.net/techdoc/desktop/2006/11/21/944473.shtml" target="_blank" rel="external">vim set 功能设定</a><br><a href="http://shansun123.iteye.com/blog/382650" target="_blank" rel="external">某人的.vimrc：加详细注释</a><br><a href="http://xiaozhuge0825.blog.163.com/blog/static/5760606820101127105848596/" target="_blank" rel="external">一套强大的vim配置文件+详细注释</a><br><a href="http://www.cnblogs.com/zourrou/archive/2011/04/16/2018493.html" target="_blank" rel="external">很好很强大的vimrc（带注释版）</a><br><a href="http://www.cnblogs.com/witcxc/archive/2011/12/28/2304704.html" target="_blank" rel="external">Vim 配置详解</a><br><a href="http://liuyix.org/blog/2011/my-vimrc/" target="_blank" rel="external">vim配置的一些建议（附详细注释的vimrc）</a><br><a href="http://roclinux.cn/?p=2675" target="_blank" rel="external">Linux大棚版vimrc配置</a>  </p>
+<p><a href="http://vim.spf13.com/" target="_blank" rel="external">The Ultimate Vim Distribution</a><br><a href="https://github.com/vgod/vimrc" target="_blank" rel="external">vgod/vimrc</a><br><a href="https://github.com/kaochenlong/eddie-vim" target="_blank" rel="external">kaochenlong/eddie-vim</a>  </p>
 </span>
       
     </div>
@@ -302,7 +350,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/vim键位/" rel="tag">#vim键位</a>
+            <a href="/tags/vimrc/" rel="tag">#vimrc</a>
           
         </div>
       
@@ -311,17 +359,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/13/vim-tutorials-001-references/" rel="next" title="vim 学习 001 - vim 参考">
-                <i class="fa fa-chevron-left"></i> vim 学习 001 - vim 参考
+              <a href="/2015/12/13/vim-tutorials-007-edit/" rel="next" title="vim 学习 007 - vim 编辑">
+                <i class="fa fa-chevron-left"></i> vim 学习 007 - vim 编辑
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/13/vim-tutorials-003-introduction/" rel="prev" title="vim 学习 003 - vim 初识">
-                vim 学习 003 - vim 初识 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -348,8 +392,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/13/vim-tutorials-002-keyboard/"
-           data-title="vim 学习 002 - vim 键位" data-url="http://col.dog/2015/12/13/vim-tutorials-002-keyboard/">
+      <div class="ds-thread" data-thread-key="2015/12/13/vim-tutorials-008-configuration/"
+           data-title="vim 学习 008 - vim 配置" data-url="http://col.dog/2015/12/13/vim-tutorials-008-configuration/">
       </div>
     
   </div>
@@ -515,7 +559,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#给程式设计师的Vim入门图解说明"><span class="nav-number">1.</span> <span class="nav-text">给程式设计师的Vim入门图解说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vi/Vim_键盘图"><span class="nav-number">2.</span> <span class="nav-text">Vi/Vim 键盘图</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置语法"><span class="nav-number">1.</span> <span class="nav-text">配置语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#options/features"><span class="nav-number">1.1.</span> <span class="nav-text">options/features</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set/enable"><span class="nav-number">1.2.</span> <span class="nav-text">set/enable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unset/disable"><span class="nav-number">1.3.</span> <span class="nav-text">unset/disable</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建_-vimrc_或_-exrc"><span class="nav-number">2.</span> <span class="nav-text">新建 .vimrc 或 .exrc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置示例"><span class="nav-number">3.</span> <span class="nav-text">设置示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注释"><span class="nav-number">3.1.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置显示行号（nu/nonu）"><span class="nav-number">3.2.</span> <span class="nav-text">设置显示行号（nu/nonu）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置tab宽度为4（ts/tabstop）"><span class="nav-number">3.3.</span> <span class="nav-text">设置tab宽度为4（ts/tabstop）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置自动缩进（autoaudient）"><span class="nav-number">3.4.</span> <span class="nav-text">设置自动缩进（autoaudient）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读取设置"><span class="nav-number">4.</span> <span class="nav-text">读取设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
