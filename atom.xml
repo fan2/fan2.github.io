@@ -4,7 +4,7 @@
   <subtitle><![CDATA[just do IT]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://col.dog/"/>
-  <updated>2015-12-13T07:21:11.000Z</updated>
+  <updated>2015-12-13T07:28:23.000Z</updated>
   <id>http://col.dog/</id>
   
   <author>
@@ -13,6 +13,137 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[vim 学习 011 - vim 查找替换]]></title>
+    <link href="http://col.dog/2015/12/13/vim-tutorials-011-find&replace/"/>
+    <id>http://col.dog/2015/12/13/vim-tutorials-011-find&replace/</id>
+    <published>2015-12-13T07:27:30.000Z</published>
+    <updated>2015-12-13T07:28:23.000Z</updated>
+    <content type="html"><![CDATA[<p>本文介绍了 vim 查找替换操作。</p>
+<a id="more"></a>
+<h2 id="f/F_搜索字符"><code>f</code>/<code>F</code> 搜索字符</h2><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>t{char}</code></td>
+<td>Till <strong>before</strong> [count]’th occurrence of {char} to right.</td>
+</tr>
+<tr>
+<td><code>T{char}</code></td>
+<td>Till <strong>before</strong> [count]’th occurrence of {char} to left.</td>
+</tr>
+<tr>
+<td><code>f{char}</code></td>
+<td>To [count]’th occurrence of {char} to the right.</td>
+</tr>
+<tr>
+<td><code>F{char}</code></td>
+<td>To the [count]’th occurrence of {char} to the left.</td>
+</tr>
+<tr>
+<td><code>;</code></td>
+<td>Repeat latest f, t, F or T [count] times.</td>
+</tr>
+<tr>
+<td><code>,</code></td>
+<td>Repeat latest f, t, F or T in <strong>opposite</strong> direction [count] times.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="/、?_搜索查找"><code>/</code>、<code>?</code> 搜索查找</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/phrase</code></td>
+<td>searches FORWARD for the phrase</td>
+<td><code>\c</code>可以忽略大小写（ic，ignore case）</td>
+</tr>
+<tr>
+<td><code>?phrase</code></td>
+<td>searches BACKWARD for the phrase</td>
+<td><code>\c</code>可以忽略大小写（ignore case）</td>
+</tr>
+<tr>
+<td><code>n</code></td>
+<td>to find the next occurrence in the same direction：</td>
+<td><code>/</code>一直向下查找；<code>?</code>一直向上查找。</td>
+</tr>
+<tr>
+<td><code>N</code></td>
+<td>to search in the opposite direction</td>
+<td><code>/</code>向上查找；<code>?</code>向下查找。</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>search backward</td>
+<td>向下查找当前光标所在单词</td>
+</tr>
+<tr>
+<td><code>#</code></td>
+<td>search backward</td>
+<td>向上查找当前光标所在单词</td>
+</tr>
+</tbody>
+</table>
+<p>###<a href="http://forum.ubuntu.org.cn/viewtopic.php?p=815643" target="_blank" rel="external">如何去掉当次搜索高亮？</a></p>
+<blockquote>
+<p>方法一：<code>:noh</code> 或 <code>:nohl</code> 或 <code>:nohls</code> 或 <code>:nohlsearch</code><br>方法二：/awertgvcxz，查找一个根本不存在的字符串，消除高亮</p>
+</blockquote>
+<h2 id=":s_查找替换（THE_SUBSTITUTE_COMMAND）"><code>:s</code> 查找替换（THE SUBSTITUTE COMMAND）</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:s/old/new</code></td>
+<td>only changes the <strong>first</strong> occurrence of “old” in the line.</td>
+</tr>
+<tr>
+<td><code>:s/old/new/g</code></td>
+<td>Adding the <code>g</code> flag means to substitute globally in the line, <br>change all occurrences of “old” in the line.</td>
+</tr>
+<tr>
+<td><code>:#,#s/old/new/g</code></td>
+<td>where #,# are the <strong>line numbers</strong> of the range of lines where the substitution is to be done.</td>
+</tr>
+<tr>
+<td><code>:%s/old/new/g</code></td>
+<td>to change every occurrence in the <strong>whole file</strong>.</td>
+</tr>
+<tr>
+<td><code>:%s/old/new/gc</code></td>
+<td>to find every occurrence in the whole file, with a <strong>prompt</strong> whether to substitute or not.</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>本文介绍了 vim 查找替换操作。</p>]]>
+    
+    </summary>
+    
+      <category term="vim-replace" scheme="http://col.dog/tags/vim-replace/"/>
+    
+      <category term="vim-search" scheme="http://col.dog/tags/vim-search/"/>
+    
+      <category term="vim" scheme="http://col.dog/categories/vim/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[vim 学习 010 - vim 折叠]]></title>
